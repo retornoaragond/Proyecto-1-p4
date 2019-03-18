@@ -5,10 +5,30 @@
  */
 package activos.logic;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  *
- * @author steve
+ * @author Escinf
  */
 public class Model {
+    static Map<String,Persona> personas=new HashMap<>();
     
+    public static void agregar(Persona p) throws Exception{
+        if(personas.containsKey(p.getNombre())) throw new Exception("Persona ya existe");
+        personas.put(p.getNombre(), p);
+    }
+    
+    public static List<Persona> listar(){
+        return new ArrayList(personas.values());
+    }
+    
+    public static Persona consultar(Persona id)throws Exception{
+        Persona result = personas.get(id.getNombre());
+        if (result==null) throw new Exception("Persona no existe");
+        return result;
+    }    
 }
