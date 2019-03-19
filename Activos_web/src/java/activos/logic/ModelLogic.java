@@ -133,6 +133,7 @@ public class ModelLogic {
     }
 
     //</editor-fold>
+    
     //  <editor-fold desc="Funcionario" defaultstate="collapsed">
     public List<Funcionario> getFuncionarios() throws Exception {
         return daoAdministracion.GetFuncionariobyPuesto();
@@ -172,6 +173,7 @@ public class ModelLogic {
     }
 
     //</editor-fold>
+    
     //  <editor-fold desc="Dependencia" defaultstate="collapsed">
     public List<Dependencia> getDependencias() {
         return daoAdministracion.DependenciaGetAll();
@@ -266,6 +268,7 @@ public class ModelLogic {
 //    }
 //    
     //</editor-fold>
+    
     public void close() {
         daoSolicitud.close();
         daoActivos.close();

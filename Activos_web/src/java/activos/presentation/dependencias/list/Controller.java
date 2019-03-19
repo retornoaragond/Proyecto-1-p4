@@ -1,26 +1,23 @@
-package activos.presentation.personas.create;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package activos.presentation.dependencias.list;
 
-
-import activos.logic.Model;
-import activos.logic.Persona;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
- * @author Escinf
+ * @author ExtremeTech
  */
-@WebServlet(name = "presentation.personas.create", urlPatterns = {"/presentation/personas/create"})
+@WebServlet(name = "presentation.dependencias.list", urlPatterns = {"presentation/dependencias/list"})
 public class Controller extends HttpServlet {
 
     /**
@@ -32,30 +29,23 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, 
-                                  HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            if (request.getServletPath().equals("/presentation/personas/create"))
-                this.create(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Controller</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
-    
-        protected void create(HttpServletRequest request, 
-                                  HttpServletResponse response)
-            throws ServletException, IOException {
-            Persona model = new Persona();
-            updateModel(model,request);
-            try {
-                Model.agregar(model);
-            } catch (Exception ex) {      
-            }
-            request.getRequestDispatcher("/presentation/personas/list").forward( request, response); 
-    }     
-        
-    void updateModel(Persona model, HttpServletRequest request){
-        model.setNombre(request.getParameter("nombre"));
-        model.setSexo(request.getParameter("genero"));
-    }
- 
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
