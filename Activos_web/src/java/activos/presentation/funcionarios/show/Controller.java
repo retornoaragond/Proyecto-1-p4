@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ExtremeTech
  */
-@WebServlet(name = "presentation.funcionarios.show", urlPatterns = {"presentation/funcionarios/show"})
+@WebServlet(name = "presentation.funcionarios.show", urlPatterns = {"/presentation/funcionarios/show"})
 public class Controller extends HttpServlet {
 
     /**
