@@ -1,17 +1,20 @@
+<%-- 
+    Document   : Inicio
+    Created on : 19/03/2019, 09:57:00 PM
+    Author     : steve
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <base href="http://localhost:8080/Activos_web/" >
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Bienvenido</title>
     </head>
     <body>
+        
+        <%@ include file="/presentation/Header.jsp" %>
+        
         <div>
             <h1>Bienvenido al sistema de gesti&oacute;n de archivos</h1>
             <p>
