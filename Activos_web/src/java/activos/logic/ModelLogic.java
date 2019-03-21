@@ -27,6 +27,7 @@ public class ModelLogic {
         if (uniqueInstance == null) {
             uniqueInstance = new ModelLogic();
         }
+        System.out.println("coneccion a la base");
         return uniqueInstance;
     }
 
@@ -103,7 +104,7 @@ public class ModelLogic {
     public void updateSolicitud(Solicitud solicitud) throws Exception {
         daoSolicitud.SolicitudUpdate(solicitud);
     }
-    
+
     public void updateSolicitud2(Solicitud solicitud) throws Exception {
         daoSolicitud.SolicitudUpdate2(solicitud);
     }
@@ -133,7 +134,6 @@ public class ModelLogic {
     }
 
     //</editor-fold>
-    
     //  <editor-fold desc="Funcionario" defaultstate="collapsed">
     public List<Funcionario> getFuncionarios() throws Exception {
         return daoAdministracion.GetFuncionariobyPuesto();
@@ -144,7 +144,7 @@ public class ModelLogic {
     }
 
     public List<Funcionario> getFuncionarioSS(String id) throws Exception {
-      
+
         return daoAdministracion.GetFuncionarioS(id);
     }
 
@@ -173,7 +173,6 @@ public class ModelLogic {
     }
 
     //</editor-fold>
-    
     //  <editor-fold desc="Dependencia" defaultstate="collapsed">
     public List<Dependencia> getDependencias() {
         return daoAdministracion.DependenciaGetAll();
@@ -268,7 +267,6 @@ public class ModelLogic {
 //    }
 //    
     //</editor-fold>
-    
     public void close() {
         daoSolicitud.close();
         daoActivos.close();
@@ -302,7 +300,7 @@ public class ModelLogic {
     public List<Categoria> getCategoria() {
         return daoAdministracion.CategoriaALL();
     }
-    
+
     public void addcategoria(Categoria categoria) throws Exception {
         daoAdministracion.categoriaAdd(categoria);
     }
@@ -310,6 +308,5 @@ public class ModelLogic {
     public void updatecategoria(Categoria categoria) throws Exception {
         daoAdministracion.categoriaUpdate(categoria);
     }
-    
-    
+
 }

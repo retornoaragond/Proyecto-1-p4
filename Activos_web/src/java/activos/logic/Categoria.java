@@ -65,9 +65,9 @@ public class Categoria implements java.io.Serializable {
     public void setBiens(Set biens) {
         this.biens = biens;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.descripcion;
     }
 

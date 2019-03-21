@@ -276,8 +276,9 @@ public class DaoActivos {
             fu.setId(rs.getString("funcionarioid"));
             fu.setNombre(rs.getString("funcionarionombre"));
             //labor
-            if(la.getId()!=0)
-            la.setId(rs.getInt("laborid"));
+            if (la.getId() != 0) {
+                la.setId(rs.getInt("laborid"));
+            }
             la.setDependencia(de);
             la.setFuncionario(fu);
             return ac;
@@ -285,12 +286,7 @@ public class DaoActivos {
             return null;
         }
     }
-       
 
-    
-    
-    
-    
     public List<Activo> ActivosGetAll() {
         List<Activo> estados = new ArrayList<>();
         try {
@@ -324,15 +320,11 @@ public class DaoActivos {
         }
     }
 
-    
     //INSERT INTO activo (`codigoId`, `labAct`, `bienAct`) VALUES ('1', '001', 'xyf');
-    
-    
-    
     public void ActivoAdd(Activo a) throws Exception {
         String sql = "insert into activo (codigoId,labAct,bienAct)"
                 + "values('%s','%d''%s')";
-        sql = String.format(sql, a.getCodigoId(),a.getLabor().getId(),a.getBien().getSerial());
+        sql = String.format(sql, a.getCodigoId(), a.getLabor().getId(), a.getBien().getSerial());
         int count = dbbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Activo ya existe");
@@ -348,18 +340,16 @@ public class DaoActivos {
 //            throw new Exception("Activo no existe");
 //        }
 //    }
-    
-    
-     public void ActivoUpdate(Activo a) throws Exception {
-    String sql = "update activo set labAct='%d',bienAct='%s'"
-               + "where codigoId='%s'";
-       sql = String.format(sql,a.getLabor().getId(),a.getBien().getSerial(),a.getCodigoId());
-       int count = dbbb.executeUpdate(sql);
-       if (count == 0) {
-           throw new Exception("Activo no existe");
-       }
-       }
-    
+    public void ActivoUpdate(Activo a) throws Exception {
+        String sql = "update activo set labAct='%d',bienAct='%s'"
+                + "where codigoId='%s'";
+        sql = String.format(sql, a.getLabor().getId(), a.getBien().getSerial(), a.getCodigoId());
+        int count = dbbb.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Activo no existe");
+        }
+    }
+
 //      public void PersonaUpdate(Persona p) throws Exception{
 //        String sql="update persona set nombre='%s',sexo='%s',estadoCivil='%s',"+
 //                "pasatiempoMusica=%b,pasatiempoCine=%b,pasatiempoDeporte=%b,"+
@@ -375,9 +365,7 @@ public class DaoActivos {
 //            throw new Exception("Persona no existe");
 //        }
 //     
-     
-     
-     public void close() {
+    public void close() {
     }
 
 }

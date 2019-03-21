@@ -10,6 +10,7 @@ package activos.logic;
  * @author Escinf
  */
 public class Persona {
+
     String nombre;
     String sexo;
 
@@ -31,15 +32,5 @@ public class Persona {
 
     public Persona() {
     }
-   
+
 }
-
-
-
-
-
-
-
-
-
-

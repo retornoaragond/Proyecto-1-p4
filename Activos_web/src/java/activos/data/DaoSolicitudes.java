@@ -411,16 +411,16 @@ public class DaoSolicitudes {
 
     public void SolicitudUpdate(Solicitud s) throws Exception {
         String sql = "UPDATE solicitud SET solicitud.estado = '%s', solicitud.registrador = '%s' WHERE solicitud.numsol = '%d'";
-        sql = String.format(sql,s.getEstado(),s.getFuncionario().getId(),s.getNumsol());
+        sql = String.format(sql, s.getEstado(), s.getFuncionario().getId(), s.getNumsol());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Solicitud  ya existe");
         }
     }
-    
+
     public void SolicitudUpdate2(Solicitud s) throws Exception {
         String sql = "UPDATE solicitud SET solicitud.estado = '%s' WHERE solicitud.numsol = '%d'";
-        sql = String.format(sql,s.getEstado(),s.getNumsol());
+        sql = String.format(sql, s.getEstado(), s.getNumsol());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Solicitud  ya existe");
@@ -449,7 +449,7 @@ public class DaoSolicitudes {
             ec.setModelo(rs.getString("modelo"));
             ec.setMarca(rs.getString("marca"));
             ec.setPrecioU(rs.getDouble("precioU"));
-            if(rs.getString("categoria")!=null){
+            if (rs.getString("categoria") != null) {
                 ec.setCategoria(getcategoria(rs.getString("categoria")));
             }
             return ec;
@@ -476,10 +476,10 @@ public class DaoSolicitudes {
 
         return resultado;
     }
-    
-    public List<Bien> getbienes(Solicitud s){
-       List<Bien> bienes = new ArrayList<>();
-       try {
+
+    public List<Bien> getbienes(Solicitud s) {
+        List<Bien> bienes = new ArrayList<>();
+        try {
             String sql = "select * from bien WHERE bien.solicitud = '%d'";
             sql = String.format(sql, s.getNumsol());
             ResultSet rs = db.executeQuery(sql);
@@ -520,7 +520,7 @@ public class DaoSolicitudes {
         String sql = " INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud)"
                 + "VALUES ('%s', '%s', '%s', '%s', '%f', '%d', '%d')";
         sql = String.format(sql, a.getSerial(), a.getDescripcion(), a.getMarca(), a.getModelo(), a.getPrecioU(), a.getCantidad(),
-                 a.getSolicitud().getNumsol());
+                a.getSolicitud().getNumsol());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Bien ya existe");
@@ -533,21 +533,20 @@ public class DaoSolicitudes {
     }
 
     //</editor-fold>
-    
     //  <editor-fold desc="Categoria" defaultstate="collapsed">
-    public Categoria getcategoria(String s) throws Exception{
-       String sql = "SELECT * FROM categoria where categoria.id = '%s';";
+    public Categoria getcategoria(String s) throws Exception {
+        String sql = "SELECT * FROM categoria where categoria.id = '%s';";
         sql = String.format(sql, s);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return categoria(rs);
         } else {
             throw new Exception("Solicitud no Existe");
-        } 
-        
+        }
+
     }
-    
-    private Categoria categoria(ResultSet rs){
+
+    private Categoria categoria(ResultSet rs) {
         try {
             Categoria ca = new Categoria();
             ca.setId(rs.getString("id"));
@@ -559,7 +558,7 @@ public class DaoSolicitudes {
         }
     }
     //</editor-fold>
-    
+
     public void close() {
     }
 }

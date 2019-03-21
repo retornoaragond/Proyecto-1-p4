@@ -190,7 +190,7 @@ public class DaoAdministracion {
         }
         return fun;
     }
-    
+
     public List<Funcionario> GetFuncionariobyPuesto() throws Exception {
         List<Funcionario> fun = new ArrayList<>();
         try {
@@ -544,14 +544,11 @@ public class DaoAdministracion {
             return null;
         }
     }
-    
-    
-   
-    
-     public void categoriaAdd(Categoria a) throws Exception {
+
+    public void categoriaAdd(Categoria a) throws Exception {
         String sql = "insert into Categoria (id, descripcion) "
                 + "values('%s','%s')";
-    //    sql = String.format(sql, a.getCodigo(), a.getNombre());
+        //    sql = String.format(sql, a.getCodigo(), a.getNombre());
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Categoria ya existe");
@@ -561,15 +558,11 @@ public class DaoAdministracion {
     public void categoriaUpdate(Categoria a) throws Exception {
         String sql = "update dependencia set descripcion='%s'"
                 + "where id='%s'";
-     //   sql = String.format(sql, a.getNombre(), a.getCodigo());
+        //   sql = String.format(sql, a.getNombre(), a.getCodigo());
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Categoria no existe");
         }
     }
-
-    
-    
-    
 
 }

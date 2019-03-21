@@ -8,21 +8,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <%@ include file="/presentation/Head.jsp" %>
         <title>Bienvenido</title>
     </head>
     <body>
-        
+
         <%@ include file="/presentation/Header.jsp" %>
-        
-        <div>
+
+        <div class="col s8 center-align ">
             <h1>Bienvenido al sistema de gesti&oacute;n de archivos</h1>
-            <p>
-                El sistema de activos brinda los servicios de informaci&oacute;n para la ejecuci&oacute;n
-                <br> de un conjunto de procesos y actividades realizados por la Oficina Central de Control
-                <br> de Bienes (OCCB) y las Unidades de Apoyo Administrativo adscritas a cada Facultad o 
-                <br> Dependencia Central y que permitir&aacute;n:
-            </p>
+                <p>
+                    El sistema de activos brinda los servicios de informaci&oacute;n para la ejecuci&oacute;n
+                    <br> de un conjunto de procesos y actividades realizados por la Oficina Central de Control
+                    <br> de Bienes (OCCB) y las Unidades de Apoyo Administrativo adscritas a cada Facultad o 
+                    <br> Dependencia Central y que permitir&aacute;n:
+                </p>
             <ul>
                 <li type="disc">Realizar el control f&iacute;sico de los bienes muebles que forman parte de los activos
                     <br> fijos tangibles de la Universidad.</li>
@@ -34,5 +34,6 @@
                     <br> la instituci&oacute;n.</li>
             </ul>
         </div>
+        <%@ include file="/presentation/Complement.jsp" %>
     </body>
 </html>
