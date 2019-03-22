@@ -17,9 +17,8 @@
         <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %>        
         <% Map<String, String[]> values = (errors == null) ? this.getValues(model) : request.getParameterMap();%>
 
-        <div class="card" style="width: 30%;">  
+        <div class="container">  
             <h3>Login</h3>
-
             <form method="POST" name="formulario" action="presentation/login/login">
                 <table border=0 cellpadding=3 cellspacing=4 >
                     <tr>
