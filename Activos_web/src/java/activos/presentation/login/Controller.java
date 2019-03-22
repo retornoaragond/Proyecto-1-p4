@@ -67,12 +67,12 @@ public class Controller extends HttpServlet {
                     request.getSession(true).setAttribute("logged", logged);
                     request.getRequestDispatcher("/presentation/personas/list").forward( request, response); 
                 } catch (Exception ex) {
-                    request.getRequestDispatcher("/presentation/usuarios/login/View.jsp").forward(request, response);
+                    request.getRequestDispatcher("/presentation/login/View.jsp").forward(request, response);
                 }                  
             }
             else{
                 request.setAttribute("errors", errors);
-                request.getRequestDispatcher("/presentation/usuarios/login/View.jsp").forward(request, response);
+                request.getRequestDispatcher("/presentation/login/View.jsp").forward(request, response);
             }            
         }
         else{

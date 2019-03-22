@@ -47,7 +47,7 @@
                 <% } %>
 
                 <% if (logged == null) { %>
-                <li> <a href="presentation/login/View.jsp">Ingresar</a> </li>
+                <li> <a href="presentation/login/prepareLogin">Ingresar</a> </li>
                     <% }%>    
             </ul>
         </div>

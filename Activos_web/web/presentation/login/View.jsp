@@ -20,7 +20,7 @@
         <div class="card" style="width: 30%;">  
             <h3>Login</h3>
 
-            <form method="POST" name="formulario" action="presentation/usuarios/login/login">
+            <form method="POST" name="formulario" action="presentation/login/login">
                 <table border=0 cellpadding=3 cellspacing=4 >
                     <tr>
                         <td id="nom">Id</td>
