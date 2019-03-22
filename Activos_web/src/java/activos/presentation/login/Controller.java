@@ -5,19 +5,26 @@
  */
 package activos.presentation.login;
 
+import activos.logic.Model;
+import activos.logic.ModelLogic;
+import activos.logic.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ExtremeTech
  */
-@WebServlet(name = "presentation.login", urlPatterns = {"/presentation/login"})
+@WebServlet(name = "presentation.login", urlPatterns = {"/presentation/login/prepareLogin",
+                                                        "/presentation/login/login",
+                                                        "/presentation/login/logout"})
 public class Controller extends HttpServlet {
 
     /**
@@ -29,21 +36,79 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, 
+                                  HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if (request.getServletPath().equals("/presentation/login/prepareLogin"))
+                this.prepareLogin(request, response);        
+            if (request.getServletPath().equals("/presentation/login/login"))
+                this.login(request, response);
+            if (request.getServletPath().equals("/presentation/login/logout"))
+                this.logout(request, response);            
+    }
+
+    protected void prepareLogin(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        Usuario model = new Usuario();
+        request.setAttribute("model", model);
+        request.getRequestDispatcher("/presentation/login/View.jsp").forward( request, response); 
+    } 
+
+    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
+        if(this.verificar(request)){
+            Map<String,String> errors =  this.validar(request);
+            if(errors.isEmpty()){
+                Usuario model = new Usuario();
+                updateModel(model,request);
+                request.setAttribute("model", model);
+                Usuario logged=null;
+                try {
+                    logged=ModelLogic.instance().getUsuario(model.getId(), model.getPass());
+                    request.getSession(true).setAttribute("logged", logged);
+                    request.getRequestDispatcher("/presentation/personas/list").forward( request, response); 
+                } catch (Exception ex) {
+                    request.getRequestDispatcher("/presentation/usuarios/login/View.jsp").forward(request, response);
+                }                  
+            }
+            else{
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("/presentation/usuarios/login/View.jsp").forward(request, response);
+            }            
         }
+        else{
+            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);            
+        }
+    }
+        
+    protected void logout(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+            HttpSession session = request.getSession(true);
+            session.removeAttribute("logged");
+            session.invalidate();
+            request.getRequestDispatcher("/presentation/usuarios/login/prepareLogin").forward( request, response); 
+    }           
+
+    boolean verificar(HttpServletRequest request){
+       if (request.getParameter("id")==null) return false;
+       if (request.getParameter("clave")==null) return false; 
+       return true;
+    }
+    
+    Map<String,String> validar(HttpServletRequest request){
+        Map<String,String> errores = new HashMap<>();
+        if (request.getParameter("id").isEmpty()){
+            errores.put("id","Id requerido");
+        }
+
+        if (request.getParameter("clave").isEmpty()){
+            errores.put("clave","Clave requerida");
+        }
+        return errores;
+    }
+        
+    void updateModel(Usuario model, HttpServletRequest request){
+        model.setId(request.getParameter("id"));
+        model.setPass(request.getParameter("clave"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
