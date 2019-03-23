@@ -5,7 +5,6 @@
  */
 package activos.presentation.login;
 
-import activos.logic.Model;
 import activos.logic.ModelLogic;
 import activos.logic.Usuario;
 import java.io.IOException;
@@ -55,8 +54,8 @@ public class Controller extends HttpServlet {
     } 
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
-        if(this.verificar(request)){
-            Map<String,String> errors =  this.validar(request);
+        if(this.verificar(request)){ //verificar verifica que los campos no estén null
+            Map<String,String> errors =  this.validar(request); // verifica qu eno estén vacíos los campos
             if(errors.isEmpty()){
                 Usuario model = new Usuario();
                 updateModel(model,request);
