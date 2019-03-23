@@ -7,10 +7,10 @@
     <nav>
         <div class="nav-wrapper grey darken-4">
             <a class="brand-logo left" href="Inicio.jsp"><img class="logo" src="image/logo_1.png">Activos</a>
-            <ul class="right hide-on-small-and-down collapsible">
+            <ul class="right hide-on-small-and-down">
                 <li> <a href="Inicio.jsp">Principal</a> </li>
                     <% if (logged != null) {%> 
-                <li class="submenu"> <a href="#"> <%=logged.getLabor().getPuesto().getPuesto()%> </a> 
+                <li class="submenu"> <%=logged.getLabor().getPuesto().getPuesto()%> </a> 
                     <% if (logged.getLabor().getPuesto().getPuesto().equals("Administrador")
                         || logged.getLabor().getPuesto().getPuesto().equals("Jefe OCCB")) { %>  
                     <ul>
@@ -39,9 +39,9 @@
                     </ul>
                     <% }%> 
 
-                <li class="submenu"> <a href="#"> <%=logged.getLabor().getFuncionario().getNombre()%> </a> 
+                <li class="submenu"> <%=logged.getLabor().getFuncionario().getNombre()%> </a> 
                     <ul>
-                        <li> <a href="presentation/usuarios/login/logout">Log out</a> </li> 
+                        <li> <a href="presentation/login/logout">Log out</a> </li> 
                     </ul>             
                 </li>
                 <% } %>

@@ -64,7 +64,7 @@ public class Controller extends HttpServlet {
                 try {
                     logged=ModelLogic.instance().getUsuario(model.getId(), model.getPass());
                     request.getSession(true).setAttribute("logged", logged);
-                    request.getRequestDispatcher("/presentation/personas/list").forward( request, response); 
+                    request.getRequestDispatcher("/Inicio.jsp").forward( request, response); 
                 } catch (Exception ex) {
                     request.getRequestDispatcher("/presentation/login/View.jsp").forward(request, response);
                 }                  
@@ -84,7 +84,7 @@ public class Controller extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.removeAttribute("logged");
             session.invalidate();
-            request.getRequestDispatcher("/presentation/usuarios/login/prepareLogin").forward( request, response); 
+            request.getRequestDispatcher("/Inicio.jsp").forward( request, response); 
     }           
 
     boolean verificar(HttpServletRequest request){
