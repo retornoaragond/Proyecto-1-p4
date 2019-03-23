@@ -22,8 +22,8 @@
             <form method="POST" name="formulario" action="presentation/login/login">
                 <table border=0 cellpadding=3 cellspacing=4 >
                     <tr>
-                        <td id="nom">Id</td>
-                        <td ><input type="text" name="id" size=15 maxlength=20 class="<%=validity("id", errors)%>" value="<%=value("id", values)%>"></td>
+                        <td>Id</td>
+                        <td><input type="text" name="id" size=15 maxlength=20 class="<%=validity("id", errors)%>" value="<%=value("id", values)%>"></td>
                     </tr>
                     <tr>
                         <td>Clave</td>
@@ -37,7 +37,6 @@
                 </table>
             </form>
         </div>  
-
     </body>
 </html>
 <%!

@@ -5,9 +5,9 @@
 <% Usuario logged = (Usuario) session.getAttribute("logged");%> 
 <div class="navbar-fixed">
     <nav>
-        <div class="nav-wrapper background blue-grey">
-            <a class="brand-logo left" href="/Inicio.jsp">Logo</a>
-            <ul class="right hide-on-small-and-down">
+        <div class="nav-wrapper grey darken-4">
+            <a class="brand-logo left" href="Inicio.jsp"><img class="logo" src="image/logo_1.png">Activos</a>
+            <ul class="right hide-on-small-and-down collapsible">
                 <li> <a href="Inicio.jsp">Principal</a> </li>
                     <% if (logged != null) {%> 
                 <li class="submenu"> <a href="#"> <%=logged.getLabor().getPuesto().getPuesto()%> </a> 
