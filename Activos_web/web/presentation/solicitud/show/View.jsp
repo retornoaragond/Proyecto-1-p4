@@ -12,6 +12,52 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <h5 class="center-align">Solicitudes</h5>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <table class="striped" border=0 cellpadding=3 cellspacing=4 >
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Dependencia</th>
+                            <th>Funcionario</th>
+                            <th>Comprobante</th>
+                            <th>fecha</th>
+                            <th>Cantidad bienes</th>
+                            <th>Monto total</th>
+                            <th>Razón rechazo</th>
+                            <th>estado</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <h5 class="center-align">Bienes</h5>
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <table class="striped" border=0 cellpadding=3 cellspacing=4 >
+                    <thead>
+                        <tr>
+                            <th>Serial</th>
+                            <th>Categor&iacute;a</th>
+                            <th>Solicitud</th>
+                            <th>Descripci&oacute;n</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Precio</th>
+                            <th>Cant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </body>
 </html>

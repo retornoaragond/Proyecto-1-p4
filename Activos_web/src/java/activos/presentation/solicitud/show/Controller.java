@@ -5,6 +5,8 @@
  */
 package activos.presentation.solicitud.show;
 
+import activos.logic.ModelLogic;
+import activos.logic.Solicitud;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -29,21 +31,32 @@ public class Controller extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if (request.getServletPath().equals("/presentation/solicitud/show")) {
+            this.show(request, response);
         }
+    }
+
+    protected void show(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        Solicitud model = new Solicitud();
+        updateModelId(model, request);
+        Solicitud modelConsultar = null;
+        try {
+           //  modelConsultar= ModelLogic.instance().(model);
+            //buscar la solicitud
+        } catch (Exception ex) {
+        }
+        request.setAttribute("model", modelConsultar);
+        request.getRequestDispatcher("/presentation/show/View.jsp").
+                forward(request, response);
+    }
+
+    void updateModelId(Solicitud model, HttpServletRequest request) {
+        model.setNumcomp(request.getParameter("numComp"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

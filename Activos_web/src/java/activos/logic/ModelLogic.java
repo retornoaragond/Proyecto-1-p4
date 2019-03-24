@@ -53,6 +53,10 @@ public class ModelLogic {
     public List<Usuario> getUsuarios() {
         return daoAdministracion.usuariosGetAll();
     }
+    
+    public List<Solicitud> getSolicitudes() {
+        return daoSolicitud.SolicitudGetAll();
+    }
 
     //<editor-fold desc="Bien" defaultstate="collapsed">
     public List<Bien> getBienes(Solicitud s) {
