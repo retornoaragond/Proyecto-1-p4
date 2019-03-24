@@ -5,9 +5,7 @@
  */
 package activos.logic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,23 +14,19 @@ import java.util.Map;
  */
 public class Model {
 
-    static Map<String, Persona> personas = new HashMap<>();
+    static Map<Integer, Solicitud> solicitudes = new HashMap<>();
 
-    public static void agregar(Persona p) throws Exception {
-        if (personas.containsKey(p.getNombre())) {
-            throw new Exception("Persona ya existe");
+    public static void agregar(Solicitud p) throws Exception {
+        if (solicitudes.containsKey(p.getNumsol())) {
+            throw new Exception("Solicitud ya existe");
         }
-        personas.put(p.getNombre(), p);
+        solicitudes.put(p.getNumsol(), p);
     }
 
-    public static List<Persona> listar() {
-        return new ArrayList(personas.values());
-    }
-
-    public static Persona consultar(Persona id) throws Exception {
-        Persona result = personas.get(id.getNombre());
+    public static Solicitud consultar(Solicitud id) throws Exception {
+        Solicitud result = solicitudes.get(id.getNumsol());
         if (result == null) {
-            throw new Exception("Persona no existe");
+            throw new Exception("Solicitud no existe");
         }
         return result;
     }

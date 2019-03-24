@@ -61,6 +61,33 @@ public class DaoSolicitudes {
             return null;
         }
     }
+    
+    public List<Solicitud> SolSearchbyNumcomp(Solicitud filtro, String dep) {
+        List<Solicitud> resultado = new ArrayList<>();
+        try {
+            String sql;
+            if (!filtro.getNumcomp().isEmpty()) {
+                sql = "select * from solicitud,dependencia "
+                        + "where solicitud.Dependencia_codigo = dependencia.codigo "
+                        + "AND dependencia.nombre = '%s' AND solicitud.numcomp = '%s' ";
+            } else {
+                sql = "select * from solicitud,dependencia "
+                        + "where solicitud.Dependencia_codigo = dependencia.codigo "
+                        + "AND dependencia.nombre = '%s' ";
+            }
+            if (!filtro.getNumcomp().isEmpty()) {
+                sql = String.format(sql, dep, filtro.getNumcomp());
+            } else {
+                sql = String.format(sql, dep);
+            }
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(solicitud(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 
     public List<Solicitud> SolicitudSearchAdm(Solicitud filtro, List<String> l, String dep) {
         List<Solicitud> resultado = new ArrayList<>();

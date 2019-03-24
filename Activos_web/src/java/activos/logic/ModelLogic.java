@@ -53,7 +53,7 @@ public class ModelLogic {
     public List<Usuario> getUsuarios() {
         return daoAdministracion.usuariosGetAll();
     }
-    
+
     public List<Solicitud> getSolicitudes() {
         return daoSolicitud.SolicitudGetAll();
     }
@@ -118,11 +118,15 @@ public class ModelLogic {
     }
 
     public List<Solicitud> searchSolicitudAdministrador(Solicitud filtro, List<String> l, String dep) {
-        if (filtro.getNumsol() != 0) {
+        if (!filtro.getNumcomp().isEmpty()) {
             return daoSolicitud.SolicitudSearchAdm(filtro, l, dep);
         } else {
             return daoSolicitud.SolicitudGetAllbyAdministrador(l, dep);
         }
+    }
+
+    public List<Solicitud> searchSolicitudAdministradorCod(Solicitud filtro, String dep) {
+        return daoSolicitud.SolSearchbyNumcomp(filtro, dep);
     }
 
     public List<Solicitud> searchSolicitudFuncionario(Solicitud filtro, List<String> l, Funcionario fun) {

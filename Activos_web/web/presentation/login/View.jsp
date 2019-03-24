@@ -37,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="col s11 right-align">
-                                    <button class="btn" type="submit">Enviar</button>
+                                    <button class="btn" type="submit"><i class="material-icons">send</i>Enviar</button>
                                 </div>
                             </div>
                         </form>

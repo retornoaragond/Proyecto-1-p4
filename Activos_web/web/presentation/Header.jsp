@@ -16,19 +16,19 @@
                     <% if (logged.getLabor().getPuesto().getPuesto().equals("Administrador")
                         || logged.getLabor().getPuesto().getPuesto().equals("Jefe OCCB")) { %>  
                     <ul>
-                        <li> <a href="presentation/solicitud/list/View.jsp">Ver Solicitudes</a> </li>
+                        <li> <a href="presentation/solicitud/list">Ver Solicitudes</a> </li>
                         <li> <a href="presentation/activos/list/View.jsp">Ver Activos</a> </li>
                     </ul>
                     <% } %>
                     <% if (logged.getLabor().getPuesto().getPuesto().equals("Secretariado")) { %> 
                     <ul>
-                        <li> <a href="presentation/solicitud/list/View.jsp">Ver Solicitudes</a> </li>
+                        <li> <a href="presentation/solicitud/list">Ver Solicitudes</a> </li>
                     </ul>
                     <% } %>
 
                     <% if (logged.getLabor().getPuesto().getPuesto().equals("Registrador")) { %> 
                     <ul>
-                        <li> <a href="presentation/solicitud/list/View.jsp">Ver Solicitudes</a> </li>
+                        <li> <a href="presentation/solicitud/list">Ver Solicitudes</a> </li>
                         <li> <a href="presentation/activos/list/View.jsp">Ver Activos</a> </li>
                         <li> <a href="presentation/categorias/list/View.jsp">Ver Categorias</a> </li>
                     </ul>
