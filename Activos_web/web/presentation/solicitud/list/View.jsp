@@ -16,9 +16,11 @@
         <title>JSP Page</title>
         <%@ include file="/presentation/Head.jsp" %>
     </head>
-    <%@ include file="/presentation/Header.jsp" %>
     <body>
-
+        <header>
+            <%@ include file="/presentation/Header.jsp" %>
+        </header>
+        <div class="card-content"></div>
         <div class="container grey lighten-4" >
             <div class="row">
                 <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/listado">
@@ -31,7 +33,7 @@
 
                     <div class="input-field col s4 l4">
                         <i class="material-icons prefix">search</i>
-                        <input type="text" id="filtro" name="filtro" class="validate">
+                        <input type="text" id="filtro" name="filter" class="validate">
                         <label for="filtro">Buscar</label>
                     </div>
 
@@ -57,7 +59,30 @@
                             <% if (logged != null) {%>
                             <% for (Solicitud p : model) {%>
                             <tr>
+                                <td><%=p.getNumsol()%></td>
                                 <td><a href="presentation/personas/show?numcomp=<%=p.getNumcomp()%>"><%=p.getNumcomp()%></a></td>
+                                <td><%=p.getFecha().toString()%></td>
+                                <% if (p.getTipoadq().equals("Donacion")) {%>
+                                <td><i class="material-icons green-text">redeem</i></td>
+                                <% } %>
+                                <% if (p.getTipoadq().equals("Compra")) { %>
+                                <td><i class="material-icons orange-text">shopping_cart</i></td>
+                                <% } %>
+                                <% if (p.getTipoadq().equals("Generado")) { %>
+                                <td><i class="material-icons blue-text">settings</i></td>
+                                <% } %>
+                                <% if (p.getEstado().equals("PorVerificar")) {%>
+                                <td><i class="material-icons grey-text">hourglass_empty</i></td>
+                                <% } %>
+                                <% if (p.getEstado().equals("Procesada")) { %>
+                                <td><i class="material-icons green-text">done_all</i></td>
+                                <% } %>
+                                <% if (p.getEstado().equals("Rechazada")) { %>
+                                <td><i class="material-icons red-text">do_not_disturb</i></td>
+                                <% } %>
+                                <% if (p.getEstado().equals("Recibida")) { %>
+                                <td><i class="material-icons blue-text darken-2">done</i></td>
+                                <% } %>
                             </tr>
                             <% } %>  
                             <% }%> 
@@ -66,6 +91,7 @@
                 </div>
             </div>
         </div>
+                        </div>
     </body>
     <footer class="bottom-sheet background blue-grey">
         <%@ include file="/presentation/Footer.jsp" %>

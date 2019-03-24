@@ -56,17 +56,21 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
         List<Solicitud> rows;
-        //Solicitud sol = null; Antes se iniciaba en null y por se daba nullpointerexception
-        Solicitud sol = new Solicitud();
-        filtroSol(sol, request);
+        Solicitud sol = filtroSol(request);
         rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
         addsolicitudes(rows);
+        request.getSession(true).setAttribute("loggeado", logged);
         request.setAttribute("model", rows);
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
     }
 
-    void filtroSol(Solicitud model, HttpServletRequest request) {
-        model.setNumcomp(request.getParameter("filtro"));
+    Solicitud filtroSol( HttpServletRequest request) {
+        Solicitud s = new Solicitud();
+        if(!request.getParameter("filter").isEmpty()){
+            s.setNumcomp(request.getParameter("filter"));
+            return s;
+        }
+        return s;
     }
 
     void addsolicitudes(List<Solicitud> rows) {
