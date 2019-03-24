@@ -8,7 +8,7 @@
 <%@page import="activos.logic.Solicitud"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="activos.logic.Usuario"%>
-<% Usuario logged = (Usuario) session.getAttribute("logged");%> 
+<% Usuario logged = (Usuario) session.getAttribute("loggeado");%> 
 <!DOCTYPE html>
 <html>
     <head>
