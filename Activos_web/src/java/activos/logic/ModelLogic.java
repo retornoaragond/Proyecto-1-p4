@@ -58,6 +58,10 @@ public class ModelLogic {
         return daoSolicitud.SolicitudGetAll();
     }
 
+    public List<Solicitud> searByNumComp(Solicitud filtro, String dep) {
+        return daoSolicitud.SolSearchbyNumcomp(filtro, dep);
+    }
+
     //<editor-fold desc="Bien" defaultstate="collapsed">
     public List<Bien> getBienes(Solicitud s) {
         return daoSolicitud.getbienes(s);

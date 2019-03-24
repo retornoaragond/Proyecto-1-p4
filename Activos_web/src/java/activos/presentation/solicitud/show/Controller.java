@@ -46,7 +46,7 @@ public class Controller extends HttpServlet {
         updateModelId(model, request);
         Solicitud modelConsultar = null;
         try {
-           //  modelConsultar= ModelLogic.instance().(model);
+            modelConsultar = ModelLogic.instance().searByNumComp(modelConsultar, "001").get(1);
             //buscar la solicitud
         } catch (Exception ex) {
         }
