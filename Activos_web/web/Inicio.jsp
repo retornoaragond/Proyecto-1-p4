@@ -13,7 +13,6 @@
     </head>
     <body>
         <%@ include file="/presentation/Header.jsp" %>
-
         <div class="container">
             <div class="section">
                 <div class="valign-wrapper">

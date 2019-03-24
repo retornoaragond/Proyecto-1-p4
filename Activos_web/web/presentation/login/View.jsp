@@ -10,41 +10,53 @@
     </head>
 
     <body>
+        <div id="enmedio">
+            <%@ include file="/presentation/Header.jsp" %>
 
-        <%@ include file="/presentation/Header.jsp" %>
+            <% Usuario model = (Usuario) request.getAttribute("model"); %>
+            <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %>        
+            <% Map<String, String[]> values = (errors == null) ? this.getValues(model) : request.getParameterMap();%>
 
-        <% Usuario model = (Usuario) request.getAttribute("model"); %>
-        <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %>        
-        <% Map<String, String[]> values = (errors == null) ? this.getValues(model) : request.getParameterMap();%>
-
-        <div class="container">  
-            <h3>Login</h3>
-            <form method="POST" name="formulario" action="presentation/login/login">
-                <table border=0 cellpadding=3 cellspacing=4 >
-                    <tr>
-                        <td>Id</td>
-                        <td><input type="text" name="id" size=15 maxlength=20 class="<%=validity("id", errors)%>" value="<%=value("id", values)%>"></td>
-                    </tr>
-                    <tr>
-                        <td>Clave</td>
-                        <td><input type="password" name="clave" size=15 maxlength=20 class="<%=validity("clave", errors)%>" value="<%=value("clave", values)%>"></td>
-                    </tr>		
-                    <tr>
-                        <td height="55" colspan="2" align="center">
-                            <input type="submit" name="Submit" value="Login"> 
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>  
+            <div class="valign-wrapper">
+                <div class="container grey lighten-3">
+                    <div class="row">
+                        <form class="col s12" method="POST" name="formulario" action="presentation/login/login">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input type="text" id="ID" name="id" size=15 maxlength=20 class="<%=validity("id", errors)%>" value="<%=value("id", values)%>">
+                                    <label for="ID">ID</label>
+                                    <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
+                                </div>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">vpn_key</i>
+                                    <input id="pass" type="password" name="clave" size=15 maxlength=20 class="<%=validity("clave", errors)%>" value="<%=value("clave", values)%>">
+                                    <label for="pass">Clave</label>
+                                    <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s11 right-align">
+                                    <button class="btn" type="submit">Enviar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <%@ include file="/presentation/Complement.jsp" %>
     </body>
+    <footer class="bottom-sheet background blue-grey">
+        <%@ include file="/presentation/Footer.jsp" %>
+    </footer>
 </html>
 <%!
     private String validity(String field, Map<String, String> errors) {
         if ((errors != null) && (errors.get(field) != null)) {
-            return "is-invalid";
+            return "invalid";
         } else {
-            return "";
+            return "validate";
         }
     }
 

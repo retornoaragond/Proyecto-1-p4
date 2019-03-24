@@ -24,3 +24,20 @@ img{
    height: 100px;
 }
 
+#enmedio{
+    height: 600px;
+}
+
+ul.menu{list-style: none; padding:0; font-family: Helvetica;  font-size: 1rem; font-weight: 400;}
+ul.menu>li {display: inline-block; vertical-align: top; margin-left: 10px;}
+ul.menu>li>a {text-decoration: none; color: #555;}
+ul.menu>li.submenu>a {pointer-events: none;}
+ul.menu>li.submenu>a:after {content: "\25BC" ; font-size: 0.75rem; color: #555; pointer-events: none;}
+ul.menu>li:hover>a { font-weight: 600;}
+ul.menu>li>ul{display: none; list-style: none; margin-top:3px; padding:5px; background-color: white; border: 1px solid #e7e7e7; border-radius: 0.25rem;}
+ul.menu>li:hover>ul {display: block; } 
+
+ul.menu>li>ul>li {display: block;} 
+
+ul.menu>li>ul>li>a {text-decoration: none; color: #555;}
+ul.menu>li:hover>ul>li>a:hover {font-weight: 600;}
