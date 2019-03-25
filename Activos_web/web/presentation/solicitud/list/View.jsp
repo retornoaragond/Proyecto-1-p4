@@ -42,6 +42,13 @@
                     </div>
                 </form>
             </div>
+
+            <div class="row">
+                    <div class="input-field col s4 l4">
+                        <a href="presentation/solicitud/create"<i class="material-icons prefix">add</i></a>
+                    </div>
+            </div>
+
             <div class="row">
                 <div class="col s10 offset-s1">
                     <% List<Solicitud> model = (List<Solicitud>) request.getAttribute("model");%> 
@@ -91,9 +98,9 @@
                 </div>
             </div>
         </div>
-                        </div>
-    </body>
-    <footer class="bottom-sheet background blue-grey">
-        <%@ include file="/presentation/Footer.jsp" %>
-    </footer>
+    </div>
+</body>
+<footer class="bottom-sheet background blue-grey">
+    <%@ include file="/presentation/Footer.jsp" %>
+</footer>
 </html>
