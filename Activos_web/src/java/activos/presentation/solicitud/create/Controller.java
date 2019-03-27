@@ -6,12 +6,17 @@
 package activos.presentation.solicitud.create;
 
 import activos.logic.Bien;
-import activos.logic.Categoria;
+import activos.logic.ModelLogic;
+import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,8 +28,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author ExtremeTech
  */
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
-                                                                   "/presentation/solicitud/agregarBien",
-                                                                   "/presentation/solicitud/listadoBien"})
+    "/presentation/solicitud/agregarBien",
+    "/presentation/solicitud/listadoBien",
+    "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
 
     /**
@@ -41,11 +47,17 @@ public class Controller extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         if (request.getServletPath().equals("/presentation/solicitud/create")) {
             this.create(request, response);
+        } else if (request.getServletPath().equals("/presentation/solicitud/agregarBien")) {
+            this.agregarBien(request, response);
+
+        } else if (request.getServletPath().equals("/presentation/solicitud/agregarSolicitud")) {
+            try {
+                this.agregarSolicitud(request, response);
+            } catch (Exception ex) {
+                System.out.println(" " + ex.getMessage());
+            }
         }
 
-        if (request.getServletPath().equals("/presentation/solicitud/agregarBien")) {
-            this.agregarBien(request, response);
-        }
     }
 
     protected void agregarBien(HttpServletRequest request,
@@ -84,6 +96,51 @@ public class Controller extends HttpServlet {
         request.getSession(true).setAttribute("loggeado", logged);
         request.setAttribute("model", r);
         request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
+    }
+
+    protected void agregarSolicitud(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException, Exception {
+        Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
+        Solicitud model = new Solicitud();
+        updateModelSolicitud(model, request);
+        ModelLogic.instance().addSolicitud(model);
+        List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
+
+        for (Bien b : r) {
+            try {
+                model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
+                b.setSolicitud(model);
+                ModelLogic.instance().addBienPreservar(b);
+            } catch (Exception ex) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        request.getSession(true).setAttribute("loggeado", logged);
+        request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
+    }
+
+    void updateModelSolicitud(Solicitud model, HttpServletRequest request) {
+        Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
+        List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
+
+        model.setDependencia(logged.getLabor().getDependencia());
+        model.setFuncionario(logged.getLabor().getFuncionario());
+        model.setNumcomp(request.getParameter("campoNumcomp"));
+        Date d = new Date(01, 01, 01);
+        //request.getParameter("campoFechaAdq")
+        model.setFecha(d);
+        model.setCantbien(r.size());
+        //monto total
+        // estado
+        model.setTipoadq(request.getParameter("options"));
+        Set<Bien> hSet = new HashSet<>();
+        for (Bien x : r) {
+            hSet.add(x);
+        }
+
+        model.setBiens(hSet);
     }
 
     void updateModel(Bien model, HttpServletRequest request) {

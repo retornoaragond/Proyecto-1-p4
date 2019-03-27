@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Usuario loge = (Usuario) session.getAttribute("loggeado");%> 
 <% ArrayList<Bien> model = (ArrayList<Bien>) session.getAttribute("listaBien");
-   %>
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +26,7 @@
         <div class="card-content"></div>
         <div class="container grey lighten-4" >
             <div class="row">
-                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/create">
+                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarSolicitud">
                     <div class="col s12">
                         <h5 class="center-align">Agregar nueva solicitud</h5>
                     </div>
@@ -161,13 +161,13 @@
                                 <% if (model != null) {%>
                                 <% for (Bien p : model) {%>
                                 <tr>
-                                    <td><%= p.getSerial() %></td>
-                                    <td><%= p.getDescripcion() %></td>
-                                    <td><%= p.getMarca() %></td>
-                                    <td><%= p.getModelo() %></td>
-                                    <td><%= p.getPrecioU() %></td>
-                                    <td><%= p.getCantidad() %></td>
-                                <% } %>
+                                    <td><%= p.getSerial()%></td>
+                                    <td><%= p.getDescripcion()%></td>
+                                    <td><%= p.getMarca()%></td>
+                                    <td><%= p.getModelo()%></td>
+                                    <td><%= p.getPrecioU()%></td>
+                                    <td><%= p.getCantidad()%></td>
+                                    <% } %>
                                 </tr>
                                 <% } %>  
                                 <% }%>
