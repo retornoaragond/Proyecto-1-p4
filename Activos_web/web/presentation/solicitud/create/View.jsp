@@ -4,8 +4,13 @@
     Author     : ExtremeTech
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="activos.logic.Bien"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Usuario loge = (Usuario) session.getAttribute("loggeado");%> 
+<% ArrayList<Bien> model = (ArrayList<Bien>) session.getAttribute("listaBien");
+   %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,7 +48,7 @@
                         <p>Tipo de adquisici&oacute;n</p>
                     </div>
                     <div class="input-field col s3 l3">
-                        <select name="select">
+                        <select name="options">
                             <option value="donacion">Donaci&oacute;n</option>
                             <option value="compra">Compra</option>
                             <option value="generado">Generado</option>
@@ -58,12 +63,11 @@
                 <h5 class="center-align">Bienes</h5>
                 <div class="row">
                     <div class="col s10 offset-s1">
-                        <form class="col s12" method="POST" name="formulario" action=" ">
+                        <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
                             <table class="striped" border=0 cellpadding=3 cellspacing=4 >
                                 <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Categor&iacute;a</th>
                                         <th>Solicitud</th>
                                         <th>Descripci&oacute;n</th>
                                         <th>Marca</th>
@@ -83,13 +87,6 @@
                                         </th>
                                         <th>
                                             <div class="input-field col s12">
-                                                <input type="text" id="cat" name="cat" size=15 maxlength=20">
-                                                <label for="cat">Categoría</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
                                                 <input type="text" id="sol" name="sol" size=15 maxlength=20">
                                                 <label for="sol">Solicitud</label>
                                                 <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
@@ -97,7 +94,7 @@
                                         </th>
                                         <th>
                                             <div class="input-field col s12">
-                                                <input type="text" id="dec" name="desc" size=15 maxlength=20">
+                                                <input type="text" id="desc" name="desc" size=15 maxlength=20">
                                                 <label for="desc">Descripción</label>
                                                 <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
                                             </div>
@@ -135,7 +132,7 @@
                                             <!-- ************** -->
                                             <div class="row">
                                                 <div class="input-field col s4 l4">
-                                                    <a href=""<i class="material-icons prefix">save</i></a>
+                                                    <button class="btn" type="submit"><i class="material-icons">save</i>Enviar</button>
                                                 </div>
                                             </div>
                                         </th>
@@ -143,10 +140,8 @@
                                 </tbody>
                             </table>
                         </form>
-
                     </div>
                 </div>
-
                 <h5 class="center-align">Bienes</h5>
                 <div class="row">
                     <div class="col s10 offset-s1">
@@ -154,8 +149,6 @@
                             <thead>
                                 <tr>
                                     <th>Serial</th>
-                                    <th>Categor&iacute;a</th>
-                                    <th>Solicitud</th>
                                     <th>Descripci&oacute;n</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
@@ -163,13 +156,25 @@
                                     <th>Cant</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <!-- For de los bienes -->
+                            <tbody> 
+                                <% if (loge != null) {%>
+                                <% if (model != null) {%>
+                                <% for (Bien p : model) {%>
+                                <tr>
+                                    <td><%= p.getSerial() %></td>
+                                    <td><%= p.getDescripcion() %></td>
+                                    <td><%= p.getMarca() %></td>
+                                    <td><%= p.getModelo() %></td>
+                                    <td><%= p.getPrecioU() %></td>
+                                    <td><%= p.getCantidad() %></td>
+                                <% } %>
+                                </tr>
+                                <% } %>  
+                                <% }%>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </body>

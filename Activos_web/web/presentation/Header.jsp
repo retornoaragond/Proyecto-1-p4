@@ -7,7 +7,7 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper grey darken-4">
-            <a class="brand-logo left" href="Inicio.jsp"><img class="logo" src="image/logo_1.png">Activos</a>
+            <!--<a class="brand-logo left" href="Inicio.jsp"><img class="logo" src="image/logo_1.png">Activos</a>-->
             
             <ul class="menu right hide-on-small-and-down">
                 <li> <a href="Inicio.jsp">Principal</a> </li>
