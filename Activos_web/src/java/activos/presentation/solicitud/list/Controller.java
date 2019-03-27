@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ExtremeTech
  */
-@WebServlet(name = "presentation.solicitud.list", urlPatterns = {"/presentation/solicitud/list", 
+@WebServlet(name = "presentation.solicitud.list", urlPatterns = {"/presentation/solicitud/list/", 
                                                                  "/presentation/solicitud/listado"})
 public class Controller extends HttpServlet {
 
@@ -37,7 +37,7 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getServletPath().equals("/presentation/solicitud/list")) {
+        if (request.getServletPath().equals("/presentation/solicitud/list/")) {
             this.list(request, response);
         }
         if (request.getServletPath().equals("/presentation/solicitud/listado")) {
