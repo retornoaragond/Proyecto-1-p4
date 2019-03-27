@@ -4,17 +4,31 @@
     Author     : ExtremeTech
 --%>
 
-<div class="footer-copyright grey darken-4">
-    <div class="row">
-        <div class="col l12 m12 s12 center-align">
-            <h5 class="white-text">Total Soft Inc.</h5>
-            <p class="grey-text text-lighten-4">Elaborado por: Esteban Espinoza Fallas y Steve Díaz Reyes</p><br>
-            <a href="https://www.twitter.com"><img src="image/twiter.png" ></a>
-            <a href="https://www.facebook.com"><img src="image/facebook.png"></a>
-            <a href="https://www.instagram.com"><img src="image/instagram.png"></a>
+<!-- Footer -->
+<footer class="page-footer font-small text-light bg-dark ">
+    <!-- Footer Elements -->
+    <div class="container">
+        <!-- Copyright -->
+        <div class="footer-copyright  d-flex justify-content-sm-center justify-content-md-between py-3">
+            <div class="mb-5 flex-left">
+                <h5 class="mr-3">Total Soft Inc.</h5>
+                <!-- Facebook -->
+                <a class="fb-ic" href="https://www.facebook.com">
+                    <i class="fab fa-facebook-f fa-lg mr-md-3 mr-3 fa-2x"></i>
+                </a>
+                <!-- Twitter -->
+                <a class="tw-ic" href="https://www.twitter.com">
+                    <i class="fab fa-twitter fa-lg mr-md-3 mr-3 fa-2x"> </i>
+                </a>
+                <!--Instagram-->
+                <a class="ins-ic" href="https://www.instagram.com">
+                    <i class="fab fa-instagram fa-lg mr-md-3 mr-3 fa-2x"> </i>
+                </a>
+            </div>
+            <div class="mb-5 flex-right">
+                © 2019 Copyright: Tfs, inc.
+            </div>
         </div>
-        <div class="col s12 m12 l12 right-align white-text">
-            © 2019 Tfs, inc.
-        </div>
-    </div>
-</div>
+        <!-- Copyright -->
+</footer>
+<!-- Footer -->

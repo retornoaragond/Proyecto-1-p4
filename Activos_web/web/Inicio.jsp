@@ -64,8 +64,6 @@
             </div>
         </div>
         <%@ include file="/presentation/Complement.jsp" %>
-    </body>
-    <footer class="bottom-sheet background blue-grey">
-        <%@ include file="/presentation/Footer.jsp" %>
-    </footer>
+    </body>  
+    <%@ include file="/presentation/Footer.jsp" %>
 </html>
