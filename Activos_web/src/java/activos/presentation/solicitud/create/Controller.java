@@ -9,7 +9,10 @@ import activos.logic.Bien;
 import activos.logic.ModelLogic;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,8 +35,6 @@ import javax.servlet.http.HttpServletResponse;
                                                                    "/presentation/solicitud/listadoBien",
                                                                    "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
-    
-    // PRUEBA PRUEBITA WDKJSNCKADSHNVKFNO
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -124,25 +125,29 @@ public class Controller extends HttpServlet {
     }
 
     void updateModelSolicitud(Solicitud model, HttpServletRequest request) {
-        Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
-        List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
-
-        model.setDependencia(logged.getLabor().getDependencia());
-        model.setFuncionario(logged.getLabor().getFuncionario());
-        model.setNumcomp(request.getParameter("campoNumcomp"));
-        Date d = new Date(01, 01, 01);
-        //request.getParameter("campoFechaAdq")
-        model.setFecha(d);
-        model.setCantbien(r.size());
-        //monto total
-        // estado
-        model.setTipoadq(request.getParameter("options"));
-        Set<Bien> hSet = new HashSet<>();
-        for (Bien x : r) {
-            hSet.add(x);
+        try {
+            Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
+            List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
+            
+            model.setDependencia(logged.getLabor().getDependencia());
+            model.setFuncionario(logged.getLabor().getFuncionario());
+            model.setNumcomp(request.getParameter("campoNumcomp"));
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed = format.parse(request.getParameter("campoFechaAdq"));
+            model.setFecha(parsed);
+            model.setCantbien(r.size());
+            //monto total
+            // estado
+            model.setTipoadq(request.getParameter("options"));
+            Set<Bien> hSet = new HashSet<>();
+            for (Bien x : r) {
+                hSet.add(x);
+            }
+            
+            model.setBiens(hSet);
+        } catch (ParseException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        model.setBiens(hSet);
     }
 
     void updateModel(Bien model, HttpServletRequest request) {
