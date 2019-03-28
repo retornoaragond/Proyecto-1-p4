@@ -31,9 +31,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author ExtremeTech
  */
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
-                                                                   "/presentation/solicitud/agregarBien",
-                                                                   "/presentation/solicitud/listadoBien",
-                                                                   "/presentation/solicitud/agregarSolicitud"})
+    "/presentation/solicitud/agregarBien",
+    "/presentation/solicitud/listadoBien",
+    "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
 
     /**
@@ -71,11 +71,29 @@ public class Controller extends HttpServlet {
         updateModel(model, request);
         List<Bien> r = new ArrayList<>();
         if ((ArrayList<Bien>) request.getSession(true).getAttribute("listaBien") == null) {
-            r.add(model);
+            boolean existe = false;
+            for (Bien b : r) {
+                if (model.getSerial().equals(b.getSerial())) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                r.add(model);
+            }
             request.getSession(true).setAttribute("listaBien", r);
         } else {
             r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
-            r.add(model);
+            boolean existe = false;
+            for (Bien b : r) {
+                if (model.getSerial().equals(b.getSerial())) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                r.add(model);
+            }
             request.getSession(true).setAttribute("listaBien", r);
         }
         request.getSession(true).setAttribute("loggeado", logged);
@@ -128,26 +146,42 @@ public class Controller extends HttpServlet {
         try {
             Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
             List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
-            
+
             model.setDependencia(logged.getLabor().getDependencia());
             model.setFuncionario(logged.getLabor().getFuncionario());
             model.setNumcomp(request.getParameter("campoNumcomp"));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date parsed = format.parse(request.getParameter("campoFechaAdq"));
             model.setFecha(parsed);
-            model.setCantbien(r.size());
-            //monto total
+            model.setCantbien(calcularCantBienes(r));
+            model.setMontotal(calcularMontoTotal(r));
             // estado
             model.setTipoadq(request.getParameter("options"));
             Set<Bien> hSet = new HashSet<>();
             for (Bien x : r) {
                 hSet.add(x);
             }
-            
+
             model.setBiens(hSet);
         } catch (ParseException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int calcularMontoTotal(List<Bien> r) {
+        int suma = 0;
+        for (Bien b : r) {
+            suma += b.getPrecioU();
+        }
+        return suma;
+    }
+
+    public int calcularCantBienes(List<Bien> r) {
+        int suma = 0;
+        for (Bien b : r) {
+            suma += b.getCantidad();
+        }
+        return suma;
     }
 
     void updateModel(Bien model, HttpServletRequest request) {

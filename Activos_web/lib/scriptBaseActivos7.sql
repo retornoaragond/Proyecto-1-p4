@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 -- Table `sistemaactivos`.`Bien`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Bien` (
-  `serial` VARCHAR(45) NOT NULL,
+  `serial` VARCHAR(45) NOT NULL UNIQUE,
   `descripcion` VARCHAR(45) NOT NULL,
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NOT NULL,

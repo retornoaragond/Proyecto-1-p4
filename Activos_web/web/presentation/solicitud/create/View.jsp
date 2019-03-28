@@ -68,7 +68,6 @@
                                 <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Solicitud</th>
                                         <th>Descripci&oacute;n</th>
                                         <th>Marca</th>
                                         <th>Modelo</th>
@@ -82,13 +81,6 @@
                                             <div class="input-field col s12">
                                                 <input type="text" id="serial" name="serial" size=15 maxlength=20">
                                                 <label for="serial">Serial</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="sol" name="sol" size=15 maxlength=20">
-                                                <label for="sol">Solicitud</label>
                                                 <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
                                             </div>
                                         </th>
