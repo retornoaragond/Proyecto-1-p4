@@ -49,9 +49,9 @@
                     </div>
                     <div class="input-field col s3 l3">
                         <select name="options">
-                            <option value="donacion">Donaci&oacute;n</option>
-                            <option value="compra">Compra</option>
-                            <option value="generado">Generado</option>
+                            <option value="Donacion">Donaci&oacute;n</option>
+                            <option value="Compra">Compra</option>
+                            <option value="Generado">Generado</option>
                         </select>
                     </div>
 

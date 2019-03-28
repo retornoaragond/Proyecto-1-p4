@@ -154,7 +154,7 @@ public class Controller extends HttpServlet {
             model.setFecha(parsed);
             model.setCantbien(calcularCantBienes(r));
             model.setMontotal(calcularMontoTotal(r));
-            // estado
+            model.setEstado("PorVerificar");
             model.setTipoadq(request.getParameter("options"));
             Set<Bien> hSet = new HashSet<>();
             for (Bien x : r) {
@@ -170,7 +170,7 @@ public class Controller extends HttpServlet {
     public int calcularMontoTotal(List<Bien> r) {
         int suma = 0;
         for (Bien b : r) {
-            suma += b.getPrecioU();
+            suma += (b.getPrecioU()*b.getCantidad());
         }
         return suma;
     }
