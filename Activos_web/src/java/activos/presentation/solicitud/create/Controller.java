@@ -28,10 +28,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author ExtremeTech
  */
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
-    "/presentation/solicitud/agregarBien",
-    "/presentation/solicitud/listadoBien",
-    "/presentation/solicitud/agregarSolicitud"})
+                                                                   "/presentation/solicitud/agregarBien",
+                                                                   "/presentation/solicitud/listadoBien",
+                                                                   "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
+    
+    // PRUEBA PRUEBITA WDKJSNCKADSHNVKFNO
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
