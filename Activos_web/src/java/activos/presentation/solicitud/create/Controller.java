@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -136,9 +137,10 @@ public class Controller extends HttpServlet {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("listaBien");
         request.getSession(true).setAttribute("loggeado", logged);
-        request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
+        request.getRequestDispatcher("/presentation/solicitud/listado").forward(request, response);
     }
 
     void updateModelSolicitud(Solicitud model, HttpServletRequest request) {
