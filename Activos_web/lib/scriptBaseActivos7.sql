@@ -22,19 +22,19 @@ USE `sistemaactivos` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Activo` (
   `codigoId` VARCHAR(45) NOT NULL,
-  `labAct` INT NULL,
-  `bienAct` VARCHAR(45) NOT NULL,
+  `labAct` INT(11) NULL DEFAULT NULL,
+  `bien_ID` INT(11) NOT NULL,
   PRIMARY KEY (`codigoId`),
   INDEX `Activo_Labor` (`labAct` ASC),
-  INDEX `Activo_Bien` (`bienAct` ASC),
+  INDEX `fk_activo_bien1_idx` (`bien_ID` ASC),
   CONSTRAINT `llave_LaborA`
     FOREIGN KEY (`labAct`)
-    REFERENCES `sistemaactivos`.`Labor` (`id`)
+    REFERENCES `sistemaactivos`.`labor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `llave_BienA`
-    FOREIGN KEY (`bienAct`)
-    REFERENCES `sistemaactivos`.`Bien` (`serial`)
+  CONSTRAINT `fk_activo_bien1`
+    FOREIGN KEY (`bien_ID`)
+    REFERENCES `sistemaactivos`.`bien` (`ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -44,25 +44,26 @@ ENGINE = InnoDB;
 -- Table `sistemaactivos`.`Bien`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Bien` (
-  `serial` VARCHAR(45) NOT NULL UNIQUE,
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `serial` VARCHAR(45) NOT NULL,
   `descripcion` VARCHAR(45) NOT NULL,
   `marca` VARCHAR(45) NOT NULL,
   `modelo` VARCHAR(45) NOT NULL,
   `precioU` DOUBLE NOT NULL,
-  `cantidad` INT NOT NULL,
-  `solicitud` INT NOT NULL,
-  `categoria` VARCHAR(45) NULL,
-  PRIMARY KEY (`serial`),
+  `cantidad` INT(11) NOT NULL,
+  `solicitud` INT(11) NOT NULL,
+  `categoria` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`ID`),
   INDEX `Bien_Solicitud` (`solicitud` ASC),
   INDEX `Bien_Categoria` (`categoria` ASC),
-  CONSTRAINT `llave_SolicitudB`
-    FOREIGN KEY (`solicitud`)
-    REFERENCES `sistemaactivos`.`Solicitud` (`numsol`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `llave_CategoriaB`
     FOREIGN KEY (`categoria`)
-    REFERENCES `sistemaactivos`.`Categoria` (`id`)
+    REFERENCES `sistemaactivos`.`categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `llave_SolicitudB`
+    FOREIGN KEY (`solicitud`)
+    REFERENCES `sistemaactivos`.`solicitud` (`numsol`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

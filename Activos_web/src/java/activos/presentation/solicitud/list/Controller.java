@@ -49,7 +49,6 @@ public class Controller extends HttpServlet {
     protected void list(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
     }
 
@@ -58,10 +57,11 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
         List<Solicitud> rows = new ArrayList<>();
-        if(request.getParameter("filter")!= null){
-        Solicitud sol = filtroSol(request);
-        rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
-        addsolicitudes(rows);
+        if(request.getParameter("fitroSol")== null){
+            Solicitud sol = filtroSol(request);
+            rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
+            addsolicitudes(rows);
+            request.getSession(true).setAttribute("fitroSol", sol);
         }
         
         request.getSession(true).setAttribute("loggeado", logged);

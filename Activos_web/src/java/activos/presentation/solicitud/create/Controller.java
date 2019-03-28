@@ -136,7 +136,7 @@ public class Controller extends HttpServlet {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
         request.getSession(true).setAttribute("loggeado", logged);
         request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
     }
