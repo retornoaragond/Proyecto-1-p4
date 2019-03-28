@@ -44,9 +44,9 @@
             </div>
 
             <div class="row">
-                    <div class="input-field col s4 l4">
-                        <a href="presentation/solicitud/create"<i class="material-icons prefix">add</i></a>
-                    </div>
+                <div class="input-field col s4 l4">
+                    <a href="presentation/solicitud/create"<i class="material-icons prefix">add</i></a>
+                </div>
             </div>
 
             <div class="row">
@@ -64,6 +64,7 @@
                         </thead>
                         <tbody>
                             <% if (logged != null) {%>
+                            <% if (model != null) {%>
                             <% for (Solicitud p : model) {%>
                             <tr>
                                 <td><%=p.getNumsol()%></td>
@@ -93,6 +94,7 @@
                             </tr>
                             <% } %>  
                             <% }%> 
+                            <% }%>
                         </tbody>
                     </table>
                 </div>

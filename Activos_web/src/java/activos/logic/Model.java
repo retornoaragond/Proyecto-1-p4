@@ -30,4 +30,8 @@ public class Model {
         }
         return result;
     }
+    
+    public static void limpiar(){
+        solicitudes = new HashMap<>();
+    }
 }

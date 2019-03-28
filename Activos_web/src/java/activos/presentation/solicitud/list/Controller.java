@@ -10,6 +10,7 @@ import activos.logic.ModelLogic;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +49,7 @@ public class Controller extends HttpServlet {
     protected void list(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-//        request.setAttribute("model", ModelLogic.instance().getSolicitudes());
+        
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
     }
 
@@ -56,10 +57,13 @@ public class Controller extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
-        List<Solicitud> rows;
+        List<Solicitud> rows = new ArrayList<>();
+        if(request.getParameter("filter")!= null){
         Solicitud sol = filtroSol(request);
         rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
         addsolicitudes(rows);
+        }
+        
         request.getSession(true).setAttribute("loggeado", logged);
         request.setAttribute("model", rows);
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
@@ -75,11 +79,12 @@ public class Controller extends HttpServlet {
     }
 
     void addsolicitudes(List<Solicitud> rows) {
+        Model.limpiar();
         for (Solicitud s : rows) {
             try {
                 Model.agregar(s);
             } catch (Exception ex) {
-
+                
             }
         }
     }

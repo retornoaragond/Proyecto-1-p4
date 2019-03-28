@@ -9,7 +9,6 @@ import activos.logic.Bien;
 import activos.logic.ModelLogic;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,9 +30,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author ExtremeTech
  */
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
-    "/presentation/solicitud/agregarBien",
-    "/presentation/solicitud/listadoBien",
-    "/presentation/solicitud/agregarSolicitud"})
+                                                                   "/presentation/solicitud/agregarBien",
+                                                                   "/presentation/solicitud/listadoBien",
+                                                                   "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
 
     /**
@@ -52,7 +51,6 @@ public class Controller extends HttpServlet {
             this.create(request, response);
         } else if (request.getServletPath().equals("/presentation/solicitud/agregarBien")) {
             this.agregarBien(request, response);
-
         } else if (request.getServletPath().equals("/presentation/solicitud/agregarSolicitud")) {
             try {
                 this.agregarSolicitud(request, response);
@@ -106,6 +104,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
         request.getSession(true).setAttribute("loggeado", logged);
+        
         request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
     }
 
