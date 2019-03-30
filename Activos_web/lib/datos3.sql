@@ -114,6 +114,8 @@ INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Depen
 -- ----------------------------  Bienes -------------------------------------
 
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('xyf', 'sillas oficina', 'patito', 'x-23', '5000', '1', '1', '1');
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES 
+('fyx', 'sillas comedor', 'patito', 'x-24', '8000', '1', '1', '1');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('uio', 'escritorios', 'patitoplus', 'xy-40', '45000', '1', '2', '2');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('rrr', 'sillones', 'wood', 'm456', '50000', '1', '3', '3');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('ggg', 'basureros', 'acme', 'b71', '8000', '1', '4', '4');

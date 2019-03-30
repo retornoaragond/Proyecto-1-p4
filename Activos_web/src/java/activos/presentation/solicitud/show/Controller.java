@@ -5,10 +5,10 @@
  */
 package activos.presentation.solicitud.show;
 
+import activos.logic.Dependencia;
 import activos.logic.ModelLogic;
 import activos.logic.Solicitud;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +34,7 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        String var = request.getServletPath();
         if (request.getServletPath().equals("/presentation/solicitud/show")) {
             this.show(request, response);
         }
@@ -46,17 +47,19 @@ public class Controller extends HttpServlet {
         updateModelId(model, request);
         Solicitud modelConsultar = null;
         try {
-           // modelConsultar = ModelLogic.instance().searByNumComp(modelConsultar, "001").get(1);
-            //buscar la solicitud
+            modelConsultar = ModelLogic.instance().findSolicitudnumComp(model);
         } catch (Exception ex) {
         }
         request.setAttribute("model", modelConsultar);
-        request.getRequestDispatcher("/presentation/show/View.jsp").
-                forward(request, response);
+        request.getRequestDispatcher("/presentation/solicitud/show/View.jsp").forward(request, response);
     }
 
     void updateModelId(Solicitud model, HttpServletRequest request) {
-        model.setNumcomp(request.getParameter("numComp"));
+        model.setNumcomp(request.getParameter("numcomp"));
+        String id = request.getParameter("codDep");
+        Dependencia d = new Dependencia();
+        d.setCodigo(id);
+        model.setDependencia(d);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

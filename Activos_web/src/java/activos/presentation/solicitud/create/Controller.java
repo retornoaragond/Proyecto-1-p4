@@ -31,9 +31,9 @@ import javax.servlet.http.HttpSession;
  * @author ExtremeTech
  */
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
-                                                                   "/presentation/solicitud/agregarBien",
-                                                                   "/presentation/solicitud/listadoBien",
-                                                                   "/presentation/solicitud/agregarSolicitud"})
+    "/presentation/solicitud/agregarBien",
+    "/presentation/solicitud/listadoBien",
+    "/presentation/solicitud/agregarSolicitud"})
 public class Controller extends HttpServlet {
 
     /**
@@ -70,6 +70,7 @@ public class Controller extends HttpServlet {
         updateModel(model, request);
         List<Bien> r = new ArrayList<>();
         if ((ArrayList<Bien>) request.getSession(true).getAttribute("listaBien") == null) {
+            request.getSession(true).setAttribute("listaBien", r);
             boolean existe = false;
             for (Bien b : r) {
                 if (model.getSerial().equals(b.getSerial())) {
@@ -80,7 +81,6 @@ public class Controller extends HttpServlet {
             if (!existe) {
                 r.add(model);
             }
-            request.getSession(true).setAttribute("listaBien", r);
         } else {
             r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
             boolean existe = false;
@@ -93,8 +93,8 @@ public class Controller extends HttpServlet {
             if (!existe) {
                 r.add(model);
             }
-            request.getSession(true).setAttribute("listaBien", r);
         }
+        request.getSession(true).setAttribute("listaBien", r);
         request.getSession(true).setAttribute("loggeado", logged);
         request.setAttribute("model", r);
         request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
@@ -105,7 +105,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
         request.getSession(true).setAttribute("loggeado", logged);
-        
+
         request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
     }
 
@@ -134,7 +134,8 @@ public class Controller extends HttpServlet {
                 b.setSolicitud(model);
                 ModelLogic.instance().addBienPreservar(b);
             } catch (Exception ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                String msj = ex.getMessage();
+                System.out.println(" " + msj);
             }
         }
         HttpSession session = request.getSession(true);
@@ -172,7 +173,7 @@ public class Controller extends HttpServlet {
     public int calcularMontoTotal(List<Bien> r) {
         int suma = 0;
         for (Bien b : r) {
-            suma += (b.getPrecioU()*b.getCantidad());
+            suma += (b.getPrecioU() * b.getCantidad());
         }
         return suma;
     }

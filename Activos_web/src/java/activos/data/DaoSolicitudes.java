@@ -13,6 +13,9 @@ import activos.logic.Bien;
 import activos.logic.Categoria;
 import activos.logic.Funcionario;
 import activos.logic.Solicitud;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -34,6 +37,24 @@ public class DaoSolicitudes {
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
             return solicitud(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
+
+    public Solicitud findSolicitudnumComp(String numComp, String codDependencia) throws Exception {
+        String sql = "SELECT * FROM solicitud where numcomp='%s' and Dependencia_codigo='%s'";
+        sql = String.format(sql, numComp, codDependencia);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            Solicitud s = solicitud(rs);
+            List<Bien> r = getbienes(s);
+            Set<Bien> hSet = new HashSet(0);
+            for (Bien b : r) {
+                hSet.add(b);
+            }
+            s.setBiens(hSet);
+            return s;
         } else {
             throw new Exception("Solicitud no Existe");
         }
@@ -61,7 +82,7 @@ public class DaoSolicitudes {
             return null;
         }
     }
-    
+
     public List<Solicitud> SolSearchbyNumcomp(Solicitud filtro, String dep) {
         List<Solicitud> resultado = new ArrayList<>();
         try {
@@ -544,8 +565,8 @@ public class DaoSolicitudes {
     public void addBienPreservar(Bien a) throws Exception {
         String sql = " INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud)"
                 + "VALUES ('%s', '%s', '%s', '%s', '%f', '%d', '%d')";
-        sql = String.format(sql, a.getSerial(), a.getDescripcion(), a.getMarca(), a.getModelo(), a.getPrecioU(), a.getCantidad(),
-                a.getSolicitud().getNumsol());
+        sql = String.format(sql, a.getSerial(), a.getDescripcion(), a.getMarca(), a.getModelo(), a.getPrecioU(),
+                a.getCantidad(), a.getSolicitud().getNumsol());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Bien ya existe");

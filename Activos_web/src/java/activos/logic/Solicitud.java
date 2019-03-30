@@ -74,6 +74,10 @@ public class Solicitud implements java.io.Serializable {
     public void setDependencia(Dependencia dependencia) {
         this.dependencia = dependencia;
     }
+    
+    public String getCodDependencia(){
+        return dependencia.getCodigo();
+    }
 
     public Funcionario getFuncionario() {
         return this.funcionario;

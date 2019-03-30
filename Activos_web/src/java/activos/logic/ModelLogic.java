@@ -61,6 +61,10 @@ public class ModelLogic {
     public List<Solicitud> searByNumComp(Solicitud filtro, String dep) {
         return daoSolicitud.SolSearchbyNumcomp(filtro, dep);
     }
+    
+    public Solicitud findSolicitudnumComp(Solicitud sol) throws Exception {
+        return daoSolicitud.findSolicitudnumComp(sol.getNumcomp(), sol.getDependencia().getCodigo());
+    }
 
     //<editor-fold desc="Bien" defaultstate="collapsed">
     public List<Bien> getBienes(Solicitud s) {
