@@ -10,7 +10,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
     <a class="navbar-brand " href="#">
-        <img src="image/logo_1.png" width="70" height="70" class="d-inline-block align-center" alt="">
+        <img src="image/logo_1.png" width="100" height="70" class="d-inline-block align-center" alt="">
         Activos
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
