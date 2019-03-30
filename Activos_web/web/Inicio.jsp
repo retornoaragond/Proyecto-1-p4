@@ -13,7 +13,7 @@
     </head>
     <body>
         <%@ include file="/presentation/Header.jsp" %>
-        <div class="container minh-50 ">
+        <div class="container minh-30 ">
             <div class="row my-5">
                 <div class="col text-justify">
                     <div class="box">

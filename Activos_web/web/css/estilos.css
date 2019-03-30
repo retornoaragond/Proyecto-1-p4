@@ -16,32 +16,38 @@ and open the template in the editor.
 }
 
 .minh-100 {
-  display:flex;
-  align-items:center;
-  min-height:100vh;
+    display:flex;
+    align-items:center;
+    min-height:100vh;
 }
 
 .minh-50 {
-  display:flex;
-  align-items:center;
-  min-height:70vh;
+    display:flex;
+    align-items:center;
+    min-height:70vh;
+}
+
+.minh-30 {
+    display:flex;
+    align-items:center;
+    min-height:58vh;
 }
 
 
 .box {
-  background:#fff;
-  transition:all 0.2s ease;
-  border:2px dashed #dadada;
-  margin-top: 10px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-clip: padding-box;
-  padding:0 20px 20px 20px;
-  min-height:340px;
+    background:#fff;
+    transition:all 0.2s ease;
+    border:2px dashed #dadada;
+    margin-top: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-clip: padding-box;
+    padding:0 20px 20px 20px;
+    min-height:340px;
 }
 
 .box:hover {
-  border:2px solid #525C7A;
+    border:2px solid #525C7A;
 }
 
 .box span.box-title {
@@ -52,12 +58,34 @@ and open the template in the editor.
 }
 
 .box .box-content {
-  padding: 16px;
-  border-radius: 0 0 2px 2px;
-  background-clip: padding-box;
-  box-sizing: border-box;
+    padding: 16px;
+    border-radius: 0 0 2px 2px;
+    background-clip: padding-box;
+    box-sizing: border-box;
 }
+
 .box .box-content p {
-  color:#515c66;
-  text-transform:none;
+    color:#515c66;
+    text-transform:none;
+}
+
+.login-box{
+    border-radius: 15px;
+    box-shadow: 10px 12px 24px 10px rgba(0, 0, 0, .5);
+    position: relative;
+}
+
+.login-header{
+    border-radius: 15px;
+    text-align: center;
+    font-size: 35px;
+    background: linear-gradient(to bottom, #00bfff 0%, #0000ff 100%);
+    color:#fff;
+    box-shadow: 1px 3px 14px  rgba(0, 0, 0, .5);
+    position: relative;
+}
+
+.login-body{
+    padding: 20px;
+    line-height: 2;
 }

@@ -9,6 +9,7 @@
 </section>
 
 <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container">
     <a class="navbar-brand " href="#">
         <img src="image/logo_1.png" width="100" height="70" class="d-inline-block align-center" alt="">
         Activos
@@ -68,4 +69,5 @@
             <% }%> 
         </ul>
     </div>
+        </div>
 </nav>
