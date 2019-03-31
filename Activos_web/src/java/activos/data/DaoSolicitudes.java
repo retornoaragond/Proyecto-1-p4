@@ -90,7 +90,7 @@ public class DaoSolicitudes {
             if (!filtro.getNumcomp().isEmpty()) {
                 sql = "select * from solicitud,dependencia "
                         + "where solicitud.Dependencia_codigo = dependencia.codigo "
-                        + "AND dependencia.nombre = '%s' AND solicitud.numcomp = '%s' ";
+                        + "AND dependencia.nombre = '%s' AND solicitud.numcomp like '%%%s%%' ";
             } else {
                 sql = "select * from solicitud,dependencia "
                         + "where solicitud.Dependencia_codigo = dependencia.codigo "

@@ -74,7 +74,7 @@ public class Controller extends HttpServlet {
     Solicitud filtronuevo(HttpServletRequest request){
         Solicitud s = (Solicitud) request.getSession(true).getAttribute("fitroSol");
         Solicitud p = filtroSol(request);
-        if(s.getNumcomp().equals(s.getNumcomp())){
+        if(s.getNumcomp().equals(p.getNumcomp())){
             return s;
         }
         return p;
