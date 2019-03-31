@@ -23,21 +23,21 @@
         <div class="card-content"></div>
         <div class="container grey lighten-4" >
             <div class="row">
-                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/listado">
-                    <div class="col s12">
-                        <h5 class="center-align">Solicitudes</h5>
+                <form class="" method="POST" name="formulario" action="presentation/solicitud/listado">
+                    <div class="">
+                        <h5 class="">Solicitudes</h5>
                     </div>
-                    <div class="col s4 l4 right-align">
+                    <div class="">
                         <p>Comprobante</p>
                     </div>
 
-                    <div class="input-field col s4 l4">
+                    <div class="">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="filtro" name="filter" class="validate">
                         <label for="filtro">Buscar</label>
                     </div>
 
-                    <div class="col s4 l4">
+                    <div class="">
                         <button class="btn" type="submit"><i class="material-icons">send</i>Buscar</button>
                     </div>
                 </form>
@@ -49,10 +49,10 @@
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container table-responsive">
                 <% List<Solicitud> model = (List<Solicitud>) request.getAttribute("model");%>           
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-striped table-hover">
+                    <thead class="thead-dark">
                         <tr>
                         <tr>
                             <th>N°</th>

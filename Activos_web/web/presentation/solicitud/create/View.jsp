@@ -67,9 +67,9 @@
 
 
                     <h5 class="center-align">Bienes</h5>
-                    <div class="container">
-                        <table class="table table-bordered">
-                            <thead>
+                    <div class="container" >
+                        <table class="table table-striped table-hover">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th>Serial</th>                            
                                     <th>Descripci&oacute;n</th>
@@ -86,7 +86,7 @@
                             <td><input type="text" id="mod" name="mod" size=15 maxlength=20"></td>
                             <td><input type="text" id="precio" name="precio" size=15 maxlength=20"></td>
                             <td><input type="text" id="cant" name="cant" size=15 maxlength=20"></td>
-                            <td><input type="submit" value="Agregar" name="agregar"></td>
+                            <td><input class="btn btn-primary d-flex justify-content-center" type="submit" value="Agregar" name="agregar"></td>
                                 <% if (loge != null) {%>
                                 <% if (model != null) {%>
                                 <% for (Bien p : model) {%>
