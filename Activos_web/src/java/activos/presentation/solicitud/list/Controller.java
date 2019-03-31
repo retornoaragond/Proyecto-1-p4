@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ExtremeTech
  */
-@WebServlet(name = "presentation.solicitud.list", urlPatterns = {"/presentation/solicitud/list/", 
-                                                                 "/presentation/solicitud/listado"})
+@WebServlet(name = "presentation.solicitud.list", urlPatterns = {"/presentation/solicitud/list/",
+    "/presentation/solicitud/listado"})
 public class Controller extends HttpServlet {
 
     /**
@@ -58,9 +58,9 @@ public class Controller extends HttpServlet {
         Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
         List<Solicitud> rows;
         Solicitud sol;
-        if(request.getSession(true).getAttribute("fitroSol")== null){
+        if (request.getSession(true).getAttribute("fitroSol") == null) {
             sol = filtroSol(request);
-        }else{
+        } else {
             sol = filtronuevo(request);
         }
         rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
@@ -70,21 +70,23 @@ public class Controller extends HttpServlet {
         request.setAttribute("model", rows);
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
     }
-    
-    Solicitud filtronuevo(HttpServletRequest request){
+
+    Solicitud filtronuevo(HttpServletRequest request) {
         Solicitud s = (Solicitud) request.getSession(true).getAttribute("fitroSol");
         Solicitud p = filtroSol(request);
-        if(s.getNumcomp().equals(p.getNumcomp())){
+        if (s.getNumcomp().equals(p.getNumcomp())) {
             return s;
         }
         return p;
     }
 
-    Solicitud filtroSol( HttpServletRequest request) {
+    Solicitud filtroSol(HttpServletRequest request) {
         Solicitud s = new Solicitud();
-        if(!request.getParameter("filter").isEmpty()){
-            s.setNumcomp(request.getParameter("filter"));
-            return s;
+        if (request.getParameter("filter") != null) {
+            if (!request.getParameter("filter").isEmpty()) {
+                s.setNumcomp(request.getParameter("filter"));
+                return s;
+            }
         }
         return s;
     }
@@ -95,7 +97,7 @@ public class Controller extends HttpServlet {
             try {
                 Model.agregar(s);
             } catch (Exception ex) {
-                
+
             }
         }
     }
