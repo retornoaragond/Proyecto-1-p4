@@ -127,10 +127,9 @@ public class Controller extends HttpServlet {
         updateModelSolicitud(model, request);
         ModelLogic.instance().addSolicitud(model);
         List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
-
+        model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
         for (Bien b : r) {
             try {
-                model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
                 b.setSolicitud(model);
                 ModelLogic.instance().addBienPreservar(b);
             } catch (Exception ex) {
