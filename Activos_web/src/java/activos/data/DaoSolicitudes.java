@@ -489,6 +489,7 @@ public class DaoSolicitudes {
     private Bien bien(ResultSet rs) {
         try {
             Bien ec = new Bien();
+            ec.setID(rs.getInt("ID"));
             ec.setSerial(rs.getString("serial"));
             ec.setCantidad(rs.getInt("cantidad"));
             ec.setDescripcion(rs.getString("descripcion"));

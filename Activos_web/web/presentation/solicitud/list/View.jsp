@@ -49,61 +49,60 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col s10 offset-s1">
-                    <% List<Solicitud> model = (List<Solicitud>) request.getAttribute("model");%> 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>N°</th>
-                                <th>Comprobante</th>
-                                <th>fecha</th>
-                                <th>Tipo</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (logged != null) {%>
-                            <% if (model != null) {%>
-                            <% for (Solicitud p : model) {%>
-                            <tr>
-                                <td><%=p.getNumsol()%></td>
-                                    <td><a href="presentation/solicitud/show?numcomp=<%=p.getNumcomp()%>&codDep=<%=p.getCodDependencia()%>"><%=p.getNumcomp()%></a></td>
-                                <td><%=p.getFecha().toString()%></td>
-                                <% if (p.getTipoadq().equals("Donacion")) {%>
-                                <td><i class="material-icons green-text">redeem</i></td>
-                                <% } %>
-                                <% if (p.getTipoadq().equals("Compra")) { %>
-                                <td><i class="material-icons orange-text">shopping_cart</i></td>
-                                <% } %>
-                                <% if (p.getTipoadq().equals("Generado")) { %>
-                                <td><i class="material-icons blue-text">settings</i></td>
-                                <% } %>
-                                <% if (p.getEstado().equals("PorVerificar")) {%>
-                                <td><i class="material-icons grey-text">hourglass_empty</i></td>
-                                <% } %>
-                                <% if (p.getEstado().equals("Procesada")) { %>
-                                <td><i class="material-icons green-text">done_all</i></td>
-                                <% } %>
-                                <% if (p.getEstado().equals("Rechazada")) { %>
-                                <td><i class="material-icons red-text">do_not_disturb</i></td>
-                                <% } %>
-                                <% if (p.getEstado().equals("Recibida")) { %>
-                                <td><i class="material-icons blue-text darken-2">done</i></td>
-                                <% } %>
-                            </tr>
-                            <% } %>  
-                            <% }%> 
-                            <% }%>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="container">
+                <% List<Solicitud> model = (List<Solicitud>) request.getAttribute("model");%>           
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <tr>
+                            <th>N°</th>
+                            <th>Comprobante</th>
+                            <th>fecha</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                        </tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (logged != null) {%>
+                        <% if (model != null) {%>
+                        <% for (Solicitud p : model) {%>
+                        <tr>
+                            <td><%=p.getNumsol()%></td>
+                            <td><a href="presentation/solicitud/show?numcomp=<%=p.getNumcomp()%>&codDep=<%=p.getCodDependencia()%>"><%=p.getNumcomp()%></a></td>
+                            <td><%=p.getFecha().toString()%></td>
+                            <% if (p.getTipoadq().equals("Donacion")) {%>
+                            <td><i class="material-icons green-text">redeem</i></td>
+                            <% } %>
+                            <% if (p.getTipoadq().equals("Compra")) { %>
+                            <td><i class="material-icons orange-text">shopping_cart</i></td>
+                            <% } %>
+                            <% if (p.getTipoadq().equals("Generado")) { %>
+                            <td><i class="material-icons blue-text">settings</i></td>
+                            <% } %>
+                            <% if (p.getEstado().equals("PorVerificar")) {%>
+                            <td><i class="material-icons grey-text">hourglass_empty</i></td>
+                            <% } %>
+                            <% if (p.getEstado().equals("Procesada")) { %>
+                            <td><i class="material-icons green-text">done_all</i></td>
+                            <% } %>
+                            <% if (p.getEstado().equals("Rechazada")) { %>
+                            <td><i class="material-icons red-text">do_not_disturb</i></td>
+                            <% } %>
+                            <% if (p.getEstado().equals("Recibida")) { %>
+                            <td><i class="material-icons blue-text darken-2">done</i></td>
+                            <% } %>
+                        </tr>
+                        <% } %>  
+                        <% }%> 
+                        <% }%>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-    <%@ include file="/presentation/Complement.jsp" %>
-</body>
-<footer class="bottom-sheet background blue-grey">
-    <%@ include file="/presentation/Footer.jsp" %>
-</footer>
+        <%@ include file="/presentation/Complement.jsp" %>
+    </body>
+    <footer class="bottom-sheet background blue-grey">
+        <%@ include file="/presentation/Footer.jsp" %>
+    </footer>
 </html>

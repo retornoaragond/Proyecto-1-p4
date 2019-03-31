@@ -31,7 +31,7 @@ public class DaoAdministracion {
     //PRUEBA ESTEBAN
     //  <editor-fold desc="Usuarios" defaultstate="collapsed">
     public Usuario usuarioGet(String id) throws Exception {
-        String sql = "SELECT * FROM usuario WHERE usuario.id = '%s'";
+        String sql = "SELECT * FROM usuario u inner join labor l WHERE u.id = '%s' and u.labUsu = l.id";
         sql = String.format(sql, id);
         ResultSet rs = dbb.executeQuery(sql);
         if (rs.next()) {

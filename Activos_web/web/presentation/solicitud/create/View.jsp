@@ -60,87 +60,18 @@
                     </div>
                 </form>
 
-                <h5 class="center-align">Bienes</h5>
-                <div class="row">
-                    <div class="col s10 offset-s1">
-                        <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
-                            <table class="striped" border=0 cellpadding=3 cellspacing=4 >
-                                <thead>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Descripci&oacute;n</th>
-                                        <th>Marca</th>
-                                        <th>Modelo</th>
-                                        <th>Precio</th>
-                                        <th>Cant</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="serial" name="serial" size=15 maxlength=20">
-                                                <label for="serial">Serial</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="desc" name="desc" size=15 maxlength=20">
-                                                <label for="desc">Descripción</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="marca" name="marca" size=15 maxlength=20">
-                                                <label for="marca">Marca</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="mod" name="mod" size=15 maxlength=20">
-                                                <label for="mod">Modelo</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="precio" name="precio" size=15 maxlength=20">
-                                                <label for="precio">Precio</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="input-field col s12">
-                                                <input type="text" id="cant" name="cant" size=15 maxlength=20">
-                                                <label for="cant">Cantidad</label>
-                                                <span class="helper-text" data-error="Debe llenar este campo" data-success=""></span>
-                                            </div>
-                                        </th>
 
-                                        <th>
-                                            <!-- ************** -->
-                                            <div class="row">
-                                                <div class="input-field col s4 l4">
-                                                    <button class="btn" type="submit"><i class="material-icons">save</i>Enviar</button>
-                                                </div>
-                                            </div>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                </div>
-                <h5 class="center-align">Bienes</h5>
-                <div class="row">
-                    <div class="col s10 offset-s1">
-                        <table class="striped" border=0 cellpadding=3 cellspacing=4 >
+                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
+
+
+
+
+                    <h5 class="center-align">Bienes</h5>
+                    <div class="container">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Serial</th>
+                                    <th>Serial</th>                            
                                     <th>Descripci&oacute;n</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
@@ -148,27 +79,38 @@
                                     <th>Cant</th>
                                 </tr>
                             </thead>
-                            <tbody> 
+                            <tbody>
+                            <td><input type="text" id="serial" name="serial" size=15 maxlength=20"></td>
+                            <td><input type="text" id="desc" name="desc" size=15 maxlength=20"></td>
+                            <td><input type="text" id="marca" name="marca" size=15 maxlength=20"></td>
+                            <td><input type="text" id="mod" name="mod" size=15 maxlength=20"></td>
+                            <td><input type="text" id="precio" name="precio" size=15 maxlength=20"></td>
+                            <td><input type="text" id="cant" name="cant" size=15 maxlength=20"></td>
+                            <td><input type="submit" value="Agregar" name="agregar"></td>
                                 <% if (loge != null) {%>
                                 <% if (model != null) {%>
                                 <% for (Bien p : model) {%>
-                                <tr>
-                                    <td><%= p.getSerial()%></td>
-                                    <td><%= p.getDescripcion()%></td>
-                                    <td><%= p.getMarca()%></td>
-                                    <td><%= p.getModelo()%></td>
-                                    <td><%= p.getPrecioU()%></td>
-                                    <td><%= p.getCantidad()%></td>
-                                    <% } %>
-                                </tr>
-                                <% } %>  
-                                <% }%>
+                            <tr>
+                                <td><%= p.getSerial()%></td>
+                                <td><%= p.getDescripcion()%></td>
+                                <td><%= p.getMarca()%></td>
+                                <td><%= p.getModelo()%></td>
+                                <td><%= p.getPrecioU()%></td>
+                                <td><%= p.getCantidad()%></td>
+                                <% } %>
+                            </tr>
+                            <% } %>  
+                            <% }%>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </form>
+
             </div>
         </div>
         <%@ include file="/presentation/Complement.jsp" %>
     </body>
+    <footer class="bottom-sheet background blue-grey">
+        <%@ include file="/presentation/Footer.jsp" %>
+    </footer>
 </html>
