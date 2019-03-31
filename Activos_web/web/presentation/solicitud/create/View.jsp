@@ -26,46 +26,39 @@
         <div class="card-content"></div>
         <div class="container grey lighten-4" >
             <div class="row">
-                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarSolicitud">
-                    <div class="col s12">
-                        <h5 class="center-align">Agregar nueva solicitud</h5>
+                <div class="container">
+                    <div class="row"><br>
+                        <div class="jumbotron">
+                            <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarSolicitud">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <h1>Agregar nueva solicitud</h1>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="validationServer12">N&uacute;mero de comprobante</label>
+                                        <input type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control" id="validationServer12" placeholder="N°" value="">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="validationServer13">Fecha de adquisici&oacute;n</label>
+                                        <input type="date" class="datepicker form-control"  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="validationServer14">Tipo de adquisici&oacute;n</label>
+                                        <select class="custom-select d-block w-100" name="options">
+                                            <option value="Donacion">Donaci&oacute;n</option>
+                                            <option value="Compra">Compra</option>
+                                            <option value="Generado">Generado</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <input type="submit" value="Agregar Solicitud" class="form-control btn btn-primary" name="agregar">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="col s3 l3 left-align">
-                        <p>N&uacute;mero de comprobante</p>
-                    </div>
-                    <div class="input-field col s3 l3">
-                        <input type="text" id="campoNumcomp" name="campoNumcomp" class="validate">
-                    </div>
-
-                    <div class="col s3 l3 left-align">
-                        <p>Fecha de adquisici&oacute;n</p>
-                    </div>
-                    <div class="input-field col s3 l3">
-                        <input type="date" class="datepicker" id="campoFechaAdq" name="campoFechaAdq">
-                    </div>
-
-                    <div class="col s3 l3 left-align">
-                        <p>Tipo de adquisici&oacute;n</p>
-                    </div>
-                    <div class="input-field col s3 l3">
-                        <select name="options">
-                            <option value="Donacion">Donaci&oacute;n</option>
-                            <option value="Compra">Compra</option>
-                            <option value="Generado">Generado</option>
-                        </select>
-                    </div>
-
-                    <div class="input-field col s3 l3">
-                        <input type="submit" value="Agregar" name="agregar">
-                    </div>
-                </form>
-
-
+                </div>
                 <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
-
-
-
-
                     <h5 class="center-align">Bienes</h5>
                     <div class="container" >
                         <table class="table table-striped table-hover">

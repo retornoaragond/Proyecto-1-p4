@@ -89,3 +89,16 @@ and open the template in the editor.
     padding: 20px;
     line-height: 2;
 }
+
+.jumbotron{
+    border-radius:0px!important;
+    box-shadow:1px 1px 4px rgba(0,0,0,0.4);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(https://static.pexels.com/photos/24324/pexels-photo.jpg);
+    position: relative;
+    height: 100%;
+
+
+}

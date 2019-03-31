@@ -49,6 +49,8 @@ public class Controller extends HttpServlet {
     protected void list(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
+        request.getSession(true).setAttribute("loggeado", logged);
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
     }
 
