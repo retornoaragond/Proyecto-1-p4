@@ -61,7 +61,7 @@ public class Controller extends HttpServlet {
         if(request.getSession(true).getAttribute("fitroSol")== null){
             sol = filtroSol(request);
         }else{
-            sol = (Solicitud) request.getSession(true).getAttribute("fitroSol");
+            sol = filtronuevo(request);
         }
         rows = ModelLogic.instance().searchSolicitudAdministradorCod(sol, logged.getLabor().getDependencia().getNombre());
         addsolicitudes(rows);
@@ -69,6 +69,15 @@ public class Controller extends HttpServlet {
         request.getSession(true).setAttribute("loggeado", logged);
         request.setAttribute("model", rows);
         request.getRequestDispatcher("/presentation/solicitud/list/View.jsp").forward(request, response);
+    }
+    
+    Solicitud filtronuevo(HttpServletRequest request){
+        Solicitud s = (Solicitud) request.getSession(true).getAttribute("fitroSol");
+        Solicitud p = filtroSol(request);
+        if(s.getNumcomp().equals(s.getNumcomp())){
+            return s;
+        }
+        return p;
     }
 
     Solicitud filtroSol( HttpServletRequest request) {
