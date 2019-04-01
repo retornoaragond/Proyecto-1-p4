@@ -7,10 +7,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="activos.logic.Bien"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% Usuario loge = (Usuario) session.getAttribute("loggeado");%> 
-<% ArrayList<Bien> model = (ArrayList<Bien>) session.getAttribute("listaBien");
-%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +18,12 @@
         <title>Crear solicitud</title>
     </head>
     <body>
+        <% Usuario loge = (Usuario) session.getAttribute("loggeado");%> 
+        <% ArrayList<Bien> model = (ArrayList<Bien>) session.getAttribute("listaBien");%>
+        <% Bien model2 = (Bien) session.getAttribute("model2");%>
+        <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %> 
+        <% Map<String, String[]> values = (errors == null) ? this.getValuesBien(model2) : request.getParameterMap();%>
+        <% String habil = (String)session.getAttribute("habilitado"); %>
         <header>
             <%@ include file="/presentation/Header.jsp" %>
         </header>
@@ -29,38 +34,40 @@
                 <div class="container">
                     <div class="row"><br>
                         <div class="jumbotron">
-                            <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarSolicitud">
-                                <div class="row">
+                            <form class="col-sm-12" method="POST" name="formulario" action="presentation/solicitud/agregarSolicitud">
+                                <div class="form-row">
                                     <div class="col-12 d-flex justify-content-center">
                                         <h1>Agregar nueva solicitud</h1>
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer12">N&uacute;mero de comprobante</label>
-                                        <input type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control" id="validationServer12" placeholder="N°" value="">
+                                        <input <%=habilitados(habil)%> type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control" id="validationServer12" placeholder="N°" value="">
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer13">Fecha de adquisici&oacute;n</label>
-                                        <input type="date" class="datepicker form-control"  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13">
+                                        <input <%=habilitados(habil)%> type="date" class="datepicker form-control"  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13">
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer14">Tipo de adquisici&oacute;n</label>
-                                        <select class="custom-select d-block w-100" name="options">
+                                        <select <%=habilitados(habil)%> class="custom-select d-block w-100" name="options">
                                             <option value="Donacion">Donaci&oacute;n</option>
                                             <option value="Compra">Compra</option>
                                             <option value="Generado">Generado</option>
                                         </select>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <input type="submit" value="Agregar Solicitud" class="form-control btn btn-primary" name="agregar">
+                                        <input <%=habilitados(habil)%> type="submit" value="Agregar Solicitud" class="form-control btn btn-primary" name="agregar">
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
-                    <h5 class="center-align">Bienes</h5>
-                    <div class="container" >
+                <div class="container d-flex justify-content-center" >
+                    <form class="" method="POST" name="formulario" action="presentation/solicitud/agregarBien">
+                        <div>
+                            <h5>Bienes</h5>  
+                        </div>
                         <table class="table table-striped table-hover">
                             <thead class="thead-dark">
                                 <tr>
@@ -73,16 +80,48 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <td><input type="text" id="serial" name="serial" size=15 maxlength=20"></td>
-                            <td><input type="text" id="desc" name="desc" size=15 maxlength=20"></td>
-                            <td><input type="text" id="marca" name="marca" size=15 maxlength=20"></td>
-                            <td><input type="text" id="mod" name="mod" size=15 maxlength=20"></td>
-                            <td><input type="text" id="precio" name="precio" size=15 maxlength=20"></td>
-                            <td><input type="text" id="cant" name="cant" size=15 maxlength=20"></td>
-                            <td><input class="btn btn-primary d-flex justify-content-center" type="submit" value="Agregar" name="agregar"></td>
-                                <% if (loge != null) {%>
-                                <% if (model != null) {%>
-                                <% for (Bien p : model) {%>
+                            <td>
+                                <input class="form-control <%=validity("serial", errors)%>" type="text" id="serial" name="serial" size=15 maxlength=20" value="<%=value("serial", values)%>" >
+                                <div class="invalid-feedback">
+                                    <%=validity2("serial", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="form-control <%=validity("desc", errors)%>" type="text" id="desc" name="desc" size=15 maxlength=20" value="<%=value("desc", values)%>">
+                                <div class="invalid-feedback">
+                                    <%=validity2("desc", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input  class="form-control <%=validity("marca", errors)%>" type="text" id="marca" name="marca" size=15 maxlength=20" value="<%=value("marca", values)%>">
+                                <div class="invalid-feedback">
+                                    <%=validity2("marca", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="form-control <%=validity("mod", errors)%>" type="text" id="mod" name="mod" size=15 maxlength=20" value="<%=value("mod", values)%>">
+                                <div class="invalid-feedback">
+                                    <%=validity2("mod", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="form-control <%=validity("precio", errors)%>" class="form-control" type="text" id="precio" name="precio" size=15 maxlength=20" value="<%=value("precio", values)%>">
+                                <div class="invalid-feedback">
+                                    <%=validity2("precio", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="form-control <%=validity("cant", errors)%>" type="text" id="cant" name="cant" size=15 maxlength=20" value="<%=value("cant", values)%>">
+                                <div class="invalid-feedback">
+                                    <%=validity2("cant", errors)%>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="btn btn-primary d-flex justify-content-center" type="submit" value="Agregar" name="agregar">
+                            </td>
+                            <% if (loge != null) {%>
+                            <% if (model != null) {%>
+                            <% for (Bien p : model) {%>
                             <tr>
                                 <td><%= p.getSerial()%></td>
                                 <td><%= p.getDescripcion()%></td>
@@ -90,15 +129,14 @@
                                 <td><%= p.getModelo()%></td>
                                 <td><%= p.getPrecioU()%></td>
                                 <td><%= p.getCantidad()%></td>
-                                <% } %>
                             </tr>
+                            <% } %>
                             <% } %>  
                             <% }%>
                             </tbody>
                         </table>
-                    </div>
-                </form>
-
+                    </form>
+                </div>
             </div>
         </div>
         <%@ include file="/presentation/Complement.jsp" %>
@@ -107,3 +145,48 @@
         <%@ include file="/presentation/Footer.jsp" %>
     </footer>
 </html>
+<%!
+    private String validity(String field, Map<String, String> errors) {
+        if ((errors != null) && (errors.get(field) != null)) {
+            return "is-invalid";
+        }
+        return "";
+    }
+
+    private String validity2(String field, Map<String, String> errors) {
+        if ((errors != null) && (errors.get(field) != null)) {
+            return errors.get(field);
+        }
+        return "";
+    }
+
+    private String habilitados(String habilitado){
+    if (habilitado.equals("false")) {
+            return "disabled";
+        }
+        return "";
+    }
+
+    private String value(String field, Map<String, String[]> values) {
+        return values.get(field)[0];
+    }
+
+    private Map<String, String[]> getValuesBien(Bien model2) {
+        Map<String, String[]> values = new HashMap<>();
+        values.put("serial", new String[]{model2.getSerial()});
+        values.put("desc", new String[]{model2.getDescripcion()});
+        values.put("marca", new String[]{model2.getMarca()});
+        values.put("mod", new String[]{model2.getModelo()});
+        if (!Double.toString(model2.getPrecioU()).equals("0.0")) {
+            values.put("precio", new String[]{Double.toString(model2.getPrecioU())});
+        } else {
+            values.put("precio", new String[]{""});
+        }
+        if (!Integer.toString(model2.getCantidad()).equals("0")) {
+            values.put("cant", new String[]{Integer.toString(model2.getCantidad())});
+        } else {
+            values.put("cant", new String[]{""});
+        }
+        return values;
+    }
+%>

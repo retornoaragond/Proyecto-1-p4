@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Listado de Solicitudes</title>
         <%@ include file="/presentation/Head.jsp" %>
     </head>
     <body>
