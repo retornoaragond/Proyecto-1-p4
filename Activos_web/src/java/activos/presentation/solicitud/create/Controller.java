@@ -61,7 +61,24 @@ public class Controller extends HttpServlet {
                 System.out.println(" " + ex.getMessage());
             }
         }
+    }
 
+    protected void create(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        if (this.verificar(request)) {
+            Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
+            Bien b = new Bien();
+            Solicitud soli = new Solicitud();
+            String habilitado = "false";
+            request.getSession(true).setAttribute("model2", b);
+            request.getSession(true).setAttribute("loggeado", logged);
+            request.getSession(true).setAttribute("habilitado", habilitado);
+            request.getSession(true).setAttribute("solicitud", soli);
+            request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
+        }
     }
 
     protected void agregarBien(HttpServletRequest request,
@@ -96,22 +113,6 @@ public class Controller extends HttpServlet {
         }
     }
 
-    protected void create(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
-        if (this.verificar(request)) {
-            Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
-            Bien b = new Bien();
-            String habilitado = "false";
-            request.getSession(true).setAttribute("model2", b);
-            request.getSession(true).setAttribute("loggeado", logged);
-            request.getSession(true).setAttribute("habilitado", habilitado);
-            request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
-        }
-    }
-
     protected void listadoBien(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
@@ -130,25 +131,31 @@ public class Controller extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException, Exception {
         if (this.verificar(request)) {
-            Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
-            Solicitud model = new Solicitud();
-            updateModelSolicitud(model, request);
-            ModelLogic.instance().addSolicitud(model);
-            List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
-            model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
-            for (Bien b : r) {
-                try {
-                    b.setSolicitud(model);
-                    ModelLogic.instance().addBienPreservar(b);
-                } catch (Exception ex) {
-                    String msj = ex.getMessage();
-                    System.out.println(" " + msj);
+            Map<String, String> errors = this.validarSol(request);
+            if (errors.isEmpty()) {
+                Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
+                Solicitud model = new Solicitud();
+                updateModelSolicitud(model, request);
+                ModelLogic.instance().addSolicitud(model);
+                List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
+                model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
+                for (Bien b : r) {
+                    try {
+                        b.setSolicitud(model);
+                        ModelLogic.instance().addBienPreservar(b);
+                    } catch (Exception ex) {
+                        String msj = ex.getMessage();
+                        System.out.println(" " + msj);
+                    }
                 }
+                HttpSession session = request.getSession(true);
+                session.removeAttribute("listaBien");
+                request.getSession(true).setAttribute("loggeado", logged);
+                request.getRequestDispatcher("/presentation/solicitud/listado").forward(request, response);
+            } else {
+                request.setAttribute("errors2", errors);
+                request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
             }
-            HttpSession session = request.getSession(true);
-            session.removeAttribute("listaBien");
-            request.getSession(true).setAttribute("loggeado", logged);
-            request.getRequestDispatcher("/presentation/solicitud/listado").forward(request, response);
         } else {
             request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
         }
@@ -269,6 +276,20 @@ public class Controller extends HttpServlet {
             } catch (NumberFormatException e) {
                 errores.put("cant", "Debe ser un numero");
             }
+        }
+        return errores;
+    }
+
+    Map<String, String> validarSol(HttpServletRequest request) {
+        Map<String, String> errores = new HashMap<>();
+        if (request.getParameter("campoNumcomp").isEmpty()) {
+            errores.put("campoNumcomp", "N° de comprobante requerido");
+        }
+        if (request.getParameter("campoFechaAdq").isEmpty()) {
+            errores.put("campoFechaAdq", "Fecha requerida");
+        }
+        if (request.getParameter("options")== null) {
+            errores.put("options", "Tipo requerido");
         }
         return errores;
     }

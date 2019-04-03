@@ -4,6 +4,9 @@
     Author     : ExtremeTech
 --%>
 
+<%@page import="activos.logic.Solicitud"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="activos.logic.Bien"%>
@@ -21,9 +24,13 @@
         <% Usuario loge = (Usuario) session.getAttribute("loggeado");%> 
         <% ArrayList<Bien> model = (ArrayList<Bien>) session.getAttribute("listaBien");%>
         <% Bien model2 = (Bien) session.getAttribute("model2");%>
-        <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %> 
+        <% Solicitud soli = (Solicitud)session.getAttribute("solicitud"); %>
+        <% Map<String, String> errors = (Map<String, String>) request.getAttribute("errors"); %>
+        <% Map<String, String> errors2 = (Map<String, String>) request.getAttribute("errors2"); %> 
         <% Map<String, String[]> values = (errors == null) ? this.getValuesBien(model2) : request.getParameterMap();%>
+        <% Map<String, String[]> values2 = (errors2 == null) ? this.getValuesSoli(soli) : request.getParameterMap();%>
         <% String habil = (String)session.getAttribute("habilitado"); %>
+        
         <header>
             <%@ include file="/presentation/Header.jsp" %>
         </header>
@@ -41,19 +48,29 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer12">N&uacute;mero de comprobante</label>
-                                        <input <%=habilitados(habil)%> type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control" id="validationServer12" placeholder="N°" value="">
+                                        <input <%=habilitados(habil)%> type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control <%=validity("campoNumcomp", errors2)%> " id="validationServer12" placeholder="N°" value="<%=value("campoNumcomp", values2)%>">
+                                        <div class="invalid-feedback">
+                                            <%=validity3("campoNumcomp", errors2)%>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer13">Fecha de adquisici&oacute;n</label>
-                                        <input <%=habilitados(habil)%> type="date" class="datepicker form-control"  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13">
+                                        <input <%=habilitados(habil)%> type="date" class="datepicker form-control <%=validity("campoFechaAdq", errors2)%> "  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13" value="<%=value("campoFechaAdq", values2)%>" min="2019-01-07" max="<%=fecha_actual()%>">
+                                        <div class="invalid-feedback">
+                                            <%=validity3("campoFechaAdq", errors2)%>
+                                        </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer14">Tipo de adquisici&oacute;n</label>
-                                        <select <%=habilitados(habil)%> class="custom-select d-block w-100" name="options">
-                                            <option value="Donacion">Donaci&oacute;n</option>
-                                            <option value="Compra">Compra</option>
-                                            <option value="Generado">Generado</option>
+                                        <select <%=habilitados(habil)%> class="custom-select d-block w-100 <%=validity("options", errors2)%> " name="options">
+                                            <option value="" <%=tiposelec("", values2)%> disabled hidden>Seleccione...</option>
+                                            <option value="Donacion" <%=tiposelec("Donacion", values2)%> >Donaci&oacute;n</option>
+                                            <option value="Compra" <%=tiposelec("Compra", values2)%> >Compra</option>
+                                            <option value="Generado" <%=tiposelec("Generado", values2)%> >Generado</option>
                                         </select>
+                                            <div class="invalid-feedback">
+                                                <%=validity3("options", errors2)%>
+                                            </div>
                                     </div>
                                     <div class="col-12 mt-3">
                                         <input <%=habilitados(habil)%> type="submit" value="Agregar Solicitud" class="form-control btn btn-primary" name="agregar">
@@ -76,7 +93,7 @@
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>Precio</th>
-                                    <th>Cant</th>
+                                    <th>Cantidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,6 +162,8 @@
         <%@ include file="/presentation/Footer.jsp" %>
     </footer>
 </html>
+
+
 <%!
     private String validity(String field, Map<String, String> errors) {
         if ((errors != null) && (errors.get(field) != null)) {
@@ -154,6 +173,13 @@
     }
 
     private String validity2(String field, Map<String, String> errors) {
+        if ((errors != null) && (errors.get(field) != null)) {
+            return errors.get(field);
+        }
+        return "";
+    }
+    
+    private String validity3(String field, Map<String, String> errors) {
         if ((errors != null) && (errors.get(field) != null)) {
             return errors.get(field);
         }
@@ -169,6 +195,13 @@
 
     private String value(String field, Map<String, String[]> values) {
         return values.get(field)[0];
+    }
+    
+    private String valueselect(String field, Map<String, String[]> values) {
+        if(values.get(field)!=null){
+            return values.get(field)[0];
+        }
+        return null;
     }
 
     private Map<String, String[]> getValuesBien(Bien model2) {
@@ -188,5 +221,34 @@
             values.put("cant", new String[]{""});
         }
         return values;
+    }
+
+    private Map<String, String[]> getValuesSoli(Solicitud model2) {
+        Map<String, String[]> values = new HashMap<>();
+        values.put("campoNumcomp", new String[]{model2.getNumcomp()});
+        values.put("campoFechaAdq", new String[]{model2.getFecha().toString()});
+        values.put("options", new String[]{model2.getTipoadq()});
+        return values;
+    }
+
+    private String tiposelec(String atrib, Map<String, String[]> values){
+        if(valueselect("options",values)!= null){
+            if(atrib == value("options",values)){
+                return "selected";
+            }else{
+                return "";
+            }
+        }else{
+            if(atrib == ""){
+                return "selected";
+            }
+            return "";
+        }
+    }
+
+    private String fecha_actual(){
+        LocalDate localDate = LocalDate.now();
+        String fecha = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate).toString();
+        return fecha;
     }
 %>
