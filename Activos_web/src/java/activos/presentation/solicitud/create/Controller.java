@@ -6,6 +6,7 @@
 package activos.presentation.solicitud.create;
 
 import activos.logic.Bien;
+import activos.logic.Dependencia;
 import activos.logic.ModelLogic;
 import activos.logic.Solicitud;
 import activos.logic.Usuario;
@@ -35,7 +36,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "presentation.solicitud.create", urlPatterns = {"/presentation/solicitud/create",
     "/presentation/solicitud/agregarBien",
     "/presentation/solicitud/listadoBien",
-    "/presentation/solicitud/agregarSolicitud"})
+    "/presentation/solicitud/agregarSolicitud",
+    "/presentation/solicitud/mostrarEditar"})
+
 public class Controller extends HttpServlet {
 
     /**
@@ -56,10 +59,12 @@ public class Controller extends HttpServlet {
             this.agregarBien(request, response);
         } else if (request.getServletPath().equals("/presentation/solicitud/agregarSolicitud")) {
             try {
-                this.agregarSolicitud(request, response);
+                this.guardar(request, response);
             } catch (Exception ex) {
                 System.out.println(" " + ex.getMessage());
             }
+        } else if (request.getServletPath().equals("/presentation/solicitud/mostrarEditar")) {
+            this.mostrarEditar(request, response);
         }
     }
 
@@ -71,10 +76,12 @@ public class Controller extends HttpServlet {
             Bien b = new Bien();
             Solicitud soli = new Solicitud();
             String habilitado = "false";
+            String modo = "agregar";
             request.getSession(true).setAttribute("model2", b);
             request.getSession(true).setAttribute("loggeado", logged);
             request.getSession(true).setAttribute("habilitado", habilitado);
             request.getSession(true).setAttribute("solicitud", soli);
+            request.getSession(true).setAttribute("modo", modo);
             request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
@@ -124,6 +131,15 @@ public class Controller extends HttpServlet {
             request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
+        }
+    }
+
+    protected void guardar(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException, Exception {
+        if ("agregar".equals(request.getSession().getAttribute("modo"))) {
+            agregarSolicitud(request, response);
+        } else if ("editar".equals(request.getSession().getAttribute("modo"))) {
+
         }
     }
 
@@ -288,10 +304,48 @@ public class Controller extends HttpServlet {
         if (request.getParameter("campoFechaAdq").isEmpty()) {
             errores.put("campoFechaAdq", "Fecha requerida");
         }
-        if (request.getParameter("options")== null) {
+        if (request.getParameter("options") == null) {
             errores.put("options", "Tipo requerido");
         }
         return errores;
+    }
+
+    protected void mostrarEditar(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        if (this.verificar(request)) {
+            Solicitud model = new Solicitud();
+            updateModelEdicion(model, request);
+            Solicitud modelConsultar = null;
+            Bien b = new Bien();
+            String habilitado = "true";
+            List<Bien> r = new ArrayList<>();
+            String modo = "editar";
+            try {
+                modelConsultar = ModelLogic.instance().findSolicitudnumComp(model);
+                Set<Bien> hSet = modelConsultar.getBiens();
+                for (Bien x : hSet) {
+                    r.add(x);
+                }
+            } catch (Exception ex) {
+            }
+            request.getSession(true).setAttribute("model2", b);
+            request.getSession(true).setAttribute("solicitud", modelConsultar);
+            request.getSession(true).setAttribute("listaBien", r);
+            request.getSession(true).setAttribute("habilitado", habilitado);
+            request.getSession(true).setAttribute("modo", modo);
+            request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
+        }
+    }
+
+    void updateModelEdicion(Solicitud model, HttpServletRequest request) {
+        model.setNumcomp(request.getParameter("numcomp"));
+        String id = request.getParameter("codDep");
+        Dependencia d = new Dependencia();
+        d.setCodigo(id);
+        model.setDependencia(d);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -33,7 +33,7 @@
                                 Debe llenar este campo.
                             </div>
                             <br/>
-                            <input type="submit" value="Login" class="form-control btn btn-success " name="">
+                            <button class="form-control btn btn-success " style="font-size: 2rem" type="submit"><i class="fas fa-sign-in-alt"></i></button>
                         </form>
                     </div>
                 </div>

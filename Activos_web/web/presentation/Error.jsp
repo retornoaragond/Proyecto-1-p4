@@ -17,6 +17,10 @@
         <div class="card" style="width: 50%;">
             <h1>Ha ocurrido un Error!!</h1>
         </div>
+        <%@ include file="/presentation/Complement.jsp" %>
     </body>
+    <footer class="bottom-sheet background blue-grey">
+        <%@ include file="/presentation/Footer.jsp" %>
+    </footer>
 </html>
 

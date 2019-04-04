@@ -75,7 +75,7 @@
                             <% for (Solicitud p : model) {%>
                             <tr>
                                 <td><%=p.getNumsol()%></td>
-                                <td><a href="presentation/solicitud/show?numcomp=<%=p.getNumcomp()%>&codDep=<%=p.getCodDependencia()%>"><%=p.getNumcomp()%></a></td>
+                                <td><a href="presentation/solicitud/mostrarEditar?numcomp=<%=p.getNumcomp()%>&codDep=<%=p.getCodDependencia()%>"><%=p.getNumcomp()%></a></td>
                                 <td><%=p.getFecha().toString()%></td>
                                 <% if (p.getTipoadq().equals("Donacion")) {%>
                                 <td><i class="material-icons green-text">redeem</i></td>

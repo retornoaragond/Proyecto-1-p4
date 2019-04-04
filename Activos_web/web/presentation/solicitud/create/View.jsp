@@ -48,21 +48,31 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer12">N&uacute;mero de comprobante</label>
-                                        <input <%=habilitados(habil)%> type="text"  id="campoNumcomp" name="campoNumcomp" class="form-control <%=validity("campoNumcomp", errors2)%> " id="validationServer12" placeholder="N°" value="<%=value("campoNumcomp", values2)%>">
+                                        <input <%=habilitados(habil)%> type="text"  id="campoNumcomp" 
+                                                                       name="campoNumcomp" 
+                                                                       class="form-control <%=validity("campoNumcomp", errors2)%> " 
+                                                                       id="validationServer12" placeholder="N°" 
+                                                                       value="<%=value("campoNumcomp", values2)%>">
                                         <div class="invalid-feedback">
                                             <%=validity3("campoNumcomp", errors2)%>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer13">Fecha de adquisici&oacute;n</label>
-                                        <input <%=habilitados(habil)%> type="date" class="datepicker form-control <%=validity("campoFechaAdq", errors2)%> "  id="campoFechaAdq" name="campoFechaAdq" id="validationServer13" value="<%=value("campoFechaAdq", values2)%>" min="2019-01-07" max="<%=fecha_actual()%>">
+                                        <input <%=habilitados(habil)%> type="date" 
+                                                                       class="datepicker form-control <%=validity("campoFechaAdq", errors2)%> "  
+                                                                       id="campoFechaAdq" name="campoFechaAdq" id="validationServer13"
+                                                                       value="<%=value("campoFechaAdq", values2)%>" 
+                                                                       min="2000-01-01" max="<%=fecha_actual()%>">
                                         <div class="invalid-feedback">
                                             <%=validity3("campoFechaAdq", errors2)%>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <label for="validationServer14">Tipo de adquisici&oacute;n</label>
-                                        <select <%=habilitados(habil)%> class="custom-select d-block w-100 <%=validity("options", errors2)%> " name="options">
+                                        <select <%=habilitados(habil)%> 
+                                            class="custom-select d-block w-100 <%=validity("options", errors2)%> " 
+                                            name="options">
                                             <option value="" <%=tiposelec("", values2)%> disabled hidden>Seleccione...</option>
                                             <option value="Donacion" <%=tiposelec("Donacion", values2)%> >Donaci&oacute;n</option>
                                             <option value="Compra" <%=tiposelec("Compra", values2)%> >Compra</option>
@@ -73,7 +83,7 @@
                                             </div>
                                     </div>
                                     <div class="col-12 mt-3">
-                                        <input <%=habilitados(habil)%> type="submit" value="Agregar Solicitud" class="form-control btn btn-primary" name="agregar">
+                                        <button <%=habilitados(habil)%> class="form-control btn btn-primary " style="font-size: 2rem" type="submit"><i class="fas fa-save"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -134,7 +144,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input class="btn btn-primary d-flex justify-content-center" type="submit" value="Agregar" name="agregar">
+                                <button class="form-control btn btn-primary " style="font-size: 1rem" type="submit"><i class="fas fa-plus"></i></button>
                             </td>
                             <% if (loge != null) {%>
                             <% if (model != null) {%>
