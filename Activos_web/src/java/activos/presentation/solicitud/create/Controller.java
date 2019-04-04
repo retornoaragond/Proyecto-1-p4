@@ -141,6 +141,13 @@ public class Controller extends HttpServlet {
         } else if ("editar".equals(request.getSession().getAttribute("modo"))) {
             actualizar(request, response);
         }
+        HttpSession session = request.getSession(true);
+        session.removeAttribute("listaBien");
+        session.removeAttribute("model2");
+        session.removeAttribute("habilitado");
+        session.removeAttribute("solicitud");
+        session.removeAttribute("modo");
+        request.getRequestDispatcher("/presentation/solicitud/listado").forward(request, response);
     }
 
     protected void agregarSolicitud(HttpServletRequest request,
@@ -311,34 +318,32 @@ public class Controller extends HttpServlet {
         return errores;
     }
 
-    private void actualizar(HttpServletRequest request, HttpServletResponse response) {
-        Solicitud sol = (Solicitud) request.getSession().getAttribute("solicitud");
+    private void actualizar(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+        Solicitud sol = (Solicitud) request.getSession(true).getAttribute("solicitud");
         List<Bien> originales = new ArrayList<>();
         Set<Bien> hSet = sol.getBiens();
         for (Bien x : hSet) {
             originales.add(x);
         }
-        List<Bien> cambiados = (List<Bien>) request.getSession().getAttribute("listabien");
-        sol.setNumcomp((String) request.getAttribute("campoNumcomp"));
+        List<Bien> cambiados = (List<Bien>) request.getSession(true).getAttribute("listaBien");
+        
+        sol.setNumcomp(request.getParameter("campoNumcomp"));
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date parsed;
-        try {
-            parsed = format.parse((String) request.getAttribute("campoFechaAdq"));
-            sol.setFecha(parsed);
-        } catch (ParseException ex) {
-        }
-        sol.setTipoadq((String) request.getAttribute("options"));
+        Date parsed = format.parse(request.getParameter("campoFechaAdq"));
+        sol.setFecha(parsed);
+        sol.setTipoadq((String) request.getParameter("options"));
         try {
             ModelLogic.instance().actualizarSoliEditada(sol);
         } catch (Exception ex) {
         }
-        
-        if(originales.size() != cambiados.size()){
+
+        //if (originales.size() != cambiados.size()) {
             // se revisa si se agrego un nuevo bien
-            for(Bien b : cambiados){
-                if(!originales.contains(b)){
+            for (Bien b : cambiados) {
+                if (!originales.contains(b)) {
                     try {
                         //insertar en la base
+                        b.setSolicitud(sol);
                         ModelLogic.instance().addBienPreservar(b);
                     } catch (Exception ex) {
                         Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -347,8 +352,8 @@ public class Controller extends HttpServlet {
                 }
             }
             // se revisa si se borro un bien
-            for(Bien b : originales){
-                if(!cambiados.contains(b)){
+            for (Bien b : originales) {
+                if (!cambiados.contains(b)) {
                     try {
                         //borrar en la base
                         ModelLogic.instance().borrarBien(b);
@@ -358,7 +363,7 @@ public class Controller extends HttpServlet {
                     originales.remove(b);
                 }
             }
-        }
+        //}
 
     }
 
@@ -380,6 +385,7 @@ public class Controller extends HttpServlet {
                     r.add(x);
                 }
             } catch (Exception ex) {
+                
             }
             request.getSession(true).setAttribute("model2", b);
             request.getSession(true).setAttribute("solicitud", modelConsultar);

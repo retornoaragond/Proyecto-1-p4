@@ -454,12 +454,12 @@ public class DaoSolicitudes {
             return -1;
         }
     }
-    
+
     public void actulizarSoliEditada(Solicitud s) throws Exception {
-        String sql = "UPDATE solicitud SET solicitud.numcomp = '%s', solicitud.fecha = '%s', "
-                + "solicitud.razonr = '%s', solicitud.estado = '%s', solicitud.tipoadq = '%s'" 
-                + "WHERE solicitud.numsol = '%d'";
-        sql = String.format(sql, s.getNumcomp(), s.getFecha(), s.getRazonR(), s.getEstado(), s.getTipoadq());
+        String sql = "UPDATE solicitud SET solicitud.numcomp = '%s', solicitud.fecha = '%d-%d-%d', "
+                + "solicitud.razonr = '%s', solicitud.estado = '%s', solicitud.tipoadq = '%s'"
+                + " WHERE solicitud.numsol = '%d'";
+        sql = String.format(sql, s.getNumcomp(), s.getFecha().getYear() + 1900, s.getFecha().getMonth() + 1, s.getFecha().getDate(), s.getRazonR(), s.getEstado(), s.getTipoadq(), s.getNumsol());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Solicitud  ya existe");
@@ -566,7 +566,6 @@ public class DaoSolicitudes {
         return new Bien();
     }
 
-
     public void addBienPreservar(Bien a) throws Exception {
         String sql = " insert into bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud)"
                 + "VALUES ('%s', '%s', '%s', '%s', '%f', '%d', '%d')";
@@ -577,18 +576,17 @@ public class DaoSolicitudes {
             throw new Exception("Bien ya existe");
         }
     }
-    
-    public void borrarBien(Bien b) throws Exception{
+
+    public void borrarBien(Bien b) throws Exception {
         String sql = "DELETE FROM bien WHERE bien.ID = %d;";
         sql = String.format(sql, b.getID());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Bien ya existe");
         }
-    }   
+    }
 
     //</editor-fold>
-    
     //  <editor-fold desc="Categoria" defaultstate="collapsed">
     public Categoria getcategoria(String s) throws Exception {
         String sql = "SELECT * FROM categoria where categoria.id = '%s';";
