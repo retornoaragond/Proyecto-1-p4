@@ -139,7 +139,7 @@ public class Controller extends HttpServlet {
         if ("agregar".equals(request.getSession().getAttribute("modo"))) {
             agregarSolicitud(request, response);
         } else if ("editar".equals(request.getSession().getAttribute("modo"))) {
-
+            actualizar(request, response);
         }
     }
 
@@ -152,6 +152,7 @@ public class Controller extends HttpServlet {
                 Usuario logged = (Usuario) request.getSession(true).getAttribute("loggeado");
                 Solicitud model = new Solicitud();
                 updateModelSolicitud(model, request);
+
                 ModelLogic.instance().addSolicitud(model);
                 List<Bien> r = (ArrayList<Bien>) request.getSession(true).getAttribute("listaBien");
                 model.setNumsol(ModelLogic.instance().getAutoIncrementoSolicitud());
@@ -308,6 +309,57 @@ public class Controller extends HttpServlet {
             errores.put("options", "Tipo requerido");
         }
         return errores;
+    }
+
+    private void actualizar(HttpServletRequest request, HttpServletResponse response) {
+        Solicitud sol = (Solicitud) request.getSession().getAttribute("solicitud");
+        List<Bien> originales = new ArrayList<>();
+        Set<Bien> hSet = sol.getBiens();
+        for (Bien x : hSet) {
+            originales.add(x);
+        }
+        List<Bien> cambiados = (List<Bien>) request.getSession().getAttribute("listabien");
+        sol.setNumcomp((String) request.getAttribute("campoNumcomp"));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsed;
+        try {
+            parsed = format.parse((String) request.getAttribute("campoFechaAdq"));
+            sol.setFecha(parsed);
+        } catch (ParseException ex) {
+        }
+        sol.setTipoadq((String) request.getAttribute("options"));
+        try {
+            ModelLogic.instance().actualizarSoliEditada(sol);
+        } catch (Exception ex) {
+        }
+        
+        if(originales.size() != cambiados.size()){
+            // se revisa si se agrego un nuevo bien
+            for(Bien b : cambiados){
+                if(!originales.contains(b)){
+                    try {
+                        //insertar en la base
+                        ModelLogic.instance().addBienPreservar(b);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    originales.add(b);
+                }
+            }
+            // se revisa si se borro un bien
+            for(Bien b : originales){
+                if(!cambiados.contains(b)){
+                    try {
+                        //borrar en la base
+                        ModelLogic.instance().borrarBien(b);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    originales.remove(b);
+                }
+            }
+        }
+
     }
 
     protected void mostrarEditar(HttpServletRequest request,

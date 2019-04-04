@@ -65,6 +65,14 @@ public class ModelLogic {
     public Solicitud findSolicitudnumComp(Solicitud sol) throws Exception {
         return daoSolicitud.findSolicitudnumComp(sol.getNumcomp(), sol.getDependencia().getCodigo());
     }
+    
+    public void actualizarSoliEditada(Solicitud sol) throws Exception{
+        daoSolicitud.actulizarSoliEditada(sol);
+    }
+    
+    public void borrarBien(Bien b) throws Exception{
+        daoSolicitud.borrarBien(b);
+    }
 
     //<editor-fold desc="Bien" defaultstate="collapsed">
     public List<Bien> getBienes(Solicitud s) {
@@ -79,21 +87,10 @@ public class ModelLogic {
         return daoSolicitud.BienSearch(filtro);
     }
 
-    public void deleteBien(Bien p) throws Exception {
-        daoSolicitud.BienDelete(p);
-    }
-
-    public void addBien(Bien bien) throws Exception {
-        daoSolicitud.BienAdd(bien);
-    }
-
     public void addBienPreservar(Bien bien) throws Exception {
         daoSolicitud.addBienPreservar(bien);
     }
 
-    public void updateBien(Bien bien) throws Exception {
-        daoSolicitud.BienUpdate(bien);
-    }
     //</editor-fold>
 
     //  <editor-fold desc="Solicitudes" defaultstate="collapsed">
@@ -307,6 +304,10 @@ public class ModelLogic {
 
     public int getAutoIncremento() throws Exception {
         return daoAdministracion.getAutoIncremento();
+    }
+    
+    public void actulizarSoliEditada(Solicitud s) throws Exception{
+        daoSolicitud.actulizarSoliEditada(s);
     }
 
     public int getAutoIncrementoSolicitud() throws Exception {

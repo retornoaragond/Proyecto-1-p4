@@ -454,6 +454,17 @@ public class DaoSolicitudes {
             return -1;
         }
     }
+    
+    public void actulizarSoliEditada(Solicitud s) throws Exception {
+        String sql = "UPDATE solicitud SET solicitud.numcomp = '%s', solicitud.fecha = '%s', "
+                + "solicitud.razonr = '%s', solicitud.estado = '%s', solicitud.tipoadq = '%s'" 
+                + "WHERE solicitud.numsol = '%d'";
+        sql = String.format(sql, s.getNumcomp(), s.getFecha(), s.getRazonR(), s.getEstado(), s.getTipoadq());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Solicitud  ya existe");
+        }
+    }
 
     public void SolicitudUpdate(Solicitud s) throws Exception {
         String sql = "UPDATE solicitud SET solicitud.estado = '%s', solicitud.registrador = '%s' WHERE solicitud.numsol = '%d'";
@@ -555,13 +566,6 @@ public class DaoSolicitudes {
         return new Bien();
     }
 
-    public void BienDelete(Bien a) throws Exception {
-
-    }
-
-    public void BienAdd(Bien a) throws Exception {
-
-    }
 
     public void addBienPreservar(Bien a) throws Exception {
         String sql = " insert into bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud)"
@@ -573,12 +577,18 @@ public class DaoSolicitudes {
             throw new Exception("Bien ya existe");
         }
     }
-
-    public void BienUpdate(Bien a) throws Exception {
-
-    }
+    
+    public void borrarBien(Bien b) throws Exception{
+        String sql = "DELETE FROM bien WHERE bien.ID = %d;";
+        sql = String.format(sql, b.getID());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Bien ya existe");
+        }
+    }   
 
     //</editor-fold>
+    
     //  <editor-fold desc="Categoria" defaultstate="collapsed">
     public Categoria getcategoria(String s) throws Exception {
         String sql = "SELECT * FROM categoria where categoria.id = '%s';";
