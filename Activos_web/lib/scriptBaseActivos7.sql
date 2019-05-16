@@ -175,7 +175,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Usuario` (
   `id` VARCHAR(45) NOT NULL,
-  `pass` VARCHAR(45) NOT NULL,
+  `pass` VARCHAR(256) NOT NULL,
   `labUsu` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `Usuario_Labor` (`labUsu` ASC),
@@ -186,6 +186,10 @@ CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Usuario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+CREATE TABLE IF NOT EXISTS `sistemaactivos`.`Grupos` (
+  `id` VARCHAR(45) NOT NULL,
+  `grupo` VARCHAR(45) NOT NULL)
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

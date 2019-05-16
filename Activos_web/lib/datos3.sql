@@ -70,22 +70,22 @@ INSERT INTO labor (funcLab, depLab, pueLab) VALUES ('012', '008', '005'); -- Jef
 
 -- ------------------------------  Usuarios -----------------------------------
 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('001', '001', '1'); -- Administrador Esc.Informatica
-INSERT INTO usuario (id, pass, labUsu) VALUES ('002', '002', '2'); -- Administrador Esc.Administracion
-INSERT INTO usuario (id, pass, labUsu) VALUES ('003', '003', '3'); -- Administrador Esc.Biologia
-INSERT INTO usuario (id, pass, labUsu) VALUES ('004', '004', '4'); -- Administrador Esc.Med.Veterinaria
-INSERT INTO usuario (id, pass, labUsu) VALUES ('005', '005', '5'); -- Administrador Esc.Matematica
-INSERT INTO usuario (id, pass, labUsu) VALUES ('006', '006', '6'); -- Administrador Esc.Quimica 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('007', '007', '7'); -- Administrador Esc.Artes
+INSERT INTO usuario (id, pass, labUsu) VALUES ('001', SHA2('001',256), '1'); -- Administrador Esc.Informatica
+INSERT INTO usuario (id, pass, labUsu) VALUES ('002', SHA2('002',256), '2'); -- Administrador Esc.Administracion
+INSERT INTO usuario (id, pass, labUsu) VALUES ('003', SHA2('003',256), '3'); -- Administrador Esc.Biologia
+INSERT INTO usuario (id, pass, labUsu) VALUES ('004', SHA2('004',256), '4'); -- Administrador Esc.Med.Veterinaria
+INSERT INTO usuario (id, pass, labUsu) VALUES ('005', SHA2('005',256), '5'); -- Administrador Esc.Matematica
+INSERT INTO usuario (id, pass, labUsu) VALUES ('006', SHA2('006',256), '6'); -- Administrador Esc.Quimica 
+INSERT INTO usuario (id, pass, labUsu) VALUES ('007', SHA2('007',256), '7'); -- Administrador Esc.Artes
 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('008', '008', '8'); -- Secretaria OCCB
+INSERT INTO usuario (id, pass, labUsu) VALUES ('008', SHA2('008',256), '8'); -- Secretaria OCCB
 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('009', '009', '9'); -- Registrador
-INSERT INTO usuario (id, pass, labUsu) VALUES ('010', '010', '10'); -- Registrador
+INSERT INTO usuario (id, pass, labUsu) VALUES ('009', SHA2('009',256), '9'); -- Registrador
+INSERT INTO usuario (id, pass, labUsu) VALUES ('010', SHA2('010',256), '10'); -- Registrador
 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('011', '011', '11'); -- Jefe OCCB
+INSERT INTO usuario (id, pass, labUsu) VALUES ('011', SHA2('011',256), '11'); -- Jefe OCCB
 
-INSERT INTO usuario (id, pass, labUsu) VALUES ('012', '012', '12'); -- Jefe RRHH
+INSERT INTO usuario (id, pass, labUsu) VALUES ('012', SHA2('012',256), '12'); -- Jefe RRHH
 
 
 -- ----------------------------  Categorias -------------------------------------
@@ -114,8 +114,7 @@ INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Depen
 -- ----------------------------  Bienes -------------------------------------
 
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('xyf', 'sillas oficina', 'patito', 'x-23', '5000', '1', '1', '1');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES 
-('fyx', 'sillas comedor', 'patito', 'x-24', '8000', '1', '1', '1');
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('fyx', 'sillas comedor', 'patito', 'x-24', '8000', '1', '1', '1');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('uio', 'escritorios', 'patitoplus', 'xy-40', '45000', '1', '2', '2');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('rrr', 'sillones', 'wood', 'm456', '50000', '1', '3', '3');
 INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('ggg', 'basureros', 'acme', 'b71', '8000', '1', '4', '4');
@@ -137,6 +136,23 @@ INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('6', '006', '1');
 INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('7', '007', '1');
 INSERT INTO activo (`codigoId`, `bien_ID`) VALUES ('8', '1');
 
+
+INSERT INTO grupo(id, grupo) VALUES ('001','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('002','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('003','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('004','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('005','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('006','Administrador');
+INSERT INTO grupo(id, grupo) VALUES ('007','Administrador');
+
+INSERT INTO grupo(id, grupo) VALUES ('008','SecretariaOCCB');
+
+INSERT INTO grupo(id, grupo) VALUES ('009','Registrador');
+INSERT INTO grupo(id, grupo) VALUES ('010','Registrador');
+
+INSERT INTO grupo(id, grupo) VALUES ('011','JefeOCCB');
+
+INSERT INTO grupo(id, grupo) VALUES ('012','JefeRRHH');
 
 
 

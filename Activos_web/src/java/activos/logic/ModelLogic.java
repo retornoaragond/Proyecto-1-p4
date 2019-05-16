@@ -10,6 +10,11 @@ import java.util.List;
 import activos.data.DaoActivos;
 import activos.data.DaoAdministracion;
 import activos.data.DaoSolicitudes;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -36,10 +41,22 @@ public class ModelLogic {
         daoActivos = new DaoActivos();
         daoAdministracion = new DaoAdministracion();
     }
+    
+    public String getSHA_256(String pass){
+        try {
+            MessageDigest md =  MessageDigest.getInstance("SHA-256");
+            md.update(pass.getBytes());
+            byte[]mb = md.digest();
+            return String.valueOf(Hex.encodeHex(mb));
+        } catch (NoSuchAlgorithmException ex) {
+            
+        }
+        return null;
+    }
 
     public Usuario getUsuario(String id, String clave) throws Exception {
         Usuario u = daoAdministracion.usuarioGet(id);
-        if (u.getPass().equals(clave)) {
+        if (u.getPass().equals(getSHA_256(clave))) {
             return u;
         } else {
             throw new Exception("Clave incorrecta");
