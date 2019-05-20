@@ -8,7 +8,6 @@
 <%@page import="activos.logic.Funcionario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="activos.logic.Usuario"%>
-<% Usuario logged = (Usuario) session.getAttribute("loggeado");%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,7 +28,7 @@
                             <form class="col s12" method="POST" name="formulario" action="presentation/solicitud/listado">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h1>Funcionarios</h1>
+                                        <h1 >Funcionarios</h1>
                                     </div>
                                     <div class=" col-12">
                                         <label for="validationServer11">N° Comprobante</label>
@@ -41,13 +40,13 @@
                                         </div>
                                     </div>
                                     <div class="input-group col-12 mt-2">
-                                        <button type="button" class="btn btn-primary" id="buscar">Buscar</button>
+                                        <button type="button" class="form-control btn btn-primary" id="buscar">Buscar</button>
                                     </div>
                                 </div>
                             </form>
                             <div class="col-12">
                                 <div class="mt-5 d-flex justify-content-center">
-                                    <a class="btn btn-primary " href="presentation/funcionario/create">Agregar un Funcionario</a>
+                                    <a class="btn btn-primary " href="presentation/funcionarios/create" style="width: 100%;"><i class="fas fa-user-plus"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -93,25 +92,9 @@
                 tr.html(
                         "<td>" + funcionario.id + "</td>"
                         + "<td>" + funcionario.nombre + "</td>"
-                        + "<td><i class="far fa-edit" onclick='editar(\"" + persona.cedula + "\");'></i> </td>"
+                        + "<td><a href=\"presentation/funcionario/mostrarEditar?id="+funcionario.getid()+"><i class=\"far fa-edit\"></i></a></td>"
                         + "<td><i class="fas fa-user-times" onclick='eliminar(\"" + persona.cedula + "\");'></i></td>");
                 listado.append(tr);
-            }
-            function editar(id) {
-                $.ajax({type: "GET",
-                    url: "api/funcionarios/" + id,
-                    success: mostrar,
-                    error: function (jqXHR) {
-                        alert(errorMessage(jqXHR.status));
-                    }
-                });
-            }
-            
-            function mostrar(per) {
-                $("#per_cedula").val(per.cedula);
-                $("#per_nombre").val(per.nombre);
-                $("input[name='per_sexo']").val([per.sexo]);
-                $('#add-modal').modal('show');
             }
             
             function eliminar(id) {

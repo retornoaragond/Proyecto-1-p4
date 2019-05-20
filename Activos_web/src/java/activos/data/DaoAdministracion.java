@@ -208,9 +208,9 @@ public class DaoAdministracion {
         return fun;
     }
 
-    public void FuncionarioDelete(Funcionario a) throws Exception {
+    public void FuncionarioDelete(String a) throws Exception {
         String sql = "delete from funcionario where id='%s'";
-        sql = String.format(sql, a.getId());
+        sql = String.format(sql, a);
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Funcionario no existe");

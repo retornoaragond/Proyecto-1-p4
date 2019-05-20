@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package activos.presentation.funcionarios.create;
+package activos.presentation.funcionarios.list;
 
-import activos.logic.Dependencia;
-import activos.logic.Funcionario;
-import activos.logic.ModelLogic;
-import activos.logic.Puesto;
-import activos.logic.Usuario;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ExtremeTech
  */
-@WebServlet(name = "presentation.funcionarios.create", urlPatterns = {"/presentation/funcionarios/create"})
+@WebServlet(name = "presentation.funcionarios.list", urlPatterns = {"/presentation/funcionarios/list"})
 public class Controller extends HttpServlet {
 
     /**
@@ -37,39 +32,18 @@ public class Controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getServletPath().equals("/presentation/funcionarios/create")) {
-            this.create(request, response);
-        }else{
-            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Controller</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-    }
-
-    protected void create(HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
-        if (this.verificar(request)) {
-            Usuario logged = (Usuario) request.getSession(true).getAttribute("logged");
-            ModelLogic model = ModelLogic.instance();
-            Funcionario fun = new Funcionario();
-            List<Puesto> puestos = model.getPuestos();
-            List<Dependencia> depen = model.getDependencias();
-            Usuario nuevoU = new Usuario();
-            request.getSession(true).setAttribute("loggeado", logged);
-            request.getSession(true).setAttribute("funcionario", fun);
-            request.setAttribute("puestos", puestos);
-            request.setAttribute("dependencias",depen);
-            request.getSession(true).setAttribute("usuario",nuevoU);
-            request.getRequestDispatcher("/presentation/funcionarios/create/View.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);
-        }
-    }
-
-    boolean verificar(HttpServletRequest request) {
-        if (request.getSession(true).getAttribute("logged") == null) {
-            return false;
-        }
-        return true;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

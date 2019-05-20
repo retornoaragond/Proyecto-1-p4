@@ -53,6 +53,11 @@ public class ModelLogic {
         }
         return null;
     }
+    
+    public Usuario getUsuario(String id)throws Exception{
+        Usuario u = daoAdministracion.usuarioGet(id);
+        return u;
+    }
 
     public Usuario getUsuario(String id, String clave) throws Exception {
         Usuario u = daoAdministracion.usuarioGet(id);
@@ -169,12 +174,11 @@ public class ModelLogic {
         return daoAdministracion.GetFuncionariobyPuesto();
     }
 
-    public Funcionario getFuncionario(Integer codigo) throws Exception {
-        return daoAdministracion.FuncionarioGet(codigo.toString());
+    public Funcionario getFuncionario(String codigo) throws Exception {
+        return daoAdministracion.FuncionarioGet(codigo);
     }
 
     public List<Funcionario> getFuncionarioSS(String id) throws Exception {
-
         return daoAdministracion.GetFuncionarioS(id);
     }
 
@@ -190,7 +194,7 @@ public class ModelLogic {
         }
     }
 
-    public void deleteFuncionario(Funcionario p) throws Exception {
+    public void deleteFuncionario(String p) throws Exception {
         daoAdministracion.FuncionarioDelete(p);
     }
 
