@@ -41,17 +41,22 @@ public class ModelLogic {
         daoActivos = new DaoActivos();
         daoAdministracion = new DaoAdministracion();
     }
-    
-    public String getSHA_256(String pass){
+
+    public String getSHA_256(String pass) {
         try {
-            MessageDigest md =  MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             md.update(pass.getBytes());
-            byte[]mb = md.digest();
+            byte[] mb = md.digest();
             return String.valueOf(Hex.encodeHex(mb));
         } catch (NoSuchAlgorithmException ex) {
-            
+
         }
         return null;
+    }
+
+    public Usuario getUsuario(String id) throws Exception {
+        Usuario u = daoAdministracion.usuarioGet(id);
+        return u;
     }
 
     public Usuario getUsuario(String id, String clave) throws Exception {
@@ -66,6 +71,10 @@ public class ModelLogic {
     public void agregarUsuario(Usuario user) throws Exception {
         daoAdministracion.addUsuario(user);
     }
+    
+    public void agregarUsuario(Usuario user, int lab) throws Exception {
+        daoAdministracion.addUsuario(user,lab);
+    }
 
     public List<Usuario> getUsuarios() {
         return daoAdministracion.usuariosGetAll();
@@ -78,16 +87,16 @@ public class ModelLogic {
     public List<Solicitud> searByNumComp(Solicitud filtro, String dep) {
         return daoSolicitud.SolSearchbyNumcomp(filtro, dep);
     }
-    
+
     public Solicitud findSolicitudnumComp(Solicitud sol) throws Exception {
         return daoSolicitud.findSolicitudnumComp(sol.getNumcomp(), sol.getDependencia().getCodigo());
     }
-    
-    public void actualizarSoliEditada(Solicitud sol) throws Exception{
+
+    public void actualizarSoliEditada(Solicitud sol) throws Exception {
         daoSolicitud.actulizarSoliEditada(sol);
     }
-    
-    public void borrarBien(Bien b) throws Exception{
+
+    public void borrarBien(Bien b) throws Exception {
         daoSolicitud.borrarBien(b);
     }
 
@@ -109,7 +118,6 @@ public class ModelLogic {
     }
 
     //</editor-fold>
-
     //  <editor-fold desc="Solicitudes" defaultstate="collapsed">
     public List<Solicitud> getSolicitud() {
         return daoSolicitud.SolicitudGetAll();
@@ -169,12 +177,11 @@ public class ModelLogic {
         return daoAdministracion.GetFuncionariobyPuesto();
     }
 
-    public Funcionario getFuncionario(Integer codigo) throws Exception {
-        return daoAdministracion.FuncionarioGet(codigo.toString());
+    public Funcionario getFuncionario(String codigo) throws Exception {
+        return daoAdministracion.FuncionarioGet(codigo);
     }
 
     public List<Funcionario> getFuncionarioSS(String id) throws Exception {
-
         return daoAdministracion.GetFuncionarioS(id);
     }
 
@@ -190,7 +197,7 @@ public class ModelLogic {
         }
     }
 
-    public void deleteFuncionario(Funcionario p) throws Exception {
+    public void deleteFuncionario(String p) throws Exception {
         daoAdministracion.FuncionarioDelete(p);
     }
 
@@ -319,6 +326,10 @@ public class ModelLogic {
         daoAdministracion.LaborAdd(lab);
     }
 
+    public int addLabor(String f, String d, String p) throws Exception {
+        return daoAdministracion.LaborAdd(f,d,p);
+    }
+
     public Labor getLabor(int cod) throws Exception {
         return daoAdministracion.laborGet(cod);
     }
@@ -326,8 +337,8 @@ public class ModelLogic {
     public int getAutoIncremento() throws Exception {
         return daoAdministracion.getAutoIncremento();
     }
-    
-    public void actulizarSoliEditada(Solicitud s) throws Exception{
+
+    public void actulizarSoliEditada(Solicitud s) throws Exception {
         daoSolicitud.actulizarSoliEditada(s);
     }
 

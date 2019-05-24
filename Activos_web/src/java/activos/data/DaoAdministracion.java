@@ -65,6 +65,16 @@ public class DaoAdministracion {
             throw new Exception("usuario ya existe ya existe");
         }
     }
+    
+    public void addUsuario(Usuario user,int lab) throws Exception {
+        String sql = "INSERT INTO usuario (id, pass, labUsu)"
+                + " VALUES ('%s', SHA2('%s',256), '%d');";
+        sql = String.format(sql, user.getId(), user.getPass(), lab);
+        int count = dbb.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("usuario ya existe ya existe");
+        }
+    }
 
     public List<Usuario> usuariosGetAll() {
         List<Usuario> users = new ArrayList<>();
@@ -172,7 +182,8 @@ public class DaoAdministracion {
         if (rs.next()) {
             return funcionario(rs);
         } else {
-            throw new Exception("Funcionario no Existe");
+            //throw new Exception("Funcionario no Existe");
+            return null;
         }
     }
 
@@ -208,9 +219,9 @@ public class DaoAdministracion {
         return fun;
     }
 
-    public void FuncionarioDelete(Funcionario a) throws Exception {
+    public void FuncionarioDelete(String a) throws Exception {
         String sql = "delete from funcionario where id='%s'";
-        sql = String.format(sql, a.getId());
+        sql = String.format(sql, a);
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Funcionario no existe");
@@ -508,6 +519,17 @@ public class DaoAdministracion {
         if (count == 0) {
             throw new Exception("Funcionario ya existe");
         }
+    }
+
+    public int LaborAdd(String f, String d, String p) throws Exception {
+        String sql = "INSERT INTO labor (funcLab, depLab, pueLab) "
+                + "VALUES ('%s', '%s', '%s')";
+        sql = String.format(sql, f, d, p);
+        int count = dbb.executeUpdateWithKeys(sql);
+        if (count == 0) {
+            throw new Exception("Funcionario ya existe");
+        }
+        return count;
     }
 
     //</editor-fold>

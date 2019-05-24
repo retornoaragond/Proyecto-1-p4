@@ -10,6 +10,7 @@ import javax.ws.rs.core.Application;
 /**
  *
  * @author steve
+ * @author ExtremeTech
  */
 @javax.ws.rs.ApplicationPath("api")
 public class ActivosApplication extends Application{
