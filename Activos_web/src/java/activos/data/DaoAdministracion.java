@@ -250,6 +250,17 @@ public class DaoAdministracion {
         }
     }
 
+    public Dependencia buscarDependencia_codigo(String codigo) throws Exception {
+        Dependencia depen = null;
+        
+        String sql = "SELECT * FROM dependencia WHERE codigo = '%s'";
+        sql = String.format(sql, codigo);
+        ResultSet rs = dbb.executeQuery(sql);
+        depen = dependencia(rs);
+        
+        return depen;
+    }
+
     public List<Dependencia> GetDependenciaS(String codigo) throws Exception {
         List<Dependencia> depen = new ArrayList<>();
         try {

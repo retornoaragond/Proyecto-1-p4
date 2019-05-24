@@ -137,20 +137,20 @@ INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('7', '007', '1');
 INSERT INTO activo (`codigoId`, `bien_ID`) VALUES ('8', '1');
 
 
-INSERT INTO grupo(id, grupo) VALUES ('001','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('002','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('003','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('004','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('005','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('006','Administrador');
-INSERT INTO grupo(id, grupo) VALUES ('007','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('001','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('002','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('003','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('004','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('005','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('006','Administrador');
+INSERT INTO grupos(id, grupo) VALUES ('007','Administrador');
 
-INSERT INTO grupo(id, grupo) VALUES ('008','SecretariaOCCB');
+INSERT INTO grupos(id, grupo) VALUES ('008','SecretariaOCCB');
 
-INSERT INTO grupo(id, grupo) VALUES ('009','Registrador');
-INSERT INTO grupo(id, grupo) VALUES ('010','Registrador');
+INSERT INTO grupos(id, grupo) VALUES ('009','Registrador');
+INSERT INTO grupos(id, grupo) VALUES ('010','Registrador');
 
-INSERT INTO grupo(id, grupo) VALUES ('011','JefeOCCB');
+INSERT INTO grupos(id, grupo) VALUES ('011','JefeOCCB');
 
 INSERT INTO grupo(id, grupo) VALUES ('012','JefeRRHH');
 

@@ -211,6 +211,10 @@ public class ModelLogic {
     public Dependencia getDependencia(Dependencia filter) throws Exception {
         return daoAdministracion.dependenciaGet(filter.getCodigo());
     }
+    
+    public Dependencia buscarDependencia_codigo(String filter) throws Exception {
+        return daoAdministracion.buscarDependencia_codigo(filter);
+    }
 
     public List<Dependencia> getDependenciaSS(String codigo) throws Exception {
         return daoAdministracion.GetDependenciaS(codigo);
