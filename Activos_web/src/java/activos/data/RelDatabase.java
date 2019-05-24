@@ -41,8 +41,8 @@ public final class RelDatabase {
             String user = prop.getProperty("database_user");
             String password = prop.getProperty("database_password");
             String database = prop.getProperty("database_name");
-            String URL_conexion = "jdbc:mysql://" + server + ":" + port + "/" + database + "?user=" +
-                    user + "&password=" + password + "&autoReconnect=true&useSSL=false";
+            String URL_conexion = "jdbc:mysql://" + server + ":" + port + "/" + database + "?user="
+                    + user + "&password=" + password + "&autoReconnect=true&useSSL=false";
             Class.forName(driver).newInstance();
             return DriverManager.getConnection(URL_conexion);
         } catch (Exception e) {
@@ -69,5 +69,17 @@ public final class RelDatabase {
         } catch (SQLException ex) {
         }
         return null;
+    }
+
+    public int executeUpdateWithKeys(String statement) {
+        try {
+            Statement stm = cnx.createStatement();
+            stm.executeUpdate(statement, Statement.RETURN_GENERATED_KEYS);
+            ResultSet keys = stm.getGeneratedKeys();
+            keys.next();
+            return keys.getInt(1);
+        } catch (SQLException ex) {
+            return -1;
+        }
     }
 }

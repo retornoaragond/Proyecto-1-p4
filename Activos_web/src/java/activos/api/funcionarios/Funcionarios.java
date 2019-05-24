@@ -37,10 +37,9 @@ public class Funcionarios {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})    
-    public boolean add(Funcionario p) {  
+    public void add(Funcionario p) {  
         try {
             model.addFuncionario(p);
-            return true;
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -48,7 +47,7 @@ public class Funcionarios {
 
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Funcionario get(@PathParam("id") String cedula) {
         try {
             return model.getFuncionario(cedula);

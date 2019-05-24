@@ -25,7 +25,7 @@
             <div class="card bg-light">
                 <article class="card-body mx-auto" style="max-width: 400px;">
                     <h4 class="card-title mt-3 text-center">Nuevo un Funcionario</h4>
-                    <form id="newfunc" style="min-width: 350px;">
+                    <form method="POST" id="newfunc" style="min-width: 350px;">
                         <div class="form-group input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fas fa-id-card"></i> </span>
@@ -88,7 +88,8 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="form-control btn btn-primary" id="agregar"><i class="fas fa-user-plus"></i></button>
+                            <!-- <a href="presentation/funcionarios/list/View.jsp" class="form-control btn btn-primary" id="agregar"><i class="fas fa-user-plus"></i></a> -->
+                            <button type="button" class="form-control btn btn-primary" id="agregar"><i class="fas fa-user-plus"></i></button> 
                         </div> <!-- form-group// -->                                                                
                     </form>
                 </article>
@@ -103,7 +104,6 @@
                 $("#agregar").on("click", agregar);
             }
 
-            $("#puestos_select").on("change", myFunction);
             function myFunction() {
                 var combo = document.getElementById("puestos_select");
                 var sel = combo.options[combo.selectedIndex].text;
@@ -126,13 +126,39 @@
                             || $("#puestos_select option:selected").text() === "Registrador"
                             || $("#puestos_select option:selected").text() === "Jefe RRHH") {
                         funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
-                        $.ajax({type: "POST",
+                        $.ajax({
+                            type: "POST",
                             url: "api/funcionarios",
                             data: JSON.stringify(funcionario),
                             contentType: "application/json",
-                            success: limpiar,
+                            success: function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "api/Labores/" + $("#ident").val() + "&" + $("#dependencias_select").val() + "&" + $("#puestos_select").val(),
+                                    success: function (num) {
+                                        usuario = {id: $("#use").val(), pass: $("#pass").val(),labor: null};
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "api/Usuarios/" + num,
+                                            data: JSON.stringify(usuario),
+                                            contentType: "application/json",
+                                            success: function () {
+                                                alert("Usuario Agregado correctamente.");
+                                                //window.location.href = "/presentation/funcionarios/list/View.jsp";
+                                                location.href = "presentation/funcionarios/list/View.jsp";
+                                            },
+                                            error: function () {
+                                                alert("Error al tratar de ingresar el funcionario 3");
+                                            }
+                                        });
+                                    },
+                                    error: function () {
+                                        alert("Error al tratar de ingresar el funcionario 2 ");
+                                    }
+                                });
+                            },
                             error: function () {
-                                alert("Error al tratar de ingresar el funcionario");
+                                alert("Error al tratar de ingresar el funcionario 1 ");
                             }
                         });
                     } else {
@@ -142,7 +168,19 @@
                             url: "api/funcionarios",
                             data: JSON.stringify(funcionario),
                             contentType: "application/json",
-                            success: limpiar,
+                            success: function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "api/Labores/" + $("#ident").val() + "&" + $("#dependencias_select").val() + "&" + $("#puestos_select").val(),
+                                    success: function () {
+                                        alert("Se ingreso el usuario correctamente");
+                                        location.href = "presentation/funcionarios/list/View.jsp";
+                                    },
+                                    error: function () {
+                                        alert("Error al tratar de ingresar el funcionario");
+                                    }
+                                });
+                            },
                             error: function () {
                                 alert("Error al tratar de ingresar el funcionario");
                             }
@@ -159,14 +197,15 @@
                     alert("debe ingresar una identificacion para el funcionario");
                     contador++;
                 } else {
-                    if (checkfuncionario($("#ident").val()) === "false") {
-                        $("#ident").addClass("is-invalid");
-                        alert("ERROR: Ya hay un funcionario con esa identificacion, ingrese otra identificacion");
-                        contador++;
-                    } else {
-                        $("#ident").removeClass("is-invalid");
-                    }
+                    $("#ident").removeClass("is-invalid");
                 }
+                //valida que el funcionario no exista
+                if (checkfuncionario($("#ident").val()) === "false") {
+                    $("#ident").addClass("is-invalid");
+                    alert("ERROR: Ya hay un funcionario con esa identificacion, ingrese otra identificacion");
+                    contador++;
+                }
+
                 //valida el campo de nombre lleno
                 if ($("#nombre").val() === null || $("#nombre").val() === "") {
                     $("#nombre").addClass("is-invalid");
@@ -199,13 +238,13 @@
                         $("#use").addClass("is-invalid");
                         contador++;
                     } else {
-                        if (checkfuncionario($("#use").val()) === "false") {
-                            $("#use").addClass("is-invalid");
-                            alert("ERROR: Ya existe un funcionario con ese usuario");
-                            contador++;
-                        } else {
-                            $("#use").removeClass("is-invalid");
-                        }
+                        $("#use").removeClass("is-invalid");
+                    }
+                    //valida el usuario no exista ya
+                    if (checkusuario($("#use").val()) === "false") {
+                        $("#use").addClass("is-invalid");
+                        alert("ERROR: Ya existe un funcionario con ese usuario");
+                        contador++;
                     }
 
                     //valida el campo de la clave lleno
@@ -216,9 +255,8 @@
                         $("#pass").removeClass("is-invalid");
                     }
                 }
-
-
                 if (contador !== 0) {
+                    alert("ERROR: hay cambos que estan vacios o con valores no permitidos");
                     return false;
                 } else {
                     return true;
@@ -226,32 +264,25 @@
             }
 
             function checkfuncionario(id) {
-                var exists = "false";
+                var exists = "true";
                 $.ajax({
                     type: "GET",
-                    async: false,
                     url: "api/funcionarios/" + id,
                     success: function () {
                         exists = "false";
-                    },
-                    error: function () {
-                        exists = "true";
                     }
                 });
                 return exists;
             }
 
             function checkusuario(id) {
-                var exists = "false";
+                var exists = "true";
                 $.ajax({
                     type: "GET",
                     async: false,
                     url: "api/Usuarios/" + id,
                     success: function () {
                         exists = "false";
-                    },
-                    error: function () {
-                        exists = "true";
                     }
                 });
                 return exists;
@@ -262,6 +293,7 @@
             }
 
             $(pageLoad);
+            $("#puestos_select").on("change", myFunction);
 
         </script>
     </body>
