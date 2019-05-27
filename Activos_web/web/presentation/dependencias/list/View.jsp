@@ -20,7 +20,7 @@
         </header>
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="jumbotron jumbotron-fluid">
+                <div class="jumbotron jumbotron-fluid" style="margin-top: 20px;">
                     <form class="col s12" method="POST" name="formulario">
                         <div class="row">
                             <div class="col-12 d-flex justify-content-center">
@@ -34,7 +34,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="validationTooltipUsernamePrepend"><i class="fas fa-search"></i></span>
                                     </div>
-                                    <input type="text"  id="filtro" name="filter" class="form-control" placeholder="" value="">
+                                    <input type="text"  id="filtro" name="filter" class="form-control" placeholder="Codigo" value="">
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="validationTooltipUsernamePrepend"><i class="fas fa-search"></i></span>
                                     </div>
-                                    <input type="text"  id="filtron" name="filter" class="form-control" placeholder="filtron" value="">
+                                    <input type="text"  id="filtron" name="filter" class="form-control" placeholder="Nombre" value="">
                                 </div>
                             </div>
                         </div>
@@ -58,13 +58,32 @@
                     </form>
                     <div class="col-12">
                         <div class="mt-5 d-flex justify-content-center">
-                            <a class="btn btn-primary " onclick="promptAgregar()">Agregar una dependencia</a>
+                            <a class="btn btn-primary " onclick="myFunction()">Agregar una dependencia</a>
                         </div>
                     </div>
+
+                    <!-- AGREGAR-->
+                    <div class="card bg-dark" id="log_user" style="padding: 15px; margin-top: 40px; margin-left: 10px; margin-right: 10px; display: none;">
+                        <form class="col s12" method="POST" name="agrega">
+                            <div class="form-group input-group">
+
+                                <input id="cod" class="form-control" placeholder="Codigo" type="text">
+                            </div> <!-- form-group// -->
+                            <div class="form-group input-group">
+
+                                <input id="nom" class="form-control" placeholder="Nombre" type="text">
+                            </div> <!-- form-group// -->  
+                            <div class="col-12">
+                                <div class="mt-5 d-flex justify-content-center">
+                                    <a class="btn btn-primary " onclick="agregar()">Guardar</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- AGREGAR-->
                 </div>
                 <!-- TABLA -->
-
-                <div class="col-5">
+                <div class="col-5" style="margin-top: 20px;">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead class="thead-dark">
@@ -78,7 +97,7 @@
                         </table>
                     </div>
                 </div>
-
+                <!-- TABLA -->
             </div>
         </div>
         <%@ include file="/presentation/Complement.jsp" %>
@@ -95,7 +114,7 @@
 
         function buscar() {
             $.ajax({type: "GET",
-                url: "api/dependencias?nombre=" + $("#filtron").val() + "&codigo=" +  $("#filtro").val(),
+                url: "api/dependencias?nombre=" + $("#filtron").val() + "&codigo=" + $("#filtro").val(),
                 success: lista
             });
         }
@@ -117,8 +136,8 @@
         }
 
         function limpiar() {
-            $("#formulario").trigger("reset");
-            $('#add-modal').modal('hide');
+            document.getElementById('nom').value = '';
+            document.getElementById('cod').value = '';
             buscar();
         }
 
@@ -132,31 +151,51 @@
             }
         }
 
-        function promptAgregar() {
-            var txt;
-            var nom = prompt("Digite el nombre de la dependencia:", " ");
-            var cod = prompt("Digite el codigo de la dependencia:", " ");
-            if (nom != null && nom != "" && cod != null && cod != "") {
-                agregar(nom, cod);
+        function agregar() {
+            dependencia = {
+                codigo: $("#cod").val(),
+                nombre: $("#nom").val()
+            };
+            if (validate() == true) {
+                $.ajax({type: "POST",
+                    url: "api/dependencias",
+                    data: JSON.stringify(dependencia),
+                    contentType: "application/json",
+                    success: function () {
+                        buscar();
+                    },
+                    error: function (jqXHR) {
+                    }
+                });
+                $("#log_user").hide();
+                limpiar();
             }
         }
 
-        function agregar(nom, cod) {
-            dependencia = {
-                codigo: cod,
-                nombre: nom
-            };
-            $.ajax({type: "POST",
-                url: "api/dependencias",
-                data: JSON.stringify(dependencia),
-                contentType: "application/json",
-                success: function () {
-                    buscar();
-                },
-                error: function (jqXHR) {
-                }
-            });
+        function validate() {
+            var bandera = true;
+            if ($("#cod").val() === null || $("#cod").val() === "") {
+                $("#cod").addClass("is-invalid");
+                alert("debe ingresar un codigo para la dependencia");
+                bandera = false;
+            } else {
+                $("#cod").removeClass("is-invalid");
+            }
+
+            if ($("#nom").val() === null || $("#nom").val() === "") {
+                $("#nom").addClass("is-invalid");
+                alert("debe ingresar un nombre para la dependencia");
+                bandera = false;
+            } else {
+                $("#nom").removeClass("is-invalid");
+            }
+            return bandera;
         }
+
+        function myFunction() {
+            $("#log_user").show();
+        }
+
         $(pageLoad);
 
     </script>
