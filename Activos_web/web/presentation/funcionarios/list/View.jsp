@@ -46,7 +46,7 @@
                             </form>
                             <div class="col-12">
                                 <div class="mt-5 d-flex justify-content-center">
-                                    <a class="btn btn-primary " href="presentation/funcionarios/create" style="width: 100%;"><i class="fas fa-user-plus"></i></a>
+                                    <a class="btn btn-primary " href="presentation/funcionarios/list/ViewFC.jsp" style="width: 100%;"><i class="fas fa-user-plus"></i></a>
                                 </div>
                             </div>
                         </div>
