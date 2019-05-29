@@ -137,7 +137,6 @@
 
             $(pageLoad);
             $("#puestos_select").on("change", myFunction);
-            $(ajax());
         </script>
     </body>
     <footer class="bottom-sheet background blue-grey">

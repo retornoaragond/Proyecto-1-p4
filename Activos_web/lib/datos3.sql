@@ -152,7 +152,7 @@ INSERT INTO grupos(id, grupo) VALUES ('010','Registrador');
 
 INSERT INTO grupos(id, grupo) VALUES ('011','JefeOCCB');
 
-INSERT INTO grupo(id, grupo) VALUES ('012','JefeRRHH');
+INSERT INTO grupos(id, grupo) VALUES ('012','JefeRRHH');
 
 
 

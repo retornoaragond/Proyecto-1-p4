@@ -7,6 +7,7 @@ package activos.api.funcionarios;
 
 import activos.logic.Funcionario;
 import activos.logic.ModelLogic;
+import activos.logic.Usuario;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -35,11 +36,18 @@ public class Funcionarios {
     ModelLogic model = ModelLogic.instance();
     
     @POST
+    @Path("{id_dep}/{id_puest}/{id_user}/{id_pass}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})    
-    public void add(Funcionario p) {  
+    public void add(Funcionario p,
+            @PathParam("id_dep") String dep,
+            @PathParam("id_puest") String puest,
+            @PathParam("id_user") String user,
+            @PathParam("id_pass") String pass) {  
         try {
             model.addFuncionario(p);
+            Usuario use = new Usuario(user, null, pass);
+            model.agregarUsuario(use, model.addLabor(p.getId(), dep, puest));
         } catch (Exception ex) {
             throw new NotAcceptableException(); 
         }
@@ -60,7 +68,8 @@ public class Funcionarios {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Funcionario> search(@QueryParam("id") String id) {
         try {
-            List<Funcionario> ps = model.getFuncionarioSS(id);
+            Funcionario fun = new Funcionario(id,"");
+            List<Funcionario> ps = model.searchFuncionario(fun);
             return ps;
         } catch (Exception ex) {
             throw new NotFoundException();

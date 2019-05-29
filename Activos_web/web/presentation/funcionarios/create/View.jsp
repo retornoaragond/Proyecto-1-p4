@@ -13,8 +13,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Agregación de Personal</title>
+        <title>Agregacio&oacute;n de Personal</title>
         <%@ include file="/presentation/Head.jsp" %>
+        
     </head>
     <body>
         <header>
@@ -30,7 +31,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fas fa-id-card"></i> </span>
                             </div>
-                            <input id="ident" name="ident" class="form-control" placeholder="N° de Cédula" type="text">
+                            <input id="ident" name="ident" class="form-control" placeholder="N° de C&eacute;dula" type="text">
                         </div> <!-- form-group// -->
 
                         <div class="form-group input-group">
@@ -71,22 +72,22 @@
                                 <% }%>
                             </select>
                         </div> <!-- form-group end.// -->
-                        <!--
+
                         <div class="card bg-dark" id="log_user" style="padding: 15px; margin-bottom: 10px; display: none;">
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fas fa-user-tag"></i> </span>
                                 </div>
                                 <input id="use" class="form-control" placeholder="Usuario" type="text">
-                            </div> 
+                            </div> <!-- form-group// -->
                             <div class="form-group input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                                 </div>
-                                <input id="pass" class="form-control" placeholder="Contraseña" type="password">
-                            </div>      
+                                <input id="pass" class="form-control" placeholder="ContraseÃ±a" type="password">
+                            </div> <!-- form-group// -->     
                         </div>
-                        -->
+
                         <div class="form-group">
                             <!-- <a href="presentation/funcionarios/list/View.jsp" class="form-control btn btn-primary" id="agregar"><i class="fas fa-user-plus"></i></a> -->
                             <button type="button" class="form-control btn btn-primary" id="agregar"><i class="fas fa-user-plus"></i></button> 
@@ -100,11 +101,6 @@
 
         <%@ include file="/presentation/Complement.jsp" %>
         <script>
-            //variables
-
-            var rep_fun;
-            var rep_use;
-
             function pageLoad(event) {
                 $("#agregar").on("click", agregar);
             }
@@ -125,18 +121,44 @@
 
             function agregar() {
                 if (validate()) {
-                    $.ajax({
-                        type: "POST",
-                        url: "api/funcionarios/" + $("#ident").val() + "/" + $("#nombre").val() + "/" + s("#dependencias_select").val() + "/" + s("#puestos_select").val(),
-                        success: function () {
-                            alert("Se ingreso correctamente el funcionario ");
-                            location.href = "presentation/funcionarios/list/View.jsp";
-                        },
-                        error: function () {
-                            alert("Error al tratar de ingresar el funcionario");
-                        }
-                    });
-
+                    if ($("#puestos_select option:selected").text() === "Jefe OCCB"
+                            || $("#puestos_select option:selected").text() === "Administrador"
+                            || $("#puestos_select option:selected").text() === "Secretaria(o) OCCB"
+                            || $("#puestos_select option:selected").text() === "Registrador"
+                            || $("#puestos_select option:selected").text() === "Jefe RRHH") {
+                        funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
+                        var dep = $("#dependencias_select").val();
+                        var pue = $("#puestos_select").val();
+                        var id = $("#use").val();
+                        var pas = $("#use").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "api/funcionarios/" + dep + "/" + pue + "/" + id + "/" + pas,
+                            data: JSON.stringify(funcionario),
+                            contentType: "application/json",
+                            success: function () {
+                                alert("agrego correctamente ");
+                                location.href = "presentation/funcionarios/list/View.jsp";
+                            },
+                            error: function () {
+                                alert("Error al tratar de ingresar el funcionario 1 ");
+                            }
+                        });
+                    } else {
+                        funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
+                        $.ajax({
+                            type: "POST",
+                            url: "api/funcionarios?id_dep=" + $("#dependencias_select").val() + "&id_puest=" + $("#puestos_select").val() + "&id_user=" + $("#use").val() + "&id_pass=" + $("#pass").val(),
+                            data: JSON.stringify(funcionario),
+                            contentType: "application/json",
+                            success: function () {
+                                alert("agrego correctamente ");
+                            },
+                            error: function () {
+                                alert("Error al tratar de ingresar el funcionario");
+                            }
+                        });
+                    }
                 }
             }
 
@@ -151,12 +173,13 @@
                     $("#ident").removeClass("is-invalid");
                 }
                 //valida que el funcionario no exista
-                checkfuncionario($("#ident").val());
-                if (rep_fun === true) {
-                    $("#ident").addClass("is-invalid");
-                    alert("ERROR: Ya hay un funcionario con esa identificacion, ingrese otra identificacion");
-                    contador++;
-                }
+                /*
+                 if (checkfuncionario($("#ident").val()) === "false") {
+                 $("#ident").addClass("is-invalid");
+                 alert("ERROR: Ya hay un funcionario con esa identificacion, ingrese otra identificacion");
+                 contador++;
+                 }
+                 */
 
                 //valida el campo de nombre lleno
                 if ($("#nombre").val() === null || $("#nombre").val() === "") {
@@ -180,36 +203,35 @@
                     $("#puestos_select").removeClass("is-invalid");
                 }
                 //valida si el funcionario es usuario del sistema
-                /*
-                 if ($("#puestos_select option:selected").text() === "Jefe OCCB"
-                 || $("#puestos_select option:selected").text() === "Administrador"
-                 || $("#puestos_select option:selected").text() === "Secretaria(o) OCCB"
-                 || $("#puestos_select option:selected").text() === "Registrador"
-                 || $("#puestos_select option:selected").text() === "Jefe RRHH") {
-                 //valida el campo de usuario lleno
-                 if ($("#use").val() === null || $("#use").val() === "") {
-                 $("#use").addClass("is-invalid");
-                 contador++;
-                 } else {
-                 $("#use").removeClass("is-invalid");
-                 }
-                 //valida el usuario no exista ya
-                 checkusuario($("#use").val());
-                 if (rep_use === true) {
-                 $("#use").addClass("is-invalid");
-                 alert("ERROR: Ya existe un funcionario con ese usuario");
-                 contador++;
-                 }
-                 
-                 //valida el campo de la clave lleno
-                 if ($("#pass").val() === null || $("#pass").val() === "") {
-                 $("#pass").addClass("is-invalid");
-                 contador++;
-                 } else {
-                 $("#pass").removeClass("is-invalid");
-                 }
-                 }
-                 */
+                if ($("#puestos_select option:selected").text() === "Jefe OCCB"
+                        || $("#puestos_select option:selected").text() === "Administrador"
+                        || $("#puestos_select option:selected").text() === "Secretaria(o) OCCB"
+                        || $("#puestos_select option:selected").text() === "Registrador"
+                        || $("#puestos_select option:selected").text() === "Jefe RRHH") {
+                    //valida el campo de usuario lleno
+                    if ($("#use").val() === null || $("#use").val() === "") {
+                        $("#use").addClass("is-invalid");
+                        contador++;
+                    } else {
+                        $("#use").removeClass("is-invalid");
+                    }
+                    //valida el usuario no exista ya
+                    /*
+                     if (checkusuario($("#use").val()) === "false") {
+                     $("#use").addClass("is-invalid");
+                     alert("ERROR: Ya existe un funcionario con ese usuario");
+                     contador++;
+                     }
+                     */
+
+                    //valida el campo de la clave lleno
+                    if ($("#pass").val() === null || $("#pass").val() === "") {
+                        $("#pass").addClass("is-invalid");
+                        contador++;
+                    } else {
+                        $("#pass").removeClass("is-invalid");
+                    }
+                }
                 if (contador !== 0) {
                     alert("ERROR: hay cambos que estan vacios o con valores no permitidos");
                     return false;
@@ -218,45 +240,37 @@
                 }
             }
 
-            function checkfuncionario(id) {
+            /*
+             function checkfuncionario(id) {
+                var exists = "true";
                 $.ajax({
                     type: "GET",
-                    async: false,
                     url: "api/funcionarios/" + id,
-                    success: rep_func
+                    success: function () {
+                        exists = "false";
+                    }
                 });
-            }
-
-            function rep_func(aux) {
-                if (aux !== null && aux !== undefined) {
-                    rep_fun = true;
-                } else {
-                    rep_fun = false;
-                }
+                return exists;
             }
 
             function checkusuario(id) {
+                var exists = "true";
                 $.ajax({
                     type: "GET",
                     async: false,
                     url: "api/Usuarios/" + id,
-                    success: rep_user
+                    success: function () {
+                        exists = "false";
+                    }
                 });
+                return exists;
             }
-
-            function rep_user(aux) {
-                if (aux !== null && aux !== undefined) {
-                    rep_use = true;
-                } else {
-                    rep_use = false;
-                }
-            }
+            */
 
             function limpiar() {
                 $("#newfunc").trigger("reset");
             }
 
-            $.ajax();
             $(pageLoad);
             $("#puestos_select").on("change", myFunction);
 

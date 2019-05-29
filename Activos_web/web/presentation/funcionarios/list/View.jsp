@@ -46,7 +46,7 @@
                             </form>
                             <div class="col-12">
                                 <div class="mt-5 d-flex justify-content-center">
-                                    <a class="btn btn-primary " href="presentation/funcionarios/list/ViewFC.jsp" style="width: 100%;"><i class="fas fa-user-plus"></i></a>
+                                    <a class="btn btn-primary " href="presentation/funcionarios/create" style="width: 100%;"><i class="fas fa-user-plus"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
             }
             function buscar() {
                 $.ajax({type: "GET",
-                    url: "api/funcionarios?filter=" + $("#filter").val(),
+                    url: "api/funcionarios?id=" + $("#filter").val(),
                     success: lista
                 });
             }
@@ -92,8 +92,8 @@
                 tr.html(
                         "<td>" + funcionario.id + "</td>"
                         + "<td>" + funcionario.nombre + "</td>"
-                        + "<td><a href=\"presentation/funcionario/mostrarEditar?id="+funcionario.getid()+"><i class=\"far fa-edit\"></i></a></td>"
-                        + "<td><i class="fas fa-user-times" onclick='eliminar(\"" + persona.cedula + "\");'></i></td>");
+                        + "<td><a href=\"presentation/funcionario/mostrarEditar?id="+funcionario.id+"\"><i class=\"far fa-edit\"></i></a></td>"
+                        + "<td><i class=\"fas fa-user-times\" onclick='eliminar(\"" + funcionario.id + "\");'></i></td>");
                 listado.append(tr);
             }
             
@@ -106,6 +106,7 @@
                     }
                 });
             }
+            $(pageLoad);
         </script>
     </body>
     <footer class="bottom-sheet background blue-grey">
