@@ -41,6 +41,17 @@ public class DaoSolicitudes {
             throw new Exception("Solicitud no Existe");
         }
     }
+    
+    public Solicitud getSolicitudNumero(Integer numSolicitud) throws Exception {
+        String sql = "SELECT * FROM solicitud where numsol='%s'";
+        sql = String.format(sql, numSolicitud);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return solicitud(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
 
     public Solicitud findSolicitudnumComp(String numComp, String codDependencia) throws Exception {
         String sql = "SELECT * FROM solicitud where numcomp='%s' and Dependencia_codigo='%s'";
@@ -311,6 +322,47 @@ public class DaoSolicitudes {
         }
         return estados;
     }
+    
+        public List<Solicitud> SolicitudGetAllSecretaria() {
+        List<Solicitud> estados = new ArrayList<>();
+        try {
+            String sql = "select * from solicitud where estado = 'porVerificar' or estado = 'rechazada'";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                estados.add(solicitud(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return estados;
+    }
+
+    public List<Solicitud> buscarPorCodigo(String codigo) {
+        List<Solicitud> estados = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM solicitud where numcomp like '%%%s%%'";
+            sql = String.format(sql, codigo);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                estados.add(solicitud(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return estados;
+    }
+    
+        public List<Solicitud> buscarPorCodigoSecretaria(String codigo) {
+        List<Solicitud> estados = new ArrayList<>();
+        try {
+            String sql = "select * from solicitud where numcomp like '%%%s%%' and (estado = 'porVerificar' or estado = 'rechazada');";
+            sql = String.format(sql, codigo);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                estados.add(solicitud(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return estados;
+    }
 
     public List<Solicitud> solicitudRegistradorGetAll(List<String> l, Funcionario F) {
         List<Solicitud> resultado = new ArrayList<>();
@@ -562,7 +614,7 @@ public class DaoSolicitudes {
         return bienes;
     }
 
-    public Bien BienGet(String serial) throws Exception {
+    public Bien BienGet(String numSol) throws Exception {
         return new Bien();
     }
 
@@ -615,4 +667,5 @@ public class DaoSolicitudes {
 
     public void close() {
     }
+
 }
