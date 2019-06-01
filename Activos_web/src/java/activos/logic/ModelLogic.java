@@ -12,8 +12,6 @@ import activos.data.DaoAdministracion;
 import activos.data.DaoSolicitudes;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.codec.binary.Hex;
 
 /**
@@ -71,9 +69,9 @@ public class ModelLogic {
     public void agregarUsuario(Usuario user) throws Exception {
         daoAdministracion.addUsuario(user);
     }
-    
+
     public void agregarUsuario(Usuario user, int lab) throws Exception {
-        daoAdministracion.addUsuario(user,lab);
+        daoAdministracion.addUsuario(user, lab);
     }
 
     public List<Usuario> getUsuarios() {
@@ -94,6 +92,10 @@ public class ModelLogic {
 
     public void actualizarSoliEditada(Solicitud sol) throws Exception {
         daoSolicitud.actulizarSoliEditada(sol);
+    }
+    
+    public void actualizarEstadoSolicitud(Solicitud sol) throws Exception {
+        daoSolicitud.SolicitudUpdate2(sol);
     }
 
     public void borrarBien(Bien b) throws Exception {
@@ -125,6 +127,10 @@ public class ModelLogic {
 
     public Solicitud getSolicitud(String serial) throws Exception {
         return daoSolicitud.SolicitudGet(Integer.parseInt(serial));
+    }
+    
+    public Solicitud getSolicitudNumSol(String numsol) throws Exception {
+        return daoSolicitud.getSolicitudNumero(Integer.parseInt(numsol));
     }
 
     public void deleteSolicitud(Solicitud p) throws Exception {
@@ -165,6 +171,34 @@ public class ModelLogic {
         } else {
             return daoSolicitud.solicitudRegistradorGetAll(l, fun);
         }
+    }
+
+    public List<Solicitud> filtroSolicitudes(Solicitud filtro) {
+        List<Solicitud> sol = new ArrayList<>();
+        if (filtro != null) {
+            if (!filtro.getNumcomp().equals("") && !filtro.getNumcomp().equals(" ")) {
+                sol = daoSolicitud.buscarPorCodigo(filtro.getNumcomp());
+            } else {
+                sol = daoSolicitud.SolicitudGetAll();
+            }
+        } else {
+            sol = daoSolicitud.SolicitudGetAll();
+        }
+        return sol;
+    }
+    
+        public List<Solicitud> filtroSolicitudesSecretaria(Solicitud filtro) {
+        List<Solicitud> sol = new ArrayList<>();
+        if (filtro != null) {
+            if (!filtro.getNumcomp().equals("") && !filtro.getNumcomp().equals(" ")) {
+                sol = daoSolicitud.buscarPorCodigoSecretaria(filtro.getNumcomp());
+            } else {
+                sol = daoSolicitud.SolicitudGetAllSecretaria();
+            }
+        } else {
+            sol = daoSolicitud.SolicitudGetAllSecretaria();
+        }
+        return sol;
     }
 
     public List<Solicitud> searchSolicitudbyFuncionario(Funcionario filtro) {
@@ -218,7 +252,7 @@ public class ModelLogic {
     public Dependencia getDependencia(Dependencia filter) throws Exception {
         return daoAdministracion.dependenciaGet(filter.getCodigo());
     }
-    
+
     public Dependencia buscarDependencia_codigo(String filter) throws Exception {
         return daoAdministracion.buscarDependencia_codigo(filter);
     }
@@ -308,6 +342,7 @@ public class ModelLogic {
 //    }
 //    
     //</editor-fold>
+    
     public void close() {
         daoSolicitud.close();
         daoActivos.close();
@@ -327,7 +362,7 @@ public class ModelLogic {
     }
 
     public int addLabor(String f, String d, String p) throws Exception {
-        return daoAdministracion.LaborAdd(f,d,p);
+        return daoAdministracion.LaborAdd(f, d, p);
     }
 
     public Labor getLabor(int cod) throws Exception {

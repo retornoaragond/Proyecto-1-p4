@@ -27,16 +27,25 @@
                     <a class="nav-link dropdown-toggle" href="#" id="usuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <%=loggeado.getLabor().getPuesto().getPuesto()%>
                     </a>
-                    <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Administrador")
-                          || loggeado.getLabor().getPuesto().getPuesto().equals("Jefe OCCB")) { %>
+                    <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Administrador")) { %>
                         <div class="dropdown-menu text-center" aria-labelledby="usuario">
                             <a class="dropdown-item" href="presentation/solicitud/list">Ver Solicitudes</a>
                             <a class="dropdown-item" href="presentation/activos/list/View.jsp">Ver Activos</a>
                         </div>
                     <% } %>
+                    
+                    <!-- CAMBIADO POR STEVE, PREGUNTAR A MI-->
+                    <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Jefe OCCB")) { %>
+                        <div class="dropdown-menu text-center" aria-labelledby="usuario">
+                            <a class="dropdown-item" href="presentation/solicitud/list/ViewJefeOccb.jsp">Ver Solicitudes</a>
+                            <a class="dropdown-item" href="presentation/activos/list/View.jsp">Ver Activos</a>
+                        </div>
+                    <% } %>
+                    <!-- /CAMBIADO POR STEVE, PREGUNTAR A MI-->
+                    
                     <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Secretariado")) { %> 
                         <div class="dropdown-menu text-center" aria-labelledby="usuario">
-                            <a class="dropdown-item" href="presentation/solicitud/list">Ver Solicitudes</a>
+                            <a class="dropdown-item" href="presentation/solicitud/list/ViewSecretaria.jsp">Ver Solicitudes</a>
                         </div>
                     <% } %>
                     <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Registrador")) { %>
