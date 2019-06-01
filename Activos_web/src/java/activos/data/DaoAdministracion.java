@@ -563,6 +563,52 @@ public class DaoAdministracion {
         }
         return cat;
     }
+    
+    public List<Categoria> CategoriaSearchDescripcion(Categoria filtro) {
+        List<Categoria> resultado = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM categoria "
+                    + "WHERE descripcion LIKE '%%%s%%'";
+            sql = String.format(sql, filtro.getDescripcion());
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(categoria(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+    public List<Categoria> CategoriaSearchId(Categoria filtro) {
+        List<Categoria> resultado = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM categoria "
+                    + "WHERE id ='%s'";
+            sql = String.format(sql, filtro.getId());
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(categoria(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+    public List<Categoria> CategoriaSearch(Categoria filtro) {
+        List<Categoria> resultado = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM categoria "
+                    + "WHERE descripcion LIKE '%%%s%%'"
+                    + "AND id = '%s'";
+            sql = String.format(sql, filtro.getDescripcion(), filtro.getId());
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(categoria(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
 
     private Categoria categoria(ResultSet rs) {
         try {
@@ -579,9 +625,9 @@ public class DaoAdministracion {
     }
 
     public void categoriaAdd(Categoria a) throws Exception {
-        String sql = "insert into Categoria (id, descripcion) "
-                + "values('%s','%s')";
-        //    sql = String.format(sql, a.getCodigo(), a.getNombre());
+        String sql = "insert into Categoria (id,incremento, descripcion) "
+                + "values('%s', '0','%s')";
+            sql = String.format(sql, a.getId(), a.getDescripcion());
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Categoria ya existe");

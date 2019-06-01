@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Agregacio&oacute;n de Personal</title>
         <%@ include file="/presentation/Head.jsp" %>
-        
+
     </head>
     <body>
         <header>
@@ -121,16 +121,16 @@
 
             function agregar() {
                 if (validate()) {
+                    funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
+                    var dep = $("#dependencias_select").val();
+                    var pue = $("#puestos_select").val();
+                    var id = $("#use").val();
+                    var pas = $("#use").val();
                     if ($("#puestos_select option:selected").text() === "Jefe OCCB"
                             || $("#puestos_select option:selected").text() === "Administrador"
                             || $("#puestos_select option:selected").text() === "Secretaria(o) OCCB"
                             || $("#puestos_select option:selected").text() === "Registrador"
                             || $("#puestos_select option:selected").text() === "Jefe RRHH") {
-                        funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
-                        var dep = $("#dependencias_select").val();
-                        var pue = $("#puestos_select").val();
-                        var id = $("#use").val();
-                        var pas = $("#use").val();
                         $.ajax({
                             type: "POST",
                             url: "api/funcionarios/" + dep + "/" + pue + "/" + id + "/" + pas,
@@ -141,18 +141,18 @@
                                 location.href = "presentation/funcionarios/list/View.jsp";
                             },
                             error: function () {
-                                alert("Error al tratar de ingresar el funcionario 1 ");
+                                alert("Error al tratar de ingresar el funcionario");
                             }
                         });
                     } else {
-                        funcionario = {id: $("#ident").val(), nombre: $("#nombre").val()};
                         $.ajax({
                             type: "POST",
-                            url: "api/funcionarios?id_dep=" + $("#dependencias_select").val() + "&id_puest=" + $("#puestos_select").val() + "&id_user=" + $("#use").val() + "&id_pass=" + $("#pass").val(),
+                            url: "api/funcionarios/" + dep + "/" + pue + "/" + id + "/" + pas,
                             data: JSON.stringify(funcionario),
                             contentType: "application/json",
                             success: function () {
                                 alert("agrego correctamente ");
+                                location.href = "presentation/funcionarios/list/View.jsp";
                             },
                             error: function () {
                                 alert("Error al tratar de ingresar el funcionario");
@@ -242,30 +242,30 @@
 
             /*
              function checkfuncionario(id) {
-                var exists = "true";
-                $.ajax({
-                    type: "GET",
-                    url: "api/funcionarios/" + id,
-                    success: function () {
-                        exists = "false";
-                    }
-                });
-                return exists;
-            }
-
-            function checkusuario(id) {
-                var exists = "true";
-                $.ajax({
-                    type: "GET",
-                    async: false,
-                    url: "api/Usuarios/" + id,
-                    success: function () {
-                        exists = "false";
-                    }
-                });
-                return exists;
-            }
-            */
+             var exists = "true";
+             $.ajax({
+             type: "GET",
+             url: "api/funcionarios/" + id,
+             success: function () {
+             exists = "false";
+             }
+             });
+             return exists;
+             }
+             
+             function checkusuario(id) {
+             var exists = "true";
+             $.ajax({
+             type: "GET",
+             async: false,
+             url: "api/Usuarios/" + id,
+             success: function () {
+             exists = "false";
+             }
+             });
+             return exists;
+             }
+             */
 
             function limpiar() {
                 $("#newfunc").trigger("reset");

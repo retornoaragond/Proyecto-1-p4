@@ -199,7 +199,7 @@ public class Controller extends HttpServlet {
             model.setFecha(parsed);
             model.setCantbien(calcularCantBienes(r));
             model.setMontotal(calcularMontoTotal(r));
-            model.setEstado("PorVerificar");
+            model.setEstado("Recibida");
             model.setTipoadq(request.getParameter("options"));
             Set<Bien> hSet = new HashSet<>();
             for (Bien x : r) {

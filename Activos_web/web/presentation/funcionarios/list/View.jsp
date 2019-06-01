@@ -100,12 +100,16 @@
             function eliminar(id) {
                 $.ajax({type: "DELETE",
                     url: "api/funcionarios/" + id,
-                    success: actualizar,
-                    error: function (jqXHR) {
-                        alert(errorMessage(jqXHR.status));
+                    success: function () {
+                        alert("eliminado correctamente el "+id);
+                        buscar();
+                    },
+                    error: function () {
+                        alert("no pudo ser eliminado el "+id);
                     }
                 });
             }
+            
             $(pageLoad);
         </script>
     </body>
