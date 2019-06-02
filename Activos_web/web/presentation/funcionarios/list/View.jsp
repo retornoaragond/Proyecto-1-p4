@@ -93,19 +93,23 @@
                         "<td>" + funcionario.id + "</td>"
                         + "<td>" + funcionario.nombre + "</td>"
                         + "<td><a href=\"presentation/funcionario/mostrarEditar?id="+funcionario.id+"\"><i class=\"far fa-edit\"></i></a></td>"
-                        + "<td><i class=\"fas fa-user-times\" onclick='eliminar(\"" + funcionario.id + "\");'></i></td>");
+                        + "<td><i class=\"fas fa-user-times\" onclick='eliminar(" + funcionario.id + ");'></i></td>");
                 listado.append(tr);
             }
             
             function eliminar(id) {
                 $.ajax({type: "DELETE",
                     url: "api/funcionarios/" + id,
-                    success: actualizar,
-                    error: function (jqXHR) {
-                        alert(errorMessage(jqXHR.status));
+                    success: function () {
+                        alert("eliminado correctamente el "+id);
+                        buscar();
+                    },
+                    error: function () {
+                        alert("no pudo ser eliminado el "+id);
                     }
                 });
             }
+            
             $(pageLoad);
         </script>
     </body>

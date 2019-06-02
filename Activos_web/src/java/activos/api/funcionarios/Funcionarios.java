@@ -87,6 +87,7 @@ public class Funcionarios {
     }
 
     @DELETE
+    @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void del(@PathParam("id") String id) {
         try {

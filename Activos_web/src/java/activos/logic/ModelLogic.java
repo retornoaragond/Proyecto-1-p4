@@ -407,8 +407,20 @@ public class ModelLogic {
         return daoSolicitud.getAutoIncrementoSolicitud();
     }
 
-    public List<Categoria> getCategoria() {
+    public List<Categoria> getCategorias() {
         return daoAdministracion.CategoriaALL();
+    }
+    
+    public List<Categoria> searchCategorias(Categoria filtro){
+        if (filtro.getId().length() == 0 && filtro.getDescripcion().length() != 0) {
+            return daoAdministracion.CategoriaSearchDescripcion(filtro);
+        } else if (filtro.getId().length() != 0 && filtro.getDescripcion().length() == 0) {
+            return daoAdministracion.CategoriaSearchId(filtro);
+        } else if (filtro.getId().length() != 0 && filtro.getDescripcion().length() != 0) {
+            return daoAdministracion.CategoriaSearch(filtro);
+        } else {
+            return daoAdministracion.CategoriaALL();
+        }
     }
 
     public void addcategoria(Categoria categoria) throws Exception {
