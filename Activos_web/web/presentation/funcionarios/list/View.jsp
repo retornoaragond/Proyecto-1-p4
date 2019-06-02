@@ -101,13 +101,15 @@
                 $.ajax({type: "DELETE",
                     url: "api/funcionarios/" + id,
                     success: function () {
-                        alert("elimino");
+                        alert("eliminado correctamente el "+id);
+                        buscar();
                     },
-                    error: function (jqXHR) {
-                        alert(errorMessage(jqXHR.status));
+                    error: function () {
+                        alert("no pudo ser eliminado el "+id);
                     }
                 });
             }
+            
             $(pageLoad);
         </script>
     </body>

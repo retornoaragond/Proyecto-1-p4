@@ -26,6 +26,11 @@ public class Categoria implements java.io.Serializable {
         this.incremento = incremento;
         this.descripcion = descripcion;
     }
+    
+    public Categoria(String id, String descripcion) {
+        this.id = id;
+        this.descripcion = descripcion;
+    }
 
     public Categoria(String id, int incremento, String descripcion, Set biens) {
         this.id = id;
