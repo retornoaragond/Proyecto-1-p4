@@ -156,7 +156,6 @@
 
         <%@ include file="/presentation/Complement.jsp" %>
     </body>
-    
     <footer class="bottom-sheet background blue-grey">
         <%@ include file="/presentation/Footer.jsp" %>
     </footer>
@@ -254,7 +253,7 @@
                     "</select></td>");
             listado.append(tr);
         }
-
+// recibida rechazada por verificar 
         function llenarCombo(estado) {
             var valor;
             if (estado === "porVerificar") {

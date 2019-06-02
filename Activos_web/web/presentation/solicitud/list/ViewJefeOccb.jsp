@@ -96,7 +96,7 @@
                                         <th>fecha</th>
                                         <th>Tipo</th>
                                         <th>Dependencia</th>
-                                        <th>Estado</th>
+                                        <th>Registrador</th>
                                     </tr>
                                     </tr>
                                 </thead>
@@ -144,11 +144,133 @@
 
         function pageLoad(event) {
             $("#buscar").on("click", buscar);
+            $("#detalles").on("click", buscarBienes);
+            $("#guarda").on("click", update);
         }
 
+        //<UPDATE>
+
+        function update() {
+            var opcion = $("#selector option:selected").text();
+            var numso = $("#numsol").text();
+            if (opcion !== "Seleccionar"){
+                $.ajax({type: "PUT",
+                    url: "api/encargado?nums=" + numso + "&val=" + opcion,
+                    success: function (data, textStatus, jqXHR) {
+                        buscar();
+                    }
+                });
+            } else{
+                alert("Por favor seleccione un registrador");
+            }
+        }
+
+        //</UPDATE>
+
+        //<BIENES>
+        function buscarBienes(numsol) {
+            $.ajax({type: "GET",
+                url: "api/solicitudes?numsol=" + numsol,
+                success: function (bienes) {
+                    mostrardetalles(numsol);
+                    lista2(bienes);
+                    titulo(numsol);
+                }
+            });
+        }
+
+        function mostrardetalles(numsol) {
+            /*buscar la solicitud e insertarla en la tabla edicionsolicitud*/
+            $.ajax({type: "GET",
+                url: "api/detalles?numero=" + numsol,
+                success: function (objSolicitud) {
+                    var edicion = $("#edicionsolicitud");
+                    edicion.html("");
+                    filaSol(edicion, objSolicitud);
+                }
+            });
+        }
+
+        function filaSol(listado, solicitud) {
+            var tr = $("<tr />");
+
+            date = new Date(solicitud.fecha);
+            var valor = solicitud.funcionario.nombre;
+            if (valor === "") {
+                valor = "Seleccionar";
+            }
+
+            tr.html(
+                    "<td id = \"numsol\">" + solicitud.numsol + "</td>"
+                    + "<td>" + solicitud.numcomp + "</a>" + "</td>"
+                    + "<td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td>"
+                    + "<td>" + solicitud.tipoadq + "</td>"
+                    + "<td>" + solicitud.dependencia.nombre + "</td>"
+                    + "<td><select id=\"selector\"></select></td>");
+            buscarRegistradores(valor);
+            listado.append(tr);
+        }
+
+        function titulo(solicitudes) {
+            var tittle = $("#titulo");
+            tittle.html("Asignación de registrador a la solicitud ");
+            tittle.append(solicitudes);
+        }
+
+        function lista2(bienes) {
+            var listado = $("#listado2");
+            listado.html("");
+            bienes.forEach((p) => {
+                filasBien(listado, p);
+            });
+        }
+
+        function filasBien(listado, bien) {
+            var tr = $("<tr />");
+
+            tr.html(
+                    "<td>" + bien.ID + "</td>"
+                    + "<td>" + bien.serial + "</td>"
+                    + "<td>" + bien.categoria.descripcion + "</td>"
+                    + "<td>" + bien.descripcion + "</td>"
+                    + "<td>" + bien.marca + "</td>"
+                    + "<td>" + bien.modelo + "</td>"
+                    + "<td>" + bien.precioU + "</td>"
+                    + "<td>" + bien.cantidad + "</td>");
+            listado.append(tr);
+        }
+
+        function buscarRegistradores(valor) {
+            $.ajax({type: "GET",
+                url: "api/registrador",
+                success: function (funcionarios) {
+                    listaRegistradores(funcionarios, valor);
+                }
+            });
+        }
+
+        function listaRegistradores(funcionarios, valor) {
+            var listado = $("#selector");
+            listado.html("");
+            listado.html("<option>" + valor + "</option>");
+            funcionarios.forEach((p) => {
+                if (valor !== p.nombre) {
+                    llenarCombo(listado, p);
+                }
+            });
+        }
+
+        function llenarCombo(listado, funcionarios) {
+            var tr = $("<option>");
+            tr.html(funcionarios.nombre + "</option>");
+            listado.append(tr);
+        }
+        //BIENES>
+
+//  <BUSCAR>
         function buscar() {
             $.ajax({type: "GET",
-                url: "api/comprobantes?comprobante=" + $("#comprobante").val(),
+                url: "api/jefe?comprobante=" + $("#comprobante").val(),
                 success: lista
             });
         }
@@ -209,6 +331,7 @@
                     + "<td><a data-toggle=\"modal\" href=\"#exampleModalCenter\"><i class=\"fas fa-edit\" onclick=\"buscarBienes(" + solicitud.numsol + ")\"></i></td>");
             listado.append(tr);
         }
+// </BUSCAR>
 
         $(pageLoad);
 
