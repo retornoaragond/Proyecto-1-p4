@@ -49,4 +49,12 @@ public class Categorias {
         return ps;
     }
     
+    @GET
+    @Path("/filtro")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Categoria> searchregistrador() {
+        List<Categoria> ps = model.getCategorias();
+        return ps;
+    }
+    
 }

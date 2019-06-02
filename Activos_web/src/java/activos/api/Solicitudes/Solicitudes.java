@@ -8,7 +8,10 @@ package activos.api.Solicitudes;
 import activos.logic.Bien;
 import activos.logic.Funcionario;
 import activos.logic.ModelLogic;
+import activos.logic.Puesto;
 import activos.logic.Solicitud;
+import activos.logic.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,16 +34,27 @@ import javax.ws.rs.core.MediaType;
 public class Solicitudes {
 
     @Context
-    HttpServletRequest request;
+    HttpServletRequest request ;
     ModelLogic model = ModelLogic.instance();
 
     @GET
     @Path("/comprobantes")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Solicitud> search(@QueryParam("comprobante") String comprobante) {
+    public List<Solicitud> search(@Context HttpServletRequest request, @QueryParam("comprobante") String comprobante) {
         Solicitud filtro = new Solicitud();
         filtro.setNumcomp(comprobante);
-        List<Solicitud> ps = model.filtroSolicitudesSecretaria(filtro);
+        Usuario logg = (Usuario) request.getSession(true).getAttribute("logged");
+        List<Solicitud> ps = new ArrayList<>();
+        Puesto puesto = logg.getLabor().getPuesto();
+        
+        if(puesto.getPuesto().equals("Secretariado")){
+            ps = model.filtroSolicitudesSecretaria(filtro);
+        }else{
+            if(puesto.getPuesto().equals("Registrador")){
+               Funcionario user = logg.getLabor().getFuncionario();
+               ps = model.filtroSolicitudesRegistrador(filtro, user);
+            }
+        }
         return ps;
     }
 
