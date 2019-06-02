@@ -50,7 +50,7 @@
                     <% } %>
                     <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Registrador")) { %>
                         <div class="dropdown-menu text-center" aria-labelledby="usuario">
-                            <a class="dropdown-item" href="presentation/solicitud/list">Ver Solicitudes</a>
+                            <a class="dropdown-item" href="presentation/solicitud/list/ViewRegistrador.jsp">Ver Solicitudes</a>
                             <a class="dropdown-item" href="presentation/activos/list/View.jsp">Ver Activos</a>
                             <a class="dropdown-item" href="presentation/categorias/list/View.jsp">Ver Categorias</a>
                         </div>

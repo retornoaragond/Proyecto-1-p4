@@ -65,8 +65,8 @@ public class DaoAdministracion {
             throw new Exception("usuario ya existe ya existe");
         }
     }
-    
-    public void addUsuario(Usuario user,int lab) throws Exception {
+
+    public void addUsuario(Usuario user, int lab) throws Exception {
         String sql = "INSERT INTO usuario (id, pass, labUsu)"
                 + " VALUES ('%s', SHA2('%s',256), '%d');";
         sql = String.format(sql, user.getId(), user.getPass(), lab);
@@ -263,12 +263,12 @@ public class DaoAdministracion {
 
     public Dependencia buscarDependencia_codigo(String codigo) throws Exception {
         Dependencia depen = null;
-        
+
         String sql = "SELECT * FROM dependencia WHERE codigo = '%s'";
         sql = String.format(sql, codigo);
         ResultSet rs = dbb.executeQuery(sql);
         depen = dependencia(rs);
-        
+
         return depen;
     }
 
@@ -563,7 +563,7 @@ public class DaoAdministracion {
         }
         return cat;
     }
-    
+
     public List<Categoria> CategoriaSearchDescripcion(Categoria filtro) {
         List<Categoria> resultado = new ArrayList<>();
         try {
@@ -578,7 +578,7 @@ public class DaoAdministracion {
         }
         return resultado;
     }
-    
+
     public List<Categoria> CategoriaSearchId(Categoria filtro) {
         List<Categoria> resultado = new ArrayList<>();
         try {
@@ -593,7 +593,7 @@ public class DaoAdministracion {
         }
         return resultado;
     }
-    
+
     public List<Categoria> CategoriaSearch(Categoria filtro) {
         List<Categoria> resultado = new ArrayList<>();
         try {
@@ -627,10 +627,35 @@ public class DaoAdministracion {
     public void categoriaAdd(Categoria a) throws Exception {
         String sql = "insert into Categoria (id,incremento, descripcion) "
                 + "values('%s', '0','%s')";
-            sql = String.format(sql, a.getId(), a.getDescripcion());
+        sql = String.format(sql, a.getId(), a.getDescripcion());
         int count = dbb.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Categoria ya existe");
+        }
+    }
+
+    public Categoria Categoriaget(String f) {
+        Categoria cate = new Categoria();
+        try {
+            String sql = "SELECT * FROM categoria "
+                    + "WHERE id ='%s'";
+            sql = String.format(sql, f);
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                cate = categoria(rs);
+            }
+        } catch (SQLException ex) {
+        }
+        return cate;
+    }
+
+    public void incrementoplus(int i, String c_id) throws Exception {
+        String sql = "update categoria set incremento='%d'"
+                + "where id='%s'";
+        sql = String.format(sql, i,c_id);
+        int count = dbb.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Categoria no existe");
         }
     }
 

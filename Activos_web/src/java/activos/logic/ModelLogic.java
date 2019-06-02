@@ -93,7 +93,7 @@ public class ModelLogic {
     public void actualizarSoliEditada(Solicitud sol) throws Exception {
         daoSolicitud.actulizarSoliEditada(sol);
     }
-    
+
     public void actualizarEstadoSolicitud(Solicitud sol) throws Exception {
         daoSolicitud.SolicitudUpdate2(sol);
     }
@@ -107,7 +107,11 @@ public class ModelLogic {
         return daoSolicitud.getbienes(s);
     }
 
-    public Bien getBien(String serial) throws Exception {
+//    public Bien getBien(String serial) throws Exception {
+//        return daoSolicitud.BienGet(serial);
+//    }
+    
+    public Bien getBien(int serial) throws Exception {
         return daoSolicitud.BienGet(serial);
     }
 
@@ -128,7 +132,7 @@ public class ModelLogic {
     public Solicitud getSolicitud(String serial) throws Exception {
         return daoSolicitud.SolicitudGet(Integer.parseInt(serial));
     }
-    
+
     public Solicitud getSolicitudNumSol(String numsol) throws Exception {
         return daoSolicitud.getSolicitudNumero(Integer.parseInt(numsol));
     }
@@ -169,7 +173,7 @@ public class ModelLogic {
         if (filtro.getNumsol() != 0) {
             return daoSolicitud.SolicitudSearchRegis(filtro, l, fun);
         } else {
-            return daoSolicitud.solicitudRegistradorGetAll(l, fun);
+            return daoSolicitud.solicitudRegistradorGetAl(l, fun);
         }
     }
 
@@ -186,8 +190,8 @@ public class ModelLogic {
         }
         return sol;
     }
-    
-        public List<Solicitud> filtroSolicitudesSecretaria(Solicitud filtro) {
+
+    public List<Solicitud> filtroSolicitudesSecretaria(Solicitud filtro) {
         List<Solicitud> sol = new ArrayList<>();
         if (filtro != null) {
             if (!filtro.getNumcomp().equals("") && !filtro.getNumcomp().equals(" ")) {
@@ -203,6 +207,16 @@ public class ModelLogic {
 
     public List<Solicitud> searchSolicitudbyFuncionario(Funcionario filtro) {
         return daoSolicitud.searchSolicitudbyFuncionario(filtro);
+    }
+
+    public List<Solicitud> filtroSolicitudesRegistrador(Solicitud filtro, Funcionario f) {
+        List<Solicitud> sol = new ArrayList<>();
+        if (!filtro.getNumcomp().equals("") && !filtro.getNumcomp().equals(" ")) {
+            sol = daoSolicitud.searchsolicitudesRegistrador(filtro.getNumcomp(), f);
+        } else {
+            sol = daoSolicitud.searchsolicitudesRegistrador(f);
+        }
+        return sol;
     }
 
     //</editor-fold>
@@ -304,10 +318,18 @@ public class ModelLogic {
     public void deleteActivo(Activo a) throws Exception {
         daoActivos.ActivoDelete(a);
     }
+    
+    public Categoria getincrementocategoria(String f){
+       return daoAdministracion.Categoriaget(f);
+    }
 
-    public void addActivo(Activo activo) throws Exception {
-        //daoActivos.ActivoAdd(activo);
-        daoActivos.ActivoUpdate(activo);
+    public void addActivo(String codID, int id) throws Exception {
+        daoActivos.ActivoAdd(codID, id);
+    }
+    
+    public void actualizaincremento(int id, String c_id)throws Exception {
+        id = id+1;
+        daoAdministracion.incrementoplus(id, c_id);
     }
 
     public void updateActivo(Activo activo) throws Exception {
@@ -342,7 +364,6 @@ public class ModelLogic {
 //    }
 //    
     //</editor-fold>
-    
     public void close() {
         daoSolicitud.close();
         daoActivos.close();
@@ -384,8 +405,8 @@ public class ModelLogic {
     public List<Categoria> getCategorias() {
         return daoAdministracion.CategoriaALL();
     }
-    
-    public List<Categoria> searchCategorias(Categoria filtro){
+
+    public List<Categoria> searchCategorias(Categoria filtro) {
         if (filtro.getId().length() == 0 && filtro.getDescripcion().length() != 0) {
             return daoAdministracion.CategoriaSearchDescripcion(filtro);
         } else if (filtro.getId().length() != 0 && filtro.getDescripcion().length() == 0) {
