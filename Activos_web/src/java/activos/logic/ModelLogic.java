@@ -322,6 +322,20 @@ public class ModelLogic {
     public List<Activo> getActivos() {
         return daoActivos.ActivosGetAll();
     }
+    
+        public List<Activo> filtroActivos(Activo filtro) {
+        List<Activo> sol = new ArrayList<>();
+        if (filtro != null) {
+            if (!filtro.getCodigoId().equals("") && !filtro.getCodigoId().equals(" ")) {
+                sol = daoActivos.ActivoSearch(filtro);
+            } else {
+                sol = daoActivos.ActivosGetAll();
+            }
+        } else {
+            sol = daoActivos.ActivosGetAll();
+        }
+        return sol;
+    }
 
     public Activo getActivo(String codigoId) throws Exception {
         return daoActivos.ActivoGet(codigoId);

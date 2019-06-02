@@ -153,14 +153,14 @@
         function update() {
             var opcion = $("#selector option:selected").text();
             var numso = $("#numsol").text();
-            if (opcion !== "Seleccionar"){
+            if (opcion !== "Seleccionar") {
                 $.ajax({type: "PUT",
                     url: "api/encargado?nums=" + numso + "&val=" + opcion,
                     success: function (data, textStatus, jqXHR) {
                         buscar();
                     }
                 });
-            } else{
+            } else {
                 alert("Por favor seleccione un registrador");
             }
         }
@@ -321,6 +321,7 @@
                     break;
             }
             date = new Date(solicitud.fecha);
+
             tr.html(
                     "<td>" + solicitud.numsol + "</td>"
                     + "<td>" + solicitud.numcomp + "</a>" + "</td>"

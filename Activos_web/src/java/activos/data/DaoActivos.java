@@ -43,8 +43,25 @@ public class DaoActivos {
 
     private Activo activo(ResultSet rs) {
         try {
+            Bien b = new Bien();
+            b.setID(Integer.parseInt(rs.getString("bien_id")));
+            b.setSerial(rs.getString("serial"));
+            b.setDescripcion(rs.getString("descripcion"));
+            b.setMarca(rs.getString("marca"));
+            b.setModelo(rs.getString("modelo"));
+            b.setPrecioU(Integer.parseInt(rs.getString("precioU")));
+            b.setCantidad(Integer.parseInt(rs.getString("cantidad")));
+            /*solicitud*/
+            Categoria cat = new Categoria();
+            cat.setId(rs.getString("id"));
+            cat.setDescripcion(rs.getString("c.descripcion"));
+
+            b.setCategoria(cat);
+
             Activo ec = new Activo();
             ec.setCodigoId(rs.getString("codigoId"));
+            ec.setBien(b);
+
             return ec;
         } catch (SQLException ex) {
             return null;
@@ -54,9 +71,11 @@ public class DaoActivos {
     public List<Activo> ActivoSearch(Activo filtro) {
         List<Activo> resultado = new ArrayList<>();
         try {
-            String sql = "SELECT * from activo "
-                    + "where codigoId like '%s%'";
-            sql = String.format(sql, filtro.getBien());
+            String sql = "select a.bien_id, b.serial, b.descripcion, "
+                       + "b.marca, b.modelo, b.precioU, b.cantidad, c.id, c.descripcion, a.codigoId "
+                       + "from activo a, bien b, categoria c "
+                       + "where a.bien_id = b.id  and b.categoria = c.id and b.descripcion like '%%%s%%'";
+            sql = String.format(sql, filtro.getCodigoId());
             ResultSet rs = dbbb.executeQuery(sql);
             while (rs.next()) {
                 resultado.add(activo(rs));
@@ -290,7 +309,10 @@ public class DaoActivos {
     public List<Activo> ActivosGetAll() {
         List<Activo> estados = new ArrayList<>();
         try {
-            String sql = "select * from activo";
+            String sql = "select a.bien_id, b.serial, b.descripcion, "
+                       + "b.marca, b.modelo, b.precioU, b.cantidad, c.id, c.descripcion, a.codigoId "
+                       + "from activo a, bien b, categoria c "
+                       + " where a.bien_id = b.id  and b.categoria = c.id";
             ResultSet rs = dbbb.executeQuery(sql);
             while (rs.next()) {
                 estados.add(activo(rs));
