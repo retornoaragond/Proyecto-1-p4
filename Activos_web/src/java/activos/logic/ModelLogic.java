@@ -77,6 +77,14 @@ public class ModelLogic {
     public List<Usuario> getUsuarios() {
         return daoAdministracion.usuariosGetAll();
     }
+    
+    public List<Funcionario> getRegistradores() {
+        return daoAdministracion.getRegistradores();
+    }
+    
+    public void setRegistrador(String numsol, String nomFunc) throws Exception{
+        daoSolicitud.setRegistrador(numsol, nomFunc);
+    }
 
     public List<Solicitud> getSolicitudes() {
         return daoSolicitud.SolicitudGetAll();
@@ -187,6 +195,20 @@ public class ModelLogic {
         return sol;
     }
     
+    public List<Solicitud> filtroSolicitudesJefeOccb(Solicitud filtro) {
+        List<Solicitud> sol = new ArrayList<>();
+        if (filtro != null) {
+            if (!filtro.getNumcomp().equals("") && !filtro.getNumcomp().equals(" ")) {
+                sol = daoSolicitud.buscarPorCodigoJefeOccb(filtro.getNumcomp());
+            } else {
+                sol = daoSolicitud.SolicitudGetAllJefeOccb();
+            }
+        } else {
+            sol = daoSolicitud.SolicitudGetAllJefeOccb();
+        }
+        return sol;
+    }
+    
         public List<Solicitud> filtroSolicitudesSecretaria(Solicitud filtro) {
         List<Solicitud> sol = new ArrayList<>();
         if (filtro != null) {
@@ -217,6 +239,10 @@ public class ModelLogic {
 
     public List<Funcionario> getFuncionarioSS(String id) throws Exception {
         return daoAdministracion.GetFuncionarioS(id);
+    }
+    
+    public List<Funcionario> searchRegistradores() throws Exception {
+        return daoAdministracion.getRegistradores();
     }
 
     public List<Funcionario> searchFuncionario(Funcionario filtro) {

@@ -65,8 +65,8 @@ public class DaoAdministracion {
             throw new Exception("usuario ya existe ya existe");
         }
     }
-    
-    public void addUsuario(Usuario user,int lab) throws Exception {
+
+    public void addUsuario(Usuario user, int lab) throws Exception {
         String sql = "INSERT INTO usuario (id, pass, labUsu)"
                 + " VALUES ('%s', SHA2('%s',256), '%d');";
         sql = String.format(sql, user.getId(), user.getPass(), lab);
@@ -101,6 +101,21 @@ public class DaoAdministracion {
         } else {
             throw new Exception("Funcionario no Existe");
         }
+    }
+
+    public List<Funcionario> getRegistradores() {
+        List<Funcionario> resultado = new ArrayList<>();
+        try {
+            String sql = "SELECT f.id, f.nombre, p.puesto from labor l, funcionario f, puesto p "
+                    + "where l.funcLab = f.id and l.pueLab = p.codgo "
+                    + "and p.puesto = 'Registrador';";
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(funcionario(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
 
     private Funcionario funcionario(ResultSet rs) {
@@ -263,12 +278,12 @@ public class DaoAdministracion {
 
     public Dependencia buscarDependencia_codigo(String codigo) throws Exception {
         Dependencia depen = null;
-        
+
         String sql = "SELECT * FROM dependencia WHERE codigo = '%s'";
         sql = String.format(sql, codigo);
         ResultSet rs = dbb.executeQuery(sql);
         depen = dependencia(rs);
-        
+
         return depen;
     }
 
