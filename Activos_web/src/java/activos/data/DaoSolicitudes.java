@@ -5,6 +5,7 @@
  */
 package activos.data;
 
+import activos.logic.Activo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -435,7 +436,7 @@ public class DaoSolicitudes {
                     + "where numcomp like '%%%s%%' "
                     + "and registrador = '%s'  "
                     + "and (estado = 'PorVerificar' "
-                    + "or estado = 'Procesada'"
+                    + "or estado = 'Procesada' "
                     + "or estado = 'Etiquetado');";
             sql = String.format(sql, codigo,F.getId());
             ResultSet rs = db.executeQuery(sql);
@@ -453,7 +454,8 @@ public class DaoSolicitudes {
             String sql = "select * from solicitud "
                     + "where registrador = '%s'  "
                     + "and (estado = 'PorVerificar' "
-                    + "or estado = 'Procesada')";
+                    + "or estado = 'Procesada' "
+                    + "or estado = 'Etiquetado')";
             sql = String.format(sql, F.getId());
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -735,6 +737,16 @@ public class DaoSolicitudes {
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Bien ya existe");
+        }
+    }
+    
+    public void BienUpdateCat(int bien, String categ) throws Exception {
+        String sql = "update bien set categoria='%s' "
+                + "where Id='%d'";
+        sql = String.format(sql, categ, bien);
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Bien no existe");
         }
     }
 

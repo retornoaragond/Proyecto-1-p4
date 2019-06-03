@@ -83,6 +83,7 @@ public class Controller extends HttpServlet {
             request.getSession(true).setAttribute("habilitado", habilitado);
             request.getSession(true).setAttribute("solicitud", soli);
             request.getSession(true).setAttribute("modo", modo);
+            request.getSession(true).setAttribute("listaBien",null);
             request.getRequestDispatcher("/presentation/solicitud/create/View.jsp").forward(request, response);
         } else {
             request.getRequestDispatcher("/presentation/Error.jsp").forward(request, response);

@@ -256,10 +256,10 @@
 // recibida rechazada por verificar 
         function llenarCombo(estado) {
             var valor;
-            if (estado === "porVerificar") {
-                valor = "rechazada";
+            if (estado === "PorVerificar") {
+                valor = "Rechazada";
             } else {
-                valor = "porVerificar";
+                valor = "PorVerificar";
             }
             return valor;
         }
@@ -283,17 +283,20 @@
             var cadena2 = " ";
 
             switch (solicitud.estado) {
-                case "porVerificar":
+                case "PorVerificar":
                     cadena = "<td><i class=\"fas fa-hourglass-half\"></i></td>";
                     break;
-                case "procesada":
+                case "Procesada":
                     cadena = "<td><i class=\"fas fa-check-double\"></i></td>";
                     break;
-                case "rechazada":
+                case "Rechazada":
                     cadena = "<td><i class=\"fas fa-window-close\"></i></td>";
                     break;
-                case "recibida":
+                case "Recibida":
                     cadena = "<td><i class=\"fas fa-check\"></i></td>";
+                    break;
+                case "Etiquetado":
+                    cadena = "<td><i class=\"fas fa-tags\"></i></td>";
                     break;
                 default:
                     cadena = "vacia";

@@ -43,7 +43,7 @@
                     <% } %>
                     <!-- /CAMBIADO POR STEVE, PREGUNTAR A MI-->
                     
-                    <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Secretariado")) { %> 
+                    <% if (loggeado.getLabor().getPuesto().getPuesto().equals("Secretariado OCCB")) { %> 
                         <div class="dropdown-menu text-center" aria-labelledby="usuario">
                             <a class="dropdown-item" href="presentation/solicitud/list/ViewSecretaria.jsp">Ver Solicitudes</a>
                         </div>

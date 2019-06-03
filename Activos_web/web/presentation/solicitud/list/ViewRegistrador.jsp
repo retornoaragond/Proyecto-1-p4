@@ -165,6 +165,19 @@
                 $("#buscar").on("click", buscar);
                 $("#detalles").on("click", buscarBienes);
                 $("#guarda").on("click", update);
+                $("#categoria_select").on("change", myFunction);
+            }
+
+            function myFunction() {
+                var combo = $("#categoria_select").val();
+                if (combo !== "" || combo !== null) {
+                    $.ajax({type: "PUT",
+                        url: "api/bienes?id_bien=" + $("#id_bien").val() + "&id_cat=" + $("#categoria_select").val(),
+                        success: function () {
+                            alert("Categoria Asignada");
+                        }
+                    });
+                }
             }
 
             function rellenacat(event) {
@@ -181,19 +194,19 @@
                     var cate = $("#categoria_select").val();
                     $.ajax({type: "POST",
                         url: "api/bienes?id_b=" + id + "&cant_b=" + cant + "&cat_b=" + cate,
-                        success: function(){
+                        success: function () {
                             $("#categoria_select").val("");
                             alert("se a registrado nuevo(s) activo(s)");
                         },
-                        error:function(){
+                        error: function () {
                             $("#categoria_select").val("");
                             alert("error no se pudo crear e lactivo");
                         }
                     });
                 }
-                
+
             }
-            
+
 
             function validatecat() {
                 if ($("#categoria_select").val() === null || $("#categoria_select").val() === "") {
@@ -305,7 +318,7 @@
                 if (estado === "porVerificar") {
                     valor = "Etiquetado";
                 } else {
-                    if (estado === "Etiquetar") {
+                    if (estado === "Etiquetado") {
                         valor = "Procesada";
                     } else {
                         valor = "Etiquetado";
@@ -345,6 +358,9 @@
                         break;
                     case "Recibida":
                         cadena = "<td><i class=\"fas fa-check\"></i></td>";
+                        break;
+                    case "Etiquetado":
+                        cadena = "<td><i class=\"fas fa-tags\"></i></td>";
                         break;
                     default:
                         cadena = "vacia";

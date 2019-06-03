@@ -206,7 +206,7 @@
                     + "<td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td>"
                     + "<td>" + solicitud.tipoadq + "</td>"
                     + "<td>" + solicitud.dependencia.nombre + "</td>"
-                    + "<td><select id=\"selector\"></select></td>");
+                    + "<td><select id=\"selector\" class=\"custom-select\"></select></td>");
             buscarRegistradores(valor);
             listado.append(tr);
         }
@@ -289,17 +289,20 @@
             var cadena2 = " ";
 
             switch (solicitud.estado) {
-                case "porVerificar":
+                case "PorVerificar":
                     cadena = "<td><i class=\"fas fa-hourglass-half\"></i></td>";
                     break;
-                case "procesada":
+                case "Procesada":
                     cadena = "<td><i class=\"fas fa-check-double\"></i></td>";
                     break;
-                case "rechazada":
+                case "Rechazada":
                     cadena = "<td><i class=\"fas fa-window-close\"></i></td>";
                     break;
-                case "recibida":
+                case "Recibida":
                     cadena = "<td><i class=\"fas fa-check\"></i></td>";
+                    break;
+                case "Etiquetado":
+                    cadena = "<td><i class=\"fas fa-tags\"></i></td>";
                     break;
                 default:
                     cadena = "vacia";

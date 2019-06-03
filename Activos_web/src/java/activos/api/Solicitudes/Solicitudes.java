@@ -47,7 +47,7 @@ public class Solicitudes {
         List<Solicitud> ps = new ArrayList<>();
         Puesto puesto = logg.getLabor().getPuesto();
         
-        if(puesto.getPuesto().equals("Secretariado")){
+        if(puesto.getPuesto().equals("Secretariado OCCB")){
             ps = model.filtroSolicitudesSecretaria(filtro);
         }else{
             if(puesto.getPuesto().equals("Registrador")){

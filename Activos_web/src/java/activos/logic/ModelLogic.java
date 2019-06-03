@@ -114,10 +114,6 @@ public class ModelLogic {
     public List<Bien> getBienes(Solicitud s) {
         return daoSolicitud.getbienes(s);
     }
-
-//    public Bien getBien(String serial) throws Exception {
-//        return daoSolicitud.BienGet(serial);
-//    }
     
     public Bien getBien(int serial) throws Exception {
         return daoSolicitud.BienGet(serial);
@@ -130,6 +126,10 @@ public class ModelLogic {
     public void addBienPreservar(Bien bien) throws Exception {
         daoSolicitud.addBienPreservar(bien);
     }
+    
+     public void BienUpdate(int bien, String categ) throws Exception{
+         daoSolicitud.BienUpdateCat(bien, categ);
+     }
 
     //</editor-fold>
     //  <editor-fold desc="Solicitudes" defaultstate="collapsed">

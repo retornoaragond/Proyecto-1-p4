@@ -36,13 +36,16 @@ INSERT INTO funcionario (id, nombre) VALUES ('012', 'Karina Arguedas Salgado'); 
 -- ----------------------------  Puestos -------------------------------------
 
 INSERT INTO puesto (codgo, puesto) VALUES ('001', 'Administrador');
-INSERT INTO puesto (codgo, puesto) VALUES ('002', 'Secretariado');
+INSERT INTO puesto (codgo, puesto) VALUES ('002', 'Secretariado OCCB');
 INSERT INTO puesto (codgo, puesto) VALUES ('003', 'Registrador');
 INSERT INTO puesto (codgo, puesto) VALUES ('004', 'Jefe OCCB');
 INSERT INTO puesto (codgo, puesto) VALUES ('005', 'Jefe RRHH');
 INSERT INTO puesto (codgo, puesto) VALUES ('006', 'Profesor');
 INSERT INTO puesto (codgo, puesto) VALUES ('007', 'Miscelaneo');
 INSERT INTO puesto (codgo, puesto) VALUES ('008', 'Guardia de Seguridad');
+INSERT INTO puesto (codgo, puesto) VALUES ('009', 'Secretariado');
+INSERT INTO puesto (codgo, puesto) VALUES ('010', 'Asistente');
+INSERT INTO puesto (codgo, puesto) VALUES ('011', 'Medico');
 
 
 
@@ -90,37 +93,61 @@ INSERT INTO usuario (id, pass, labUsu) VALUES ('012', SHA2('012',256), '12'); --
 
 -- ----------------------------  Categorias -------------------------------------
 
-INSERT INTO categoria (id, incremento, descripcion) VALUES ('1', '0', 'escritorios');
-INSERT INTO categoria (id, incremento, descripcion) VALUES ('2', '0', 'monitor computadora');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('1', '0', 'silla');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('2', '0', 'escritorio');
 INSERT INTO categoria (id, incremento, descripcion) VALUES ('3', '0', 'computadora');
 INSERT INTO categoria (id, incremento, descripcion) VALUES ('4', '0', 'extintor');
 INSERT INTO categoria (id, incremento, descripcion) VALUES ('5', '0', 'regleta');
 INSERT INTO categoria (id, incremento, descripcion) VALUES ('6', '0', 'tubo ensayo');
-INSERT INTO categoria (id, incremento, descripcion) VALUES ('7', '0', 'horno microhondas');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('7', '0', 'microhondas');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('8', '0', 'teclado');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('9', '0', 'control');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('10', '0', 'mouse');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('11', '0', 'hdmi_vga');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('12', '0', 'vga_hdmi');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('13', '0', 'parlantes');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('14', '0', 'base');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('15', '0', 'microfono');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('16', '0', 'extension');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('17', '0', 'ventilador');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('18', '0', 'tubo_prueba');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('19', '0', 'beaker');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('20', '0', 'antena');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('21', '0', 'proyector');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('22', '0', 'lapiz_pizarra');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('23', '0', 'piano');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('24', '0', 'violin');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('25', '0', 'saxofon');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('26', '0', 'microscopio');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('27', '0', 'pizarra_interac');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('28', '0', 'flauta');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('29', '0', 'reflectores');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('30', '0', 'camara');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('31', '0', 'impresora');
+INSERT INTO categoria (id, incremento, descripcion) VALUES ('32', '0', 'toldo');
  
 
 -- ----------------------------  Solicitudes -------------------------------------
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('abc', '20181102', '1', '5000','', 'recibida', '001', 'Donacion');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('def', '20181102', '1', '10000','', 'procesada', '003', 'Compra');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('ert', '20180210', '1', '1500','', 'porVerificar', '002', 'Generado');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('asd', '20180913', '1', '450','', 'recibida', '004', 'Generado');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('jkl', '20180215', '1', '800','no claro', 'rechazada','005', 'Compra');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('vbn', '20180508', '1', '745','', 'procesada', '006', 'Compra');
-INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('kol', '20180122', '1', '100','', 'porVerificar', '007', 'Compra');
-
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('abc', '20181102', '1', '5000','', 'Recibida', '001', 'Donacion');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('def', '20181102', '1', '10000','', 'Recibida', '003', 'Compra');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('ert', '20180210', '1', '1500','', 'Recibida', '002', 'Generado');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('asd', '20180913', '1', '450','', 'Recibida', '004', 'Generado');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('jkl', '20180215', '1', '800','', 'Recibida','005', 'Compra');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('vbn', '20180508', '1', '745','', 'Recibida', '006', 'Compra');
+INSERT INTO solicitud (numcomp, fecha, cantbien, montotal, razonR, estado, Dependencia_codigo, tipoadq) VALUES ('kol', '20180122', '1', '100','', 'Recibida', '007', 'Compra');
 
 
 
 -- ----------------------------  Bienes -------------------------------------
 
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('xyf', 'sillas oficina', 'patito', 'x-23', '5000', '1', '1', '1');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('fyx', 'sillas comedor', 'patito', 'x-24', '8000', '1', '1', '1');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('uio', 'escritorios', 'patitoplus', 'xy-40', '45000', '1', '2', '2');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('rrr', 'sillones', 'wood', 'm456', '50000', '1', '3', '3');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('ggg', 'basureros', 'acme', 'b71', '8000', '1', '4', '4');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('qjd', 'computadoras', 'hp', 'hp40', '200000', '1', '5', '5');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('mmn', 'routers', 'cisco', 'cs-333', '30000', '1', '6', '6');
-INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('oiu', 'mesas', 'altea', 'aa-465', '48000', '1', '7', '7');
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('xyf', 'sillas oficina', 'patito', 'x-23', '5000', '1', '1', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('fyx', 'sillas comedor', 'patito', 'x-24', '8000', '1', '1', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('uio', 'escritorios', 'patitoplus', 'xy-40', '45000', '1', '2', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('rrr', 'mesa', 'wood', 'm456', '50000', '1', '3', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('ggg', 'basureros', 'acme', 'b71', '8000', '1', '4', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('qjd', 'computadoras', 'hp', 'hp40', '200000', '1', '5', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('mmn', 'routers', 'cisco', 'cs-333', '30000', '1', '6', null);
+INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicitud, categoria) VALUES ('oiu', 'mesas', 'altea', 'aa-465', '48000', '1', '7', null);
 
 
 
@@ -155,41 +182,3 @@ INSERT INTO grupos(id, grupo) VALUES ('011','JefeOCCB');
 INSERT INTO grupos(id, grupo) VALUES ('012','JefeRRHH');
 
 
-
--- SELECT activo.codigoId activocodigo, activo.labAct laborActivo, bien.serial bienserial,bien.descripcion biendescripcion,categoria.id categoriaid, categoria.descripcion categoriadescripcion   from activo inner join bien on activo.bienAct = bien.serial inner join categoria on categoria.id=bien.categoria where categoria.descripcion like '%s%' ;
-
--- Select activo.codigoId activocodigo, activo.labAct laborActivo, activo.bienAct bienserial, IF(activo.labAct == null, 'caro','barato') from activo;
-
--- SELECT activo.codigoId activocodigo, labor.id laborid, bien.serial bienserial, dependencia.codigo dependenciacodigo, bien.descripcion biendescripcion, categoria.id categoriaid, categoria.descripcion categoriadescripcion, dependencia.nombre dependencianombre FROM activo INNER JOIN labor ON activo.labAct = labor.id INNER JOIN bien ON bien.serial = activo.bienAct INNER JOIN categoria ON bien.categoria = categoria.id INNER JOIN dependencia ON labor.depLab = dependencia.codigo  WHERE dependencia.nombre LIKE '%e%';
-
--- SELECT activo.codigoId activocodigo, labor.id laborid, bien.serial bienserial, funcionario.id funcionarioid, funcionario.nombre funcionarionombre, dependencia.codigo dependenciacodigo, bien.descripcion biendescripcion, categoria.id categoriaid, categoria.descripcion categoriadescripcion, dependencia.nombre dependencianombre FROM activo INNER JOIN labor ON activo.labAct = labor.id INNER JOIN bien ON bien.serial = activo.bienAct INNER JOIN categoria ON bien.categoria = categoria.id INNER JOIN dependencia ON labor.depLab = dependencia.codigo INNER JOIN funcionario ON funcionario.id= labor.funcLab  WHERE funcionario.nombre LIKE '%e%';
-
--- SELECT activo.codigoId activocodigo, labor.id laborid, bien.serial bienserial, funcionario.id funcionarioid, funcionario.nombre funcionarionombre, dependencia.codigo dependenciacodigo, bien.descripcion biendescripcion, categoria.id categoriaid, categoria.descripcion categoriadescripcion, dependencia.nombre dependencianombre FROM activo INNER JOIN labor ON activo.labAct = labor.id INNER JOIN bien ON bien.serial = activo.bienAct INNER JOIN categoria ON bien.categoria = categoria.id INNER JOIN dependencia ON labor.depLab = dependencia.codigo INNER JOIN funcionario ON funcionario.id= labor.funcLab  WHERE activo.codigoId LIKE '%1%';
-
--- SELECT activo.codigoId activocodigo, labor.id laborid, bien.serial bienserial, funcionario.id funcionarioid, funcionario.nombre funcionarionombre, dependencia.codigo dependenciacodigo, bien.descripcion biendescripcion, categoria.id categoriaid, categoria.descripcion categoriadescripcion, dependencia.nombre dependencianombre FROM activo INNER JOIN labor ON activo.labAct = labor.id INNER JOIN bien ON bien.serial = activo.bienAct INNER JOIN categoria ON bien.categoria = categoria.id INNER JOIN dependencia ON labor.depLab = dependencia.codigo INNER JOIN funcionario ON funcionario.id= labor.funcLab  WHERE categoria.descripcion LIKE '%e%';
-
--- SELECT activo.codigoId activocodigo, labor.id laborid, bien.serial bienserial, funcionario.id funcionarioid, funcionario.nombre funcionarionombre, dependencia.codigo dependenciacodigo, bien.descripcion biendescripcion, categoria.id categoriaid, categoria.descripcion categoriadescripcion, dependencia.nombre dependencianombre FROM activo INNER JOIN labor ON activo.labAct = labor.id INNER JOIN bien ON bien.serial = activo.bienAct INNER JOIN categoria ON bien.categoria = categoria.id INNER JOIN dependencia ON labor.depLab = dependencia.codigo INNER JOIN funcionario ON funcionario.id= labor.funcLab  WHERE bien.descripcion LIKE '%e%';
-
--- SELECT usuario.id id_user, pass clave, funcionario.id id_func, nombre, dependenciaLabor dependencia, PuestoLabor puesto FROM usuario  INNER JOIN Funcionario  ON usuario.funcionarioUsuario = Funcionario.id INNER JOIN Labor ON Funcionario.id = Labor.FuncionarioLabor WHERE usuario.id= '001' AND usuario.pass='001';
-
--- SELECT * FROM solicitud INNER JOIN bien ON solicitud.numSolicitud = bien.solicitudBien;
-
--- SELECT * FROM usuario INNER JOIN funcionario ON usuario.funcionarioUsuario = funcionario.id; 
-
--- SELECT * FROM puesto WHERE codigo = '001'; 
-
--- SELECT usuario.id id_user, pass clave, funcionarioUsuario id_func FROM usuario WHERE usuario.id= '001';
-
--- SELECT * FROM usuario WHERE id='001';
--- SELECT * FROM sistemaactivos.usuario;
--- SELECT * FROM sistemaactivos.labor;
--- SELECT * FROM sistemaactivos.labor;
--- SELECT * FROM usuario WHERE usuario.id = 001; 
--- UPDATE solicitud SET registrador = '009' WHERE (numsol = '1');
--- DELETE FROM solicitud WHERE (numsol = '2');
-
-
--- SELECT * FROM sistemaactivos.dependencia;
--- SELECT * FROM dependencia WHERE codigo LIKE '%s%'
--- SELECT LAST_INSERT_ID();
--- UPDATE `sistemaactivos`.`solicitud` SET `registrador` = '010' WHERE (`numsol` = '9');
