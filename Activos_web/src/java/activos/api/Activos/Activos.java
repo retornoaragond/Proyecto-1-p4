@@ -7,6 +7,8 @@ package activos.api.Activos;
 
 import activos.logic.Activo;
 import activos.logic.Bien;
+import activos.logic.Dependencia;
+import activos.logic.Funcionario;
 import activos.logic.ModelLogic;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -38,5 +40,22 @@ public class Activos {
         b.setDescripcion(codigoid);
         filtro.setBien(b);
         return model.filtroActivos(filtro);
+    }
+
+    @GET
+    @Path("/dependencia")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Dependencia> buscarDependencias() {
+        Dependencia d = new Dependencia();
+        d.setCodigo("");
+        return model.searchDependencia(d);
+    }
+
+    @GET
+    @Path("/func")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<Funcionario> buscarFuncionarios(@QueryParam("dependencia") String dependencia) {
+        List<Funcionario> f = model.searchFuncionariosDependencia(dependencia);
+        return f;
     }
 }

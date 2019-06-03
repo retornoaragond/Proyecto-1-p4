@@ -270,6 +270,11 @@ public class ModelLogic {
             return daoAdministracion.FuncionarioGetAll();
         }
     }
+    
+    public List<Funcionario> searchFuncionariosDependencia(String dependencia) {
+        List<Funcionario> f = daoAdministracion.funcionariosDependencia(dependencia);
+        return f ;
+    }
 
     public void deleteFuncionario(String p) throws Exception {
         daoAdministracion.FuncionarioDelete(p);
