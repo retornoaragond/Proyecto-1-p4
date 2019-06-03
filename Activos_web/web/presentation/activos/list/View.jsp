@@ -109,7 +109,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="form-control btn btn-info" id="crear_Ac" onclick="generaactivos();" data-dismiss="modal">Crear Activo(s)</button>
+                        <button type="button" class="form-control btn btn-info" id="crear_Ac" onclick="guardar();" data-dismiss="modal">Crear Activo(s)</button>
                     </div>
                 </div>
             </div>
@@ -145,9 +145,9 @@
 
         }
 
-        function cargacampos(descripcion, categoria) {
+        function cargacampos(descripcion, categoria, cat) {
             $("#id_id").val(descripcion);
-            $("#id_bien").val(descripcion);
+            $("#id_bien").val(categoria);
             $("#cant_bien").val(categoria);
         }
 
@@ -193,8 +193,13 @@
                     + "<td>" + activo.bien.marca + "</td>"
                     + "<td>" + activo.bien.modelo + "</td>"
                     + "<td>" + activo.bien.categoria.descripcion + "</td>"
-                    + "<td><a data-toggle=\"modal\" href=\"#exampleModalCenter\"><i class=\"fas fa-edit\" onclick=\"cargacampos(" + activo.codigoId + "," + activo.bien.categoria.descripcion + ")\"></i></td>");
+                    + "<td><a data-toggle=\"modal\" href=\"#exampleModalCenter\"><i class=\"fas fa-edit\" onclick=\"cargacampos('" + activo.codigoId + "','" + activo.bien.descripcion + "','" + activo.bien.categoria.descripcion + "')\"></i></td>");
             listado.append(tr);
+        }
+        
+        function plop(a,b){
+            alert(a);
+            alert(b);
         }
 //</BUSCAR>
 
