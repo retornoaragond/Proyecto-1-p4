@@ -481,6 +481,21 @@ public class DaoAdministracion {
         }
         return labores;
     }
+    
+    public Labor laborGetbyFunc(String id) throws Exception {
+        Labor labores = new Labor();
+        try {
+            String sql = "SELECT * FROM labor WHERE funcLab = '%s'";
+            sql = String.format(sql, id);
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                labores= labor(rs);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return labores;
+    }
 
     public List<Labor> laborGetbyDependencia(int codigo) throws Exception {
         List<Labor> labores = new ArrayList<>();

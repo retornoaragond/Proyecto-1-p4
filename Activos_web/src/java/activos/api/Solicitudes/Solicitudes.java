@@ -34,7 +34,7 @@ import javax.ws.rs.core.MediaType;
 public class Solicitudes {
 
     @Context
-    HttpServletRequest request ;
+    HttpServletRequest request;
     ModelLogic model = ModelLogic.instance();
 
     @GET
@@ -46,13 +46,13 @@ public class Solicitudes {
         Usuario logg = (Usuario) request.getSession(true).getAttribute("logged");
         List<Solicitud> ps = new ArrayList<>();
         Puesto puesto = logg.getLabor().getPuesto();
-        
-        if(puesto.getPuesto().equals("Secretariado OCCB")){
+
+        if (puesto.getPuesto().equals("Secretariado OCCB")) {
             ps = model.filtroSolicitudesSecretaria(filtro);
-        }else{
-            if(puesto.getPuesto().equals("Registrador")){
-               Funcionario user = logg.getLabor().getFuncionario();
-               ps = model.filtroSolicitudesRegistrador(filtro, user);
+        } else {
+            if (puesto.getPuesto().equals("Registrador")) {
+                Funcionario user = logg.getLabor().getFuncionario();
+                ps = model.filtroSolicitudesRegistrador(filtro, user);
             }
         }
         return ps;
@@ -104,7 +104,7 @@ public class Solicitudes {
         return nueva;
     }
 
-        @PUT
+    @PUT
     @Path("/encargado")
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateRegistrador(@QueryParam("nums") String nums, @QueryParam("val") String val) {
@@ -117,7 +117,7 @@ public class Solicitudes {
             throw new NotFoundException();
         }
     }
-    
+
     @PUT
     @Path("/actualice")
     @Consumes(MediaType.APPLICATION_JSON)

@@ -9,10 +9,14 @@ import activos.logic.Activo;
 import activos.logic.Bien;
 import activos.logic.Dependencia;
 import activos.logic.Funcionario;
+import activos.logic.Labor;
 import activos.logic.ModelLogic;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -57,5 +61,20 @@ public class Activos {
     public List<Funcionario> buscarFuncionarios(@QueryParam("dependencia") String dependencia) {
         List<Funcionario> f = model.searchFuncionariosDependencia(dependencia);
         return f;
+    }
+
+    @PUT
+    @Path("/actualizaActivo")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateRegistrador(
+            @QueryParam("id_fun") String fun,
+            @QueryParam("id_dep") String dep,
+            @QueryParam("id_activo") String acti) {
+        try {
+            Labor l= model.laborGetbyFunc(fun);
+            model.actualizaActi(acti,l.getId());
+        } catch (Exception ex) {
+            throw new NotFoundException();
+        }
     }
 }

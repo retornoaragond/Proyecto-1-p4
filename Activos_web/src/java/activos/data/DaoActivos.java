@@ -361,6 +361,16 @@ public class DaoActivos {
             throw new Exception("Activo no existe");
         }
     }
+    
+    public void ActivoUpdate(String a, int l) throws Exception {
+        String sql = "update activo set labAct='%d' "
+                + "where codigoId='%s'";
+        sql = String.format(sql, l,a);
+        int count = dbbb.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Activo no existe");
+        }
+    }
 
     public void close() {
     }

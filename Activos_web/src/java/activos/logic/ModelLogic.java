@@ -376,6 +376,10 @@ public class ModelLogic {
         id = id+1;
         daoAdministracion.incrementoplus(id, c_id);
     }
+    
+    public void actualizaActi(String id, int acti)throws Exception {
+        daoActivos.ActivoUpdate(id, acti);
+    }
 
     public void updateActivo(Activo activo) throws Exception {
         daoActivos.ActivoUpdate(activo);
@@ -421,6 +425,10 @@ public class ModelLogic {
 
     public List<Labor> getLaboresbyFuncionario(String FunId) throws Exception {
         return daoAdministracion.laborGetbyFuncionario(FunId);
+    }
+    
+    public Labor laborGetbyFunc(String id)throws Exception{
+        return daoAdministracion.laborGetbyFunc(id);
     }
 
     public void addLabor(Labor lab) throws Exception {
