@@ -189,6 +189,21 @@ public class DaoAdministracion {
         }
         return estados;
     }
+    
+    public List<Funcionario> funcionariosDependencia(String dependencia) {
+        List<Funcionario> estados = new ArrayList<>();
+        try {
+            String sql = "select f.id, f.nombre from labor l, funcionario f, dependencia d where l.funcLab = f.id "
+                    + "and l.depLab = d.codigo and d.nombre = '%s'";
+            sql = String.format(sql, dependencia);
+            ResultSet rs = dbb.executeQuery(sql);
+            while (rs.next()) {
+                estados.add(funcionario(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return estados;
+    }
 
     public Funcionario FuncionarioGet(String id) throws Exception {
         String sql = "SELECT * FROM funcionario WHERE id='%s'";
