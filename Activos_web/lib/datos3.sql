@@ -154,14 +154,14 @@ INSERT INTO bien (serial, descripcion, marca, modelo, precioU, cantidad, solicit
 -- ----------------------------  Activos -------------------------------------
 
 
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('1', '001', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('2', '002', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('3', '003', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('4', '004', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('5', '005', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('6', '006', '1');
-INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('7', '007', '1');
-INSERT INTO activo (`codigoId`, `bien_ID`) VALUES ('8', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('1', '001', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('2', '002', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('3', '003', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('4', '004', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('5', '005', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('6', '006', '1');
+-- INSERT INTO activo (`codigoId`, `labAct`, `bien_ID`) VALUES ('7', '007', '1');
+-- INSERT INTO activo (`codigoId`, `bien_ID`) VALUES ('8', '1');
 
 
 INSERT INTO grupos(id, grupo) VALUES ('001','Administrador');

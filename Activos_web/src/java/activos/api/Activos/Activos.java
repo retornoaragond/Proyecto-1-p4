@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -68,7 +69,6 @@ public class Activos {
     @Consumes(MediaType.APPLICATION_JSON)
     public void updateRegistrador(
             @QueryParam("id_fun") String fun,
-            @QueryParam("id_dep") String dep,
             @QueryParam("id_activo") String acti) {
         try {
             Labor l= model.laborGetbyFunc(fun);
@@ -76,5 +76,14 @@ public class Activos {
         } catch (Exception ex) {
             throw new NotFoundException();
         }
+    }
+    
+    @POST
+    @Path("/barras")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void reportePDF(@QueryParam("header") String header,
+            @QueryParam("info") String info, @QueryParam("footer") String footer,
+            @QueryParam("salida") String salida, @QueryParam("codigo") String codigo) {
+        model.generarPDF(header, info, footer, salida, codigo);
     }
 }

@@ -34,16 +34,20 @@
                                         <h1 class="text-center">Listado de Activos </h1>
                                     </div>
                                     <div class=" col-12">
-                                        <label for="validationServer11">N° Comprobante</label>
+                                        <label for="validationServer11">Descripcion</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text" id="validationTooltipUsernamePrepend"><i class="fas fa-search"></i></span>
                                             </div>
-                                            <input type="text"  id="comprobante" name="filter" class="form-control" id="validationServer11" placeholder="N° Comprobante" value="">
+                                            <input type="text"  id="comprobante" name="filter" class="form-control" id="validationServer11" placeholder="Descripcion" value="">
                                         </div>
                                     </div>
                                     <div class="input-group col-12 mt-2">
                                         <button type="button" class="form-control btn btn-primary" id="buscar">Buscar</button>
+                                    </div>
+                                    <br>
+                                    <div class="col-12 mt-2">
+                                        <button type="button" class="btn btn-warning" id="generar">Generar <i class="fas fa-barcode"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -226,31 +230,42 @@
         }
 
         function llenarComboFuncionario(listado, funcionarios) {
-            var tr = $("<option>");
-            tr.html("<option>" + funcionarios.nombre + "</option>");
+            var tr = $("<option value=\"" + funcionarios.id + "\" />");
+            tr.html(funcionarios.nombre);
             listado.append(tr);
         }
 
         function guardar() {
             if (validatecombo()) {
-                $.ajax({type: "GET",
-                    url: "api/actualizaActivo?dependencia=" + opcion,
-                    success: llenarFuncionario
+                $.ajax({type: "PUT",
+                    url: "api/actualizaActivo?id_fun=" + $("#encargado_select").val() + "&id_activo=" + $("#id_id").val(),
+                    success: function () {
+                        alert("guardado");
+                    }
                 });
             }
+        }
+
+        function generarPDF(codigo) {
+            $.ajax({type: "POST",
+                url: "api/barras?header=" + "" + "&info=" + "" + "&footer=" + "" + "&salida=" + codigo + "&codigo=" + codigo,
+                success: function () {
+                    alert("Codigo de barras generado");
+                }
+            });
         }
 
         function validatecombo() {
             var cont = 0;
             if ($("#dependencia_select").val() === null || $("#dependencia_select").val() === "") {
                 $("#dependencia_select").addClass("is-invalid");
-                cont=cont+1;
+                cont = cont + 1;
             } else {
                 $("#dependencia_select").removeClass("is-invalid");
             }
             if ($("#dependencia_select").val() === null || $("#dependencia_select").val() === "") {
                 $("#dependencia_select").addClass("is-invalid");
-                cont=cont+1;
+                cont = cont + 1;
             } else {
                 $("#dependencia_select").removeClass("is-invalid");
             }

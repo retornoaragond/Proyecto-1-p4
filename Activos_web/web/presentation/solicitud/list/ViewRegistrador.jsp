@@ -132,13 +132,12 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="sel_categoria" tabindex="-2" role="dialog" aria-labelledby="exampleModalCenterTitle"
-             aria-hidden="true">
+        <div class="modal fade" id="sel_categoria" tabindex="-2" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Registrar</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle"><img src="image/questions.png" alt="question" height="42" width="42"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -204,9 +203,7 @@
                         }
                     });
                 }
-
             }
-
 
             function validatecat() {
                 if ($("#categoria_select").val() === null || $("#categoria_select").val() === "") {

@@ -23,9 +23,14 @@ public class ModelLogic {
     private final DaoSolicitudes daoSolicitud;
     private final DaoActivos daoActivos;
     private final DaoAdministracion daoAdministracion;
+    private final GenerarPDF generarPDF;
 
     private static ModelLogic uniqueInstance;
-
+    
+    public void generarPDF(String header, String info, String footer, String salida, String codigo){
+        generarPDF.generarPDF(header, info, footer, salida, codigo);
+    }
+    
     public static ModelLogic instance() {
         if (uniqueInstance == null) {
             uniqueInstance = new ModelLogic();
@@ -38,6 +43,7 @@ public class ModelLogic {
         daoSolicitud = new DaoSolicitudes();
         daoActivos = new DaoActivos();
         daoAdministracion = new DaoAdministracion();
+        generarPDF = new GenerarPDF();
     }
 
     public String getSHA_256(String pass) {
