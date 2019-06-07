@@ -46,9 +46,11 @@
                                         <button type="button" class="form-control btn btn-primary" id="buscar">Buscar</button>
                                     </div>
                                     <br>
+                                    <!--
                                     <div class="col-12 mt-2">
                                         <button type="button" class="btn btn-warning" id="generar">Generar <i class="fas fa-barcode"></i></button>
                                     </div>
+                                    -->
                                 </div>
                             </form>
 
@@ -112,6 +114,7 @@
 
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" onclick="generarPDF()" id="codigebarre">Codigo de Barras</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="form-control btn btn-info" id="crear_Ac" onclick="guardar()" data-dismiss="modal">Crear Activo(s)</button>
                     </div>
@@ -133,6 +136,7 @@
             $("#buscar").on("click", buscar);
             $("#buscar").on("click", dependenciaBuscar);
             $("#detalles").on("click", dependenciaBuscar);
+            //$("#generar").on("click", generarbarcode);
         }
 
 //<BUSCAR DEPENDENCIAS>
@@ -148,6 +152,7 @@
         }
 
         function cargacampos(descripcion, categoria, cat) {
+            clean();
             $("#id_id").val(descripcion);
             $("#id_bien").val(categoria);
             $("#cant_bien").val(cat);
@@ -169,7 +174,6 @@
             tr.html("<option value=\"" + dependencias.codigo + "\">" + dependencias.nombre + "</option>");
             listado.append(tr);
         }
-
 
 //<BUSCAR>
         function buscar() {
@@ -246,15 +250,6 @@
             }
         }
 
-        function generarPDF(codigo) {
-            $.ajax({type: "POST",
-                url: "api/barras?header=" + "" + "&info=" + "" + "&footer=" + "" + "&salida=" + codigo + "&codigo=" + codigo,
-                success: function () {
-                    alert("Codigo de barras generado");
-                }
-            });
-        }
-
         function validatecombo() {
             var cont = 0;
             if ($("#dependencia_select").val() === null || $("#dependencia_select").val() === "") {
@@ -270,6 +265,50 @@
                 $("#dependencia_select").removeClass("is-invalid");
             }
             return cont === 0;
+        }
+        /*
+         function generarbarcode() {
+         var tableData = $('#listado tr').children("td").map(function () {
+         return $(this).text();
+         }).get();
+         var list = [];
+         var fLen = tableData.length;
+         var i = 0;
+         for (i = 0; i < fLen; i++) {
+         if ((i % 6) === 0) {
+         list.push(tableData[i]);
+         }
+         }
+         list = JSON.stringify(list);
+         $.ajax({
+         contentType: 'application/json; charset=utf-8',
+         dataType: 'json',
+         type: 'POST',
+         url: "api/barras2",
+         data: list,
+         success: function (data) {
+         alert("genero");
+         },
+         error: function (){
+         alert("error");
+         }
+         });
+         }
+         */
+
+        function generarPDF() {
+            var codigo = $("#id_id").val();
+            $.ajax({type: "POST",
+                url: "api/barras?header=" + "" + "&info=" + "" + "&footer=" + "" + "&salida=" + codigo + "&codigo=" + codigo,
+                success: function () {
+                    alert("Codigo de barras generado");
+                }
+            });
+        }
+
+        function clean() {
+            $("#encargado_select").val("estado");
+            $("#dependencia_select").val("estado");
         }
 
         $(pageLoad);

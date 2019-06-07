@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.Barcode128;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 
 /**
  *
@@ -33,11 +34,34 @@ public class GenerarPDF {
     private final Font fuenteNormal = new Font(Font.FontFamily.COURIER,8,Font.NORMAL);
     private final Font fuenteItalic= new Font(Font.FontFamily.COURIER,8,Font.ITALIC);
     
+//    public void generarPDF(String header, String info, String footer, String salida, List<String> codigo){
+//        try{
+//          HttpServletResponse response = null;
+//          Document document = new Document (PageSize.LETTER,36,36,10,10);
+//          PdfWriter   pw = PdfWriter.getInstance(document,new FileOutputStream("C:/Users/ExtremeTech/Desktop/Proyecto-1-p4/"+salida+".pdf"));
+//          document.open();
+//          //document.add(getHeader(header));
+//          //document.add(getInfo(info));
+//          for(String s: codigo){
+//          document.add(GetBarcode(document, pw, s));
+//          }
+//          //document.add(getFooter(footer));
+//          document.close();
+//          //response.setContentType("application/octet-strem");
+//          //response.setHeader("Content-Disposition", "attachment;filename='" + document + "'"); //preparando el 'download' al navegador
+//          
+//          
+//        }catch(DocumentException | FileNotFoundException e){
+//            
+//        }
+//        
+//    }
+    
     public void generarPDF(String header, String info, String footer, String salida, String codigo){
         try{
           HttpServletResponse response = null;
           Document document = new Document (PageSize.LETTER,36,36,10,10);
-          PdfWriter   pw = PdfWriter.getInstance(document,new FileOutputStream("C:/Users/steve/Desktop/Progra4/PROYECTO2/Proyecto-1-p4/Activos_web/lib/"+salida+".pdf"));
+          PdfWriter   pw = PdfWriter.getInstance(document,new FileOutputStream("C:/Users/ExtremeTech/Desktop/Proyecto-1-p4/"+salida+".pdf"));
           document.open();
           //document.add(getHeader(header));
           //document.add(getInfo(info));

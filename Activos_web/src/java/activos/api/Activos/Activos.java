@@ -11,6 +11,8 @@ import activos.logic.Dependencia;
 import activos.logic.Funcionario;
 import activos.logic.Labor;
 import activos.logic.ModelLogic;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -86,4 +88,18 @@ public class Activos {
             @QueryParam("salida") String salida, @QueryParam("codigo") String codigo) {
         model.generarPDF(header, info, footer, salida, codigo);
     }
+    
+//    @POST
+//    @Path("/barras2")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void reportePDF2(@Context HttpServletRequest request) {
+//        String[] l = request.getParameterValues("list");
+//        List<String> w = Arrays.asList(l); 
+////        List<String> w = new ArrayList<>(); 
+////        w.add("b12341234");
+////        w.add("a12341234");
+////        w.add("c12341234");
+////        w.add("12341234");
+//        model.generarPDF("", "", "", "codigosdeBarra", w);
+//    }
 }

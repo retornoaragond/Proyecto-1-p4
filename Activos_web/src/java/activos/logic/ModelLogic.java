@@ -27,6 +27,10 @@ public class ModelLogic {
 
     private static ModelLogic uniqueInstance;
     
+//    public void generarPDF(String header, String info, String footer, String salida, List<String> codigo){
+//        generarPDF.generarPDF(header, info, footer, salida, codigo);
+//    }
+    
     public void generarPDF(String header, String info, String footer, String salida, String codigo){
         generarPDF.generarPDF(header, info, footer, salida, codigo);
     }
